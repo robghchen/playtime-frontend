@@ -3,7 +3,7 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import HomePage from "./components/HomePage";
 import { Route, Switch, withRouter } from "react-router-dom";
-import UserShowPage from "./components/UserShowPage";
+import UserShowPage from "./containers/PostsContainer";
 import EditProfileForm from "./components/EditProfileForm";
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
