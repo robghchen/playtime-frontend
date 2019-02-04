@@ -28,6 +28,7 @@ class PostsContainer extends Component {
                 // likes={this.props.likes}
                 isUserLoggedIn={this.props.isUserLoggedIn}
                 users={this.props.users}
+                comments={this.props.comments}
               />
             </div>
           );

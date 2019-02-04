@@ -34,7 +34,6 @@ class NewPostForm extends Component {
   };
 
   render() {
-    console.log("newpostform", this.props.user_id);
     return (
       <div id="new-post-form" className="ui card form">
         <form onSubmit={this.handleSubmit}>

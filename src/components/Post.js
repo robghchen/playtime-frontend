@@ -1,12 +1,13 @@
 import React from "react";
 import EditPostForm from "./EditPostForm";
 import { withRouter } from "react-router-dom";
+import CommentsContainer from "../containers/CommentsContainer";
 
 class Post extends React.Component {
-    state = {
-      markedForDeletion: false,
-      author: ""
-    };
+  state = {
+    markedForDeletion: false,
+    author: ""
+  };
 
   componentDidMount() {
     // fetch("https://welcome-board-backend.herokuapp.com/api/v1/likes")
@@ -17,11 +18,9 @@ class Post extends React.Component {
     //     ).length;
     //     this.setState({ likes: postLikes });
     //   });
-
     // const author = this.props.users.find(
     //   user => user.id === this.props.post.player_id
     // ).username;
-
     // this.setState({
     //   author
     // });
@@ -49,12 +48,17 @@ class Post extends React.Component {
               author={this.state.author}
             />
           ) : (
-            <p>
-              {this.props.post.content}{" "}
-              <span className="author">- </span>
-            </p>
+            <React.Fragment>
+              <p>{this.props.post.content} </p>
+              <br />
+              <CommentsContainer
+                comments={this.props.comments}
+                post={this.props.post}
+              />
+            </React.Fragment>
           )}
-          <div className="likes">
+
+          {/* <div className="likes">
             <span>{this.state.likes} </span>
             <span
               role="img"
@@ -66,7 +70,7 @@ class Post extends React.Component {
             >
               -
             </span>
-          </div>
+          </div> */}
         </div>
       </div>
     );
