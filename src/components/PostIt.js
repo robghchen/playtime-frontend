@@ -18,13 +18,13 @@ class PostIt extends React.Component {
     //     this.setState({ likes: postLikes });
     //   });
 
-    const author = this.props.users.find(
-      user => user.id === this.props.post.player_id
-    ).username;
+    // const author = this.props.users.find(
+    //   user => user.id === this.props.post.player_id
+    // ).username;
 
-    this.setState({
-      author
-    });
+    // this.setState({
+    //   author
+    // });
   }
 
   render() {
@@ -51,7 +51,7 @@ class PostIt extends React.Component {
           ) : (
             <p>
               {this.props.post.content}{" "}
-              <span className="author">- {this.state.author}</span>
+              <span className="author">- </span>
             </p>
           )}
           <div className="likes">
@@ -64,7 +64,7 @@ class PostIt extends React.Component {
                 this.props.isUserLoggedIn ? this.likesHandler.bind(this) : null
               }
             >
-              ❤️
+              -
             </span>
           </div>
         </div>
