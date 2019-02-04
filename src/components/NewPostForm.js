@@ -4,7 +4,6 @@ import { withRouter } from "react-router-dom";
 class NewPostForm extends Component {
   state = {
     input: "",
-    friend_id: 1,
     alert_error: false,
     alert_error_mod_id: false
   };
@@ -16,8 +15,7 @@ class NewPostForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     if (this.state.input !== "") {
-      this.props.addPost(this.state.input)
-    
+      this.props.addPost(this.state.input, this.props.currentUser.id, this.props.user_id);
 
       this.setState({
         input: "",
@@ -35,7 +33,6 @@ class NewPostForm extends Component {
     return (
       <div id="new-post-form" className="ui card form">
         <form onSubmit={this.handleSubmit}>
-          
           <br />
           <textarea
             className="form-control"
@@ -47,11 +44,11 @@ class NewPostForm extends Component {
             value={this.state.input}
             onChange={this.handleChange}
           />
-          
+
           {this.state.alert_error ? (
             <span className="alert-error">Post cannot be blank.</span>
           ) : null}
-          
+
           <input className="submit button pointer" type="submit" />
         </form>
       </div>

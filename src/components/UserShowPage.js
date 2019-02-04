@@ -44,7 +44,7 @@ class PostsContainer extends Component {
         <div style={show}>
           <NewPostForm
             addPost={this.props.addPost}
-            mod_id={this.props.mod_id}
+            user_id={this.props.user_id}
             currentUser={this.props.currentUser}
           />
         </div>

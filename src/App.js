@@ -149,7 +149,7 @@ class App extends Component {
     );
   }
 
-  addPost = (input) => {
+  addPost = (input, playerId, friendId) => {
     fetch("http://localhost:3000/api/v1/posts", {
       method: "POST",
       headers: {
@@ -159,7 +159,8 @@ class App extends Component {
       },
       body: JSON.stringify({
         content: input,
-        player_id: this.state.currentUser.id
+        player_id: playerId,
+        friend_id: friendId
       })
     })
       .then(res => res.json())

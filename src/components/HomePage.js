@@ -11,6 +11,7 @@ class HomePage extends React.Component {
       <React.Fragment>
         <NewPostForm
           addPost={this.props.addPost}
+          user_id={this.props.user_id}
           currentUser={this.props.currentUser}
         />
         <div className="">
