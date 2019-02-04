@@ -7,6 +7,7 @@ import NewPostForm from "./NewPostForm"
 class HomePage extends React.Component {
 
   render() {
+    console.log("homepage", this.props.posts)
     return (
       <React.Fragment>
         <NewPostForm

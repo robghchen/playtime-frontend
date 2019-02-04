@@ -3,7 +3,7 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import HomePage from "./components/HomePage";
 import { Route, Switch, withRouter } from "react-router-dom";
-import ModShowPage from "./components/ModShowPage";
+import UserShowPage from "./components/UserShowPage";
 import EditProfileForm from "./components/EditProfileForm";
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
@@ -102,8 +102,8 @@ class App extends Component {
             path="/user/:id"
             render={RouterProps => {
               return (
-                <ModShowPage
-                  mod_id={RouterProps.match.params.id}
+                <UserShowPage
+                  friend_id={RouterProps.match.params.id}
                   postArray={this.state.posts}
                   addPost={this.addPost}
                   isUserLoggedIn={this.state.isUserLoggedIn}

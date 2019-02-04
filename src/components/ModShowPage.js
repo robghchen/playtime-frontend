@@ -5,13 +5,13 @@ import { withRouter } from "react-router-dom";
 
 class PostsContainer extends Component {
   state = {
-    mod_posts: this.props.mod_id
+    myWall: this.props.friend_id
   };
 
   showPostArray = () => {
     let posts = this.props.postArray
       .filter(post => {
-        return post.mod_id === parseInt(this.props.mod_id);
+        return post.friend_id === parseInt(this.props.friend_id);
       })
       .reverse();
 
@@ -25,7 +25,7 @@ class PostsContainer extends Component {
                 currentUser={this.props.currentUser}
                 deleteHandler={this.props.deleteHandler}
                 editPostHandler={this.props.editPostHandler}
-                likes={this.props.likes}
+                // likes={this.props.likes}
                 isUserLoggedIn={this.props.isUserLoggedIn}
                 users={this.props.users}
               />
