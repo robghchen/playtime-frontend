@@ -54,6 +54,7 @@ class Post extends React.Component {
               <CommentsContainer
                 comments={this.props.comments}
                 post={this.props.post}
+                addComment={this.props.addComment}
               />
             </React.Fragment>
           )}
@@ -76,20 +77,20 @@ class Post extends React.Component {
     );
   }
 
-  likesHandler() {
-    fetch("https://welcome-board-backend.herokuapp.com/api/v1/likes", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem("token")
-      },
-      body: JSON.stringify({
-        post_id: this.props.post.id,
-        user_id: this.props.currentUser.id
-      })
-    }).then(this.setState({ likes: this.state.likes + 1 }));
-  }
+  // likesHandler() {
+  //   fetch("", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Accept: "application/json",
+  //       Authorization: localStorage.getItem("token")
+  //     },
+  //     body: JSON.stringify({
+  //       post_id: this.props.post.id,
+  //       user_id: this.props.currentUser.id
+  //     })
+  //   }).then(this.setState({ likes: this.state.likes + 1 }));
+  // }
 
   editPostHandler = e => {
     e.preventDefault();

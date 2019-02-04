@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import Comment from "../components/Comment";
+import NewCommentForm from "../components/NewCommentForm";
 
 class CommentsContainer extends Component {
   render() {
@@ -21,6 +22,12 @@ class CommentsContainer extends Component {
               </div>
             );
           })}
+
+        <NewCommentForm
+          currentUser={this.props.currentUser}
+          addComment={this.props.addComment}
+          post={this.props.post}
+        />
       </div>
     );
   }

@@ -94,6 +94,7 @@ class App extends Component {
                   currentUser={this.state.currentUser}
                   users={this.state.users}
                   addPost={this.addPost}
+                  addComment={this.addComment}
                   user_id={this.state.currentUser.id}
                 />
               );
@@ -107,6 +108,7 @@ class App extends Component {
                   user_id={RouterProps.match.params.id}
                   posts={this.state.posts}
                   addPost={this.addPost}
+                  addComment={this.addComment}
                   isUserLoggedIn={this.state.isUserLoggedIn}
                   currentUser={this.state.currentUser}
                   deleteHandler={this.deleteHandler}
@@ -162,6 +164,29 @@ class App extends Component {
         content: input,
         player_id: playerId,
         friend_id: friendId
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        let newArr = [...this.state.posts];
+        newArr.push(data);
+        this.setState({ posts: newArr });
+      });
+  };
+
+  addComment = (input, playerId, postId) => {
+    console.log(input, playerId, postId)
+    fetch("http://localhost:3000/api/v1/comments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem("token")
+      },
+      body: JSON.stringify({
+        content: input,
+        player_id: playerId,
+        post_id: postId
       })
     })
       .then(res => res.json())

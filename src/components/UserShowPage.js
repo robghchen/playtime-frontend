@@ -22,6 +22,7 @@ class PostsContainer extends Component {
             <div key={post.id} className="content-wrapper">
               <Post
                 post={post}
+                addComment={this.props.addComment}
                 currentUser={this.props.currentUser}
                 deleteHandler={this.props.deleteHandler}
                 editPostHandler={this.props.editPostHandler}
@@ -38,6 +39,7 @@ class PostsContainer extends Component {
   };
 
   render() {
+
     const show = { display: this.props.isUserLoggedIn ? "block" : "none" };
     return (
       <div className="ui">

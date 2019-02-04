@@ -24,6 +24,7 @@ class HomePage extends React.Component {
                 <div key={post.id} className="">
                   <Post
                     post={post}
+                    addComment={this.addComment}
                     currentUser={this.props.currentUser}
                     deleteHandler={this.props.deleteHandler}
                     editPostHandler={this.props.editPostHandler}

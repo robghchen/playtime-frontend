@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
-class NewPostForm extends Component {
+class NewCommentForm extends Component {
   state = {
-    input: "",
-    alert_error: false,
-    alert_error_mod_id: false
+    input: ""
   };
 
   handleChange = e => {
@@ -15,10 +13,10 @@ class NewPostForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     if (this.state.input !== "") {
-      this.props.addPost(
+      this.props.addComment(
         this.state.input,
         this.props.currentUser.id,
-        this.props.user_id
+        this.props.post.id
       );
 
       this.setState({
@@ -35,24 +33,18 @@ class NewPostForm extends Component {
 
   render() {
     return (
-      <div id="new-post-form" className="ui card form">
-        <form onSubmit={this.handleSubmit}>
-          <br />
+      <div>
+        <form>
           <textarea
             className="form-control"
             type="text"
-            placeholder="What's on your mind?"
+            placeholder="Comment"
             cols="1200"
             rows="1"
             maxLength="600"
             value={this.state.input}
             onChange={this.handleChange}
           />
-
-          {this.state.alert_error ? (
-            <span className="alert-error">Post cannot be blank.</span>
-          ) : null}
-
           <input className="submit button pointer" type="submit" />
         </form>
       </div>
@@ -60,4 +52,4 @@ class NewPostForm extends Component {
   }
 }
 
-export default withRouter(NewPostForm);
+export default withRouter(NewCommentForm);
