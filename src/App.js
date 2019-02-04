@@ -94,6 +94,7 @@ class App extends Component {
                   currentUser={this.state.currentUser}
                   users={this.state.users}
                   addPost={this.addPost}
+                  user_id={this.state.currentUser.id}
                 />
               );
             }}

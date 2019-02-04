@@ -6,7 +6,7 @@ import NewPostForm from "./NewPostForm";
 
 class HomePage extends React.Component {
   render() {
-    console.log("homepage", this.props.posts);
+    console.log("homepage", this.props.user_id);
     return (
       <React.Fragment>
         <NewPostForm
@@ -16,6 +16,7 @@ class HomePage extends React.Component {
         />
         <div className="">
           {this.props.posts
+            .reverse()
             .filter(post => {
               return post.friend_id === this.props.currentUser.id;
             })
