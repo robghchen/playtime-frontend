@@ -34,7 +34,7 @@ class NewCommentForm extends Component {
   render() {
     return (
       <div>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <textarea
             className="form-control"
             type="text"

@@ -55,6 +55,7 @@ class Post extends React.Component {
                 comments={this.props.comments}
                 post={this.props.post}
                 addComment={this.props.addComment}
+                currentUser={this.props.currentUser}
               />
             </React.Fragment>
           )}

@@ -175,7 +175,7 @@ class App extends Component {
   };
 
   addComment = (input, playerId, postId) => {
-    console.log(input, playerId, postId)
+    console.log(input, playerId, postId);
     fetch("http://localhost:3000/api/v1/comments", {
       method: "POST",
       headers: {
@@ -184,16 +184,15 @@ class App extends Component {
         Authorization: localStorage.getItem("token")
       },
       body: JSON.stringify({
-        content: input,
-        player_id: playerId,
+        comment: input,
+        user_id: playerId,
         post_id: postId
       })
     })
       .then(res => res.json())
       .then(data => {
-        let newArr = [...this.state.posts];
-        newArr.push(data);
-        this.setState({ posts: newArr });
+        let newArr = [...this.state.comments, data];
+        this.setState({ comments: newArr });
       });
   };
 

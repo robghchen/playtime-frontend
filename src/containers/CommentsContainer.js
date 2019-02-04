@@ -8,13 +8,13 @@ class CommentsContainer extends Component {
     return (
       <div>
         {this.props.comments
-          .reverse()
           .filter(comment => {
             return comment.post_id === this.props.post.id;
           })
           .map(comment => {
             return (
               <div key={comment.id} className="">
+                <br />
                 <Comment
                   comment={comment}
                   currentUser={this.props.currentUser}
@@ -22,7 +22,7 @@ class CommentsContainer extends Component {
               </div>
             );
           })}
-
+        <br />
         <NewCommentForm
           currentUser={this.props.currentUser}
           addComment={this.props.addComment}
