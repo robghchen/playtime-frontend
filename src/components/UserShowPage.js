@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PostIt from "./PostIt";
+import Post from "./Post";
 import NewPostForm from "./NewPostForm";
 import { withRouter } from "react-router-dom";
 
@@ -20,7 +20,7 @@ class PostsContainer extends Component {
         {posts.map(post => {
           return (
             <div key={post.id} className="content-wrapper">
-              <PostIt
+              <Post
                 post={post}
                 currentUser={this.props.currentUser}
                 deleteHandler={this.props.deleteHandler}

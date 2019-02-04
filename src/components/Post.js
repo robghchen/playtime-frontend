@@ -2,7 +2,7 @@ import React from "react";
 import EditPostForm from "./EditPostForm";
 import { withRouter } from "react-router-dom";
 
-class PostIt extends React.Component {
+class Post extends React.Component {
     state = {
       markedForDeletion: false,
       author: ""
@@ -109,4 +109,4 @@ class PostIt extends React.Component {
   }
 }
 
-export default withRouter(PostIt);
+export default withRouter(Post);
