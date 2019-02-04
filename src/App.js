@@ -103,8 +103,8 @@ class App extends Component {
             render={RouterProps => {
               return (
                 <UserShowPage
-                  friend_id={RouterProps.match.params.id}
-                  postArray={this.state.posts}
+                  user_id={RouterProps.match.params.id}
+                  posts={this.state.posts}
                   addPost={this.addPost}
                   isUserLoggedIn={this.state.isUserLoggedIn}
                   currentUser={this.state.currentUser}
