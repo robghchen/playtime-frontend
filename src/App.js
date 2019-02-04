@@ -93,18 +93,19 @@ class App extends Component {
                   posts={this.state.posts}
                   currentUser={this.state.currentUser}
                   users={this.state.users}
+                  addPost={this.addPost}
                 />
               );
             }}
           />
           <Route
-            path="/mod/:id"
+            path="/user/:id"
             render={RouterProps => {
               return (
                 <ModShowPage
                   mod_id={RouterProps.match.params.id}
                   postArray={this.state.posts}
-                  addPost={this.addNewPost}
+                  addPost={this.addPost}
                   isUserLoggedIn={this.state.isUserLoggedIn}
                   currentUser={this.state.currentUser}
                   deleteHandler={this.deleteHandler}
@@ -148,7 +149,7 @@ class App extends Component {
     );
   }
 
-  addNewPost = (input, mod) => {
+  addPost = (input) => {
     fetch("http://localhost:3000/api/v1/posts", {
       method: "POST",
       headers: {
@@ -158,7 +159,7 @@ class App extends Component {
       },
       body: JSON.stringify({
         content: input,
-        user_id: this.state.currentUser.id
+        player_id: this.state.currentUser.id
       })
     })
       .then(res => res.json())
