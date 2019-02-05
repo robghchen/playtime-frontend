@@ -80,7 +80,7 @@ btn {
 }
 
 .post-container {
-  width: 70%;
+  width: 100%;
   height: auto;
   margin-left: 40px;
   margin-top: 40px;
@@ -277,6 +277,7 @@ btn {
 
 .ui.card.form.comment {
   margin-left: 1em;
+  width: 90%;
 }
 
 .username {
@@ -287,4 +288,8 @@ btn {
   float: left;
   width: 70%;
   padding: 3em;
+}
+
+.comment-form {
+  width: 100%
 }
