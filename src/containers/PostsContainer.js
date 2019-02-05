@@ -44,7 +44,6 @@ class PostsContainer extends Component {
     const show = { display: this.props.isUserLoggedIn ? "block" : "none" };
     return (
       <div className="ui">
-        <div className="post-container">{this.showPostArray()}</div>
         <div style={show}>
           <NewPostForm
             addPost={this.props.addPost}
@@ -52,6 +51,7 @@ class PostsContainer extends Component {
             currentUser={this.props.currentUser}
           />
         </div>
+        <div className="post-container">{this.showPostArray()}</div>
       </div>
     );
   }

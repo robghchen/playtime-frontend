@@ -12,6 +12,7 @@ class NavBar extends Component {
           {this.props.currentPath === "/home" ? null : (
             <Fragment>
               <p>energy bar</p>
+              <p>exp bar</p>
             </Fragment>
           )}
         </Fragment>

@@ -57,7 +57,8 @@ btn {
 }
 
 .mods-masthead {
-  background-image: url("") !important;
+  background-color: #ffeead;
+  /* background-image: url("") !important; */
   /* background-size: cover !important; */
   /* background-image: url("/your-dir/your_image.jpg"); */
   min-height: 100%;
@@ -123,10 +124,14 @@ btn {
 }
 
 .submit.button {
-  position: relative;
-  margin-top: 1em;
-  margin-left: 10em;
+  position: absolute;
+  margin-top: 0em;
+  margin-right: 10em;
   border-radius: 2px;
+  padding: 0.8em;
+  background-color: #ffcc5c;
+  color: #88d8b0;
+  border-radius: 3px;
 }
 
 .pointer {
@@ -233,13 +238,26 @@ btn {
 }
 
 #new-post-form {
+  position: relative;
+  top: 3em;
+  width: 80%;
+  padding-right: 7em;
+  padding-left: 2em;
+  padding-bottom: 2em;
+  left: 10%;
+  background-color: #ffeead;
+  border: 1px solid #ff6f69;
+  border-bottom: 2px solid #ff6f69;
+}
+
+/* #new-post-form {
   position: fixed;
   float: right;
   top: 30%;
   right: 30px;
   width: 25%;
   padding: 3em;
-}
+} */
 
 html,
 body {
@@ -301,6 +319,14 @@ h1 span:nth-child(8) {
   margin-right: auto;
 }
 
-.navBar {
-  background-color: grey;
+.ui.menu.navBar,
+.ui.menu.navright {
+  background-color: #ffcc5c;
+  color: #88d8b0;
+  border-bottom: 2px solid #ff6f69;
+}
+
+.ui.menu.navBar span,
+.ui.menu.navBar a {
+  color: #88d8b0;
 }
