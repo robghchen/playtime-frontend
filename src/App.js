@@ -31,16 +31,11 @@ class App extends Component {
     posts: [],
     comments: [],
     token: "",
-    search: "",
-    filteredUsers: []
+    search: ""
   };
 
   componentDidMount() {
-    this.props.getUsers();
-
-    this.setState({
-      filteredUsers: this.props.users
-    });
+    this.props.getUsers()
 
     fetch("http://localhost:3000/api/v1/posts")
       .then(resp => resp.json())
@@ -143,7 +138,7 @@ changeHandler = (e) => {
                 <SearchPage
                   isUserLoggedIn={this.state.isUserLoggedIn}
                   search={this.state.search}
-                  filteredUsers={this.state.filteredUsers}
+                  users={this.props.users}
                 />
               );
             }}
