@@ -4,7 +4,10 @@ import { withRouter } from "react-router-dom";
 class Comment extends Component {
   state = {};
   render() {
-    return <p>{this.props.comment.comment}</p>;
+    return (
+    <React.Fragment>
+      <p className="username">{this.props.comment.user.username} </p><br/><p>{this.props.comment.comment}</p>
+      </React.Fragment>)
   }
 }
 

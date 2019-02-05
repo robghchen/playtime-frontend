@@ -6,7 +6,7 @@ import NewCommentForm from "../components/NewCommentForm";
 class CommentsContainer extends Component {
   render() {
     return (
-      <div>
+      <div className="comments-container">
         {this.props.comments
           .filter(comment => {
             return comment.post_id === this.props.post.id;
@@ -18,6 +18,7 @@ class CommentsContainer extends Component {
                 <Comment
                   comment={comment}
                   currentUser={this.props.currentUser}
+                  users={this.props.users}
                 />
               </div>
             );

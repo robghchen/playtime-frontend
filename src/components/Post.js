@@ -49,13 +49,14 @@ class Post extends React.Component {
             />
           ) : (
             <React.Fragment>
-              <p>{this.props.post.content} </p>
+              <p className="username">{this.props.users.find(user=>(user.id === this.props.post.player_id)).username} </p><br/><p>{this.props.post.content} </p>
               <br />
               <CommentsContainer
                 comments={this.props.comments}
                 post={this.props.post}
                 addComment={this.props.addComment}
                 currentUser={this.props.currentUser}
+                users={this.props.users}
               />
             </React.Fragment>
           )}
