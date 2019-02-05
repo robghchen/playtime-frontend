@@ -3,13 +3,14 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import HomePage from "./components/HomePage";
 import { Route, Switch, withRouter } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { getUsers } from "./actions/userActions";
+import { connect } from "react-redux";
 import UserShowPage from "./containers/PostsContainer";
 import EditProfileForm from "./components/EditProfileForm";
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
-import { bindActionCreators } from "redux";
-import { getUsers } from "./actions/userActions";
-import { connect } from "react-redux";
+import SearchPage from "./components/SearchPage";
 
 class App extends Component {
   state = {
@@ -29,11 +30,17 @@ class App extends Component {
     users: [],
     posts: [],
     comments: [],
-    token: ""
+    token: "",
+    search: "",
+    filteredUsers: []
   };
 
   componentDidMount() {
     this.props.getUsers();
+
+    this.setState({
+      filteredUsers: this.props.users
+    });
 
     fetch("http://localhost:3000/api/v1/posts")
       .then(resp => resp.json())
@@ -71,6 +78,12 @@ class App extends Component {
     localStorage.clear();
   }
 
+changeHandler = (e) => {
+  this.setState({
+    search: e.target.value
+  })
+}
+
   render() {
     return (
       <div>
@@ -78,6 +91,8 @@ class App extends Component {
           isUserLoggedIn={this.state.isUserLoggedIn}
           logout={this.logout}
           currentPath={this.props.location.pathname}
+          search={this.state.search}
+          changeHandler={this.changeHandler}
         />
 
         <Switch>
@@ -117,6 +132,18 @@ class App extends Component {
                   editPostHandler={this.editPostHandler}
                   comments={this.state.comments}
                   users={JSON.parse(localStorage.getItem("users"))}
+                />
+              );
+            }}
+          />
+          <Route
+            path="/search"
+            render={() => {
+              return (
+                <SearchPage
+                  isUserLoggedIn={this.state.isUserLoggedIn}
+                  search={this.state.search}
+                  filteredUsers={this.state.filteredUsers}
                 />
               );
             }}
@@ -360,6 +387,7 @@ class App extends Component {
       });
   };
 }
+
 
 function mapStateToProps(state) {
   return {

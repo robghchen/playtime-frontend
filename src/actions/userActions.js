@@ -4,7 +4,7 @@ export const ADD_USER = "ADD_USER";
 
 export const getUsers = () => {
   return dispatch => {
-    return fetch("http://locahost:3000/api/v1/users")
+    return fetch("http://localhost:3000/api/v1/users")
       .then(res => res.json())
       .then(users => {
         dispatch({

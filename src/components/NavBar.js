@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
+import SearchForm from "./SearchForm";
 
 class NavBar extends Component {
   render() {
@@ -13,6 +14,10 @@ class NavBar extends Component {
             <Fragment>
               <p>energy bar</p>
               <p>exp bar</p>
+              <SearchForm
+                search={this.props.search}
+                changeHandler={this.props.changeHandler}
+              />
             </Fragment>
           )}
         </Fragment>
