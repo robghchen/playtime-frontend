@@ -7,16 +7,16 @@ class UserShowPage extends Component {
   render() {
     return (
       <PostsContainer
-        user_id={RouterProps.match.params.id}
-        posts={this.state.posts}
-        addPost={this.addPost}
-        addComment={this.addComment}
-        isUserLoggedIn={this.state.isUserLoggedIn}
-        currentUser={this.state.currentUser}
-        deleteHandler={this.deleteHandler}
-        editPostHandler={this.editPostHandler}
-        comments={this.state.comments}
-        users={JSON.parse(localStorage.getItem("users"))}
+        user_id={this.props.user_id}
+        posts={this.props.posts}
+        addPost={this.props.addPost}
+        addComment={this.props.addComment}
+        isUserLoggedIn={this.props.isUserLoggedIn}
+        currentUser={this.props.currentUser}
+        deleteHandler={this.props.deleteHandler}
+        editPostHandler={this.props.editPostHandler}
+        comments={this.props.comments}
+        users={this.props.users}
       />
     );
   }

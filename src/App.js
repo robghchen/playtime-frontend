@@ -86,18 +86,23 @@ class App extends Component {
         <Switch>
           <Route
             path="/home"
-            render={() => {
-              return (
-                <HomePage
-                  isUserLoggedIn={this.state.isUserLoggedIn}
+            render={RouterProps => {
+              return this.state.isUserLoggedIn ? (
+                <UserShowPage
+                  user_id={this.state.currentUser.id
+                  }
                   posts={this.state.posts}
-                  currentUser={this.state.currentUser}
-                  users={this.state.users}
                   addPost={this.addPost}
                   addComment={this.addComment}
-                  user_id={this.state.currentUser.id}
+                  isUserLoggedIn={this.state.isUserLoggedIn}
+                  currentUser={this.state.currentUser}
+                  deleteHandler={this.deleteHandler}
+                  editPostHandler={this.editPostHandler}
                   comments={this.state.comments}
+                  users={JSON.parse(localStorage.getItem("users"))}
                 />
+              ) : (
+                <HomePage />
               );
             }}
           />
@@ -176,7 +181,6 @@ class App extends Component {
   };
 
   addComment = (input, playerId, postId) => {
-    console.log(input, playerId, postId);
     fetch("http://localhost:3000/api/v1/comments", {
       method: "POST",
       headers: {

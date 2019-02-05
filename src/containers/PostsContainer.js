@@ -11,7 +11,9 @@ class PostsContainer extends Component {
   showPostArray = () => {
     let posts = this.props.posts
       .filter(post => {
-        return post.friend_id === parseInt(this.props.user_id);
+        return this.props.location.pathname === "/home"
+          ? post.friend_id === this.props.currentUser.id
+          : post.friend_id === parseInt(this.props.user_id);
       })
       .reverse();
 
