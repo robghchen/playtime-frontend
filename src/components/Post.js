@@ -1,6 +1,6 @@
 import React from "react";
 import EditPostForm from "./EditPostForm";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import CommentsContainer from "../containers/CommentsContainer";
 
 class Post extends React.Component {
@@ -49,7 +49,7 @@ class Post extends React.Component {
             />
           ) : (
             <React.Fragment>
-              <p className="username">{this.props.users.find(user=>(user.id === this.props.post.player_id)).username} </p><br/><p>{this.props.post.content} </p>
+              <p className="username"><Link to={`/user/${this.props.users.find(user=>(user.id === this.props.post.player_id)).id}`} >{this.props.users.find(user=>(user.id === this.props.post.player_id)).username} </Link></p><br/><p>{this.props.post.content}</p>
               <br />
               <CommentsContainer
                 comments={this.props.comments}
