@@ -18,7 +18,7 @@ class PostsContainer extends Component {
       .reverse();
 
     return (
-      <div className="post-array-container">
+      <div className="posts-container">
         {posts.map(post => {
           return (
             <div key={post.id} className="content-wrapper">

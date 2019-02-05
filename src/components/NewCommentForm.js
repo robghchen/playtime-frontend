@@ -33,7 +33,7 @@ class NewCommentForm extends Component {
 
   render() {
     return (
-      <div>
+      <div className="ui card form comment">
         <form onSubmit={this.handleSubmit}>
           <textarea
             className="form-control"

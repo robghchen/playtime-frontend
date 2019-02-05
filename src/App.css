@@ -87,22 +87,22 @@ btn {
   overflow: hidden;
 }
 
-.content-wrapper {
+/* .content-wrapper {
   display: inline-block;
 }
 
 .post-wrapper {
-  width: 350px;
-  height: 350px;
+  width: 70em;
+  height: 10em;
   position: relative;
 }
 
 .content-wrapper img {
   position: absolute;
   width: 100%;
-}
+} */
 
-.post-content {
+/* .post-content {
   position: absolute;
   width: 65%;
   margin-top: 23%;
@@ -117,7 +117,7 @@ btn {
 
 .post-array-container {
   float: left;
-}
+} */
 
 .form-control {
   width: 95%;
@@ -259,66 +259,6 @@ btn {
   padding: 3em;
 } */
 
-html,
-body {
-  -webkit-font-smoothing: antialiased;
-}
-
-h1 {
-  height: 100px;
-}
-
-h1 span {
-  position: relative;
-  top: 20px;
-  display: inline-block;
-  animation: bounce 1s ease infinite alternate;
-  font-family: "Titan One", cursive;
-  font-size: 80px;
-  color: #fff;
-  text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 4px 0 #ccc,
-    0 5px 0 #ccc, 0 6px 0 transparent, 0 7px 0 transparent, 0 8px 0 transparent,
-    0 9px 0 transparent, 0 10px 10px rgba(0, 0, 0, 0.4);
-}
-
-h1 span:nth-child(2) {
-  animation-delay: 0.1s;
-}
-h1 span:nth-child(3) {
-  animation-delay: 0.2s;
-}
-h1 span:nth-child(4) {
-  animation-delay: 0.3s;
-}
-h1 span:nth-child(5) {
-  animation-delay: 0.4s;
-}
-h1 span:nth-child(6) {
-  animation-delay: 0.5s;
-}
-h1 span:nth-child(7) {
-  animation-delay: 0.6s;
-}
-h1 span:nth-child(8) {
-  animation-delay: 0.7s;
-}
-
-@keyframes bounce {
-  100% {
-    top: -20px;
-    text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 4px 0 #ccc,
-      0 5px 0 #ccc, 0 6px 0 #ccc, 0 7px 0 #ccc, 0 8px 0 #ccc, 0 9px 0 #ccc,
-      0 50px 25px rgba(0, 0, 0, 0.2);
-  }
-}
-
-#welcome {
-  position: relative;
-  margin-top: 80px;
-  margin-left: 40%;
-  margin-right: auto;
-}
-
 .ui.menu.navBar,
 .ui.menu.navright {
   background-color: #ffcc5c;
@@ -329,4 +269,22 @@ h1 span:nth-child(8) {
 .ui.menu.navBar span,
 .ui.menu.navBar a {
   color: #88d8b0;
+}
+
+.comments-container {
+  margin-left: 2em;
+}
+
+.ui.card.form.comment {
+  margin-left: 1em;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.posts-container {
+  float: left;
+  width: 70%;
+  padding: 3em;
 }
