@@ -7,7 +7,9 @@ import UserShowPage from "./containers/PostsContainer";
 import EditProfileForm from "./components/EditProfileForm";
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
-// import StatsDiv from './components/StatsDiv';          will delay this component for later
+import { bindActionCreators } from "redux";
+import { getUsers } from "./actions/userActions";
+import { connect } from "react-redux";
 
 class App extends Component {
   state = {
@@ -31,12 +33,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    fetch("http://localhost:3000/api/v1/users")
-      .then(resp => resp.json())
-      .then(users => {
-        localStorage.setItem("users", JSON.stringify(users));
-        this.setState({ users });
-      });
+    this.props.getUsers();
 
     fetch("http://localhost:3000/api/v1/posts")
       .then(resp => resp.json())
@@ -89,8 +86,7 @@ class App extends Component {
             render={RouterProps => {
               return this.state.isUserLoggedIn ? (
                 <UserShowPage
-                  user_id={this.state.currentUser.id
-                  }
+                  user_id={this.state.currentUser.id}
                   posts={this.state.posts}
                   addPost={this.addPost}
                   addComment={this.addComment}
@@ -365,4 +361,21 @@ class App extends Component {
   };
 }
 
-export default withRouter(App);
+function mapStateToProps(state) {
+  return {
+    users: state.users
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getUsers: bindActionCreators(getUsers, dispatch)
+  };
+}
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+);
