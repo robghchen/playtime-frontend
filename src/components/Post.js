@@ -49,7 +49,48 @@ class Post extends React.Component {
             />
           ) : (
             <React.Fragment>
-              <p className="username"><Link to={`/user/${this.props.users.find(user=>(user.id === this.props.post.player_id)).id}`} >{this.props.users.find(user=>(user.id === this.props.post.player_id)).username} </Link></p><br/><p>{this.props.post.content}</p>
+              <Link
+                to={`/user/${
+                  this.props.users.find(
+                    user => user.id === this.props.post.player_id
+                  ).id
+                }`}
+              >
+                <span>
+                  <img
+                    src={
+                      this.props.users.find(
+                        user => user.id === this.props.post.player_id
+                      ).profile_img
+                    }
+                    alt={
+                      this.props.users.find(
+                        user => user.id === this.props.post.player_id
+                      ).username
+                    }
+                    className="profile-icon"
+                  />
+                </span>
+              </Link>
+              <div className="post">
+                <p className="username">
+                  <Link
+                    to={`/user/${
+                      this.props.users.find(
+                        user => user.id === this.props.post.player_id
+                      ).id
+                    }`}
+                  >
+                    {
+                      this.props.users.find(
+                        user => user.id === this.props.post.player_id
+                      ).username
+                    }{" "}
+                  </Link>
+                </p>
+                <br />
+                <p>{this.props.post.content}</p>
+              </div>
               <br />
               <CommentsContainer
                 comments={this.props.comments}
@@ -101,17 +142,12 @@ class Post extends React.Component {
 
   deleteHandler() {
     // this.setState({ markedForDeletion: true });
-    fetch(
-      `https://welcome-board-backend.herokuapp.com/api/v1/posts/${
-        this.props.post.id
-      }`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: localStorage.getItem("token")
-        }
+    fetch(`http://localhost:3000/api/v1/posts/${this.props.post.id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: localStorage.getItem("token")
       }
-    );
+    });
     this.props.deleteHandler(this.props.post.id);
   }
 }

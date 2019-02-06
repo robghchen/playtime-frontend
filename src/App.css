@@ -306,3 +306,20 @@ btn {
   position: absolute;
   right: -40%;
 }
+
+.profile-icon {
+  position: relative;
+  width: 50px;
+  border-radius: 3px;
+}
+
+.post,
+.comment {
+  position: relative;
+  margin-top: -3.5em;
+  margin-left: 3em;
+}
+
+.comment {
+  padding-bottom: 1em;
+}
