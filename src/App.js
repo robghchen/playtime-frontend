@@ -35,7 +35,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.props.getUsers()
+    this.props.getUsers();
 
     fetch("http://localhost:3000/api/v1/posts")
       .then(resp => resp.json())
@@ -73,11 +73,11 @@ class App extends Component {
     localStorage.clear();
   }
 
-changeHandler = (e) => {
-  this.setState({
-    search: e.target.value
-  })
-}
+  changeHandler = e => {
+    this.setState({
+      search: e.target.value
+    });
+  };
 
   render() {
     return (
@@ -90,88 +90,98 @@ changeHandler = (e) => {
           changeHandler={this.changeHandler}
         />
 
-        <Switch>
-          <Route
-            path="/home"
-            render={RouterProps => {
-              return this.state.isUserLoggedIn ? (
-                <UserShowPage
-                  user_id={this.state.currentUser.id}
-                  posts={this.state.posts}
-                  addPost={this.addPost}
-                  addComment={this.addComment}
-                  isUserLoggedIn={this.state.isUserLoggedIn}
-                  currentUser={this.state.currentUser}
-                  deleteHandler={this.deleteHandler}
-                  editPostHandler={this.editPostHandler}
-                  comments={this.state.comments}
-                  users={JSON.parse(localStorage.getItem("users"))}
-                />
-              ) : (
-                <HomePage />
-              );
-            }}
+        {this.state.search === "" ? (
+          <Switch>
+            <Route
+              path="/home"
+              render={RouterProps => {
+                return this.state.isUserLoggedIn ? (
+                  <UserShowPage
+                    user_id={this.state.currentUser.id}
+                    posts={this.state.posts}
+                    addPost={this.addPost}
+                    addComment={this.addComment}
+                    isUserLoggedIn={this.state.isUserLoggedIn}
+                    currentUser={this.state.currentUser}
+                    deleteHandler={this.deleteHandler}
+                    editPostHandler={this.editPostHandler}
+                    comments={this.state.comments}
+                    users={JSON.parse(localStorage.getItem("users"))}
+                  />
+                ) : (
+                  <HomePage />
+                );
+              }}
+            />
+            <Route
+              path="/user/:id"
+              render={RouterProps => {
+                return (
+                  <UserShowPage
+                    user_id={RouterProps.match.params.id}
+                    posts={this.state.posts}
+                    addPost={this.addPost}
+                    addComment={this.addComment}
+                    isUserLoggedIn={this.state.isUserLoggedIn}
+                    currentUser={this.state.currentUser}
+                    deleteHandler={this.deleteHandler}
+                    editPostHandler={this.editPostHandler}
+                    comments={this.state.comments}
+                    users={JSON.parse(localStorage.getItem("users"))}
+                  />
+                );
+              }}
+            />
+            <Route
+              path="/search"
+              render={() => {
+                return (
+                  <SearchPage
+                    isUserLoggedIn={this.state.isUserLoggedIn}
+                    search={this.state.search}
+                    users={this.props.users}
+                  />
+                );
+              }}
+            />
+            <Route
+              path="/editProfile"
+              render={() => {
+                return (
+                  <EditProfileForm
+                    isUserLoggedIn={this.state.isUserLoggedIn}
+                    currentUser={this.state.currentUser}
+                    updateHandler={this.updateHandler}
+                    mods={this.state.mods}
+                  />
+                );
+              }}
+            />
+            <Route
+              path="/login"
+              render={() => {
+                return (
+                  <LoginForm submitLoginHandler={this.submitLoginHandler} />
+                );
+              }}
+            />
+            <Route
+              path="/signUp"
+              render={() => {
+                return (
+                  <SignUpForm submitSignUpHandler={this.submitSignUpHandler} />
+                );
+              }}
+            />
+            <Route path="/" component={HomePage} />
+          </Switch>
+        ) : (
+          <SearchPage
+            isUserLoggedIn={this.state.isUserLoggedIn}
+            search={this.state.search}
+            users={this.props.users}
           />
-          <Route
-            path="/user/:id"
-            render={RouterProps => {
-              return (
-                <UserShowPage
-                  user_id={RouterProps.match.params.id}
-                  posts={this.state.posts}
-                  addPost={this.addPost}
-                  addComment={this.addComment}
-                  isUserLoggedIn={this.state.isUserLoggedIn}
-                  currentUser={this.state.currentUser}
-                  deleteHandler={this.deleteHandler}
-                  editPostHandler={this.editPostHandler}
-                  comments={this.state.comments}
-                  users={JSON.parse(localStorage.getItem("users"))}
-                />
-              );
-            }}
-          />
-          <Route
-            path="/search"
-            render={() => {
-              return (
-                <SearchPage
-                  isUserLoggedIn={this.state.isUserLoggedIn}
-                  search={this.state.search}
-                  users={this.props.users}
-                />
-              );
-            }}
-          />
-          <Route
-            path="/editProfile"
-            render={() => {
-              return (
-                <EditProfileForm
-                  isUserLoggedIn={this.state.isUserLoggedIn}
-                  currentUser={this.state.currentUser}
-                  updateHandler={this.updateHandler}
-                  mods={this.state.mods}
-                />
-              );
-            }}
-          />
-          <Route
-            path="/login"
-            render={() => {
-              return <LoginForm submitLoginHandler={this.submitLoginHandler} />;
-            }}
-          />
-          <Route
-            path="/signUp"
-            render={() => {
-              return (
-                <SignUpForm submitSignUpHandler={this.submitSignUpHandler} />
-              );
-            }}
-          />
-          <Route path="/" component={HomePage} />
-        </Switch>
+        )}
       </div>
     );
   }
@@ -382,7 +392,6 @@ changeHandler = (e) => {
       });
   };
 }
-
 
 function mapStateToProps(state) {
   return {

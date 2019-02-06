@@ -8,7 +8,7 @@ class SearchForm extends Component {
         className=""
         type="text"
         value={this.props.search}
-        placeholder="Search"
+        placeholder="Search users"
       />
     );
   }
