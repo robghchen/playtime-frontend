@@ -37,8 +37,8 @@ btn {
 
 .navright {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 1em;
+  right: 1em;
 }
 
 .mod-link {
@@ -80,6 +80,14 @@ btn {
 }
 
 .post-container {
+  width: 100%;
+  height: auto;
+  margin-left: 40px;
+  margin-top: 40px;
+  overflow: hidden;
+}
+
+.users-container {
   width: 100%;
   height: auto;
   margin-left: 40px;
@@ -291,5 +299,10 @@ btn {
 }
 
 .comment-form {
-  width: 100%
+  width: 100%;
+}
+
+.search-form {
+  position: absolute;
+  right: -40%;
 }

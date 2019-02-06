@@ -79,6 +79,12 @@ class App extends Component {
     });
   };
 
+  clearSearch = () => {
+    this.setState({
+      search: ""
+    });
+  };
+
   render() {
     return (
       <div>
@@ -137,6 +143,7 @@ class App extends Component {
               render={() => {
                 return (
                   <SearchPage
+                    clearSearch={this.clearSearch}
                     isUserLoggedIn={this.state.isUserLoggedIn}
                     search={this.state.search}
                     users={this.props.users}

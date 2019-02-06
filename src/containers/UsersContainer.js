@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import { withRouter, Link } from "react-router-dom";
 import UserCard from "../components/UserCard";
 
 class UsersContainer extends Component {
   state = {};
   render() {
     return (
-      <div>
+      <div className="users-container">
         {this.props.filteredUsers
           .filter(user =>
             user.first_name === null || user.last_name === null
@@ -23,11 +24,17 @@ class UsersContainer extends Component {
                   .includes(this.props.search.toLowerCase())
           )
           .map(user => {
-            return <UserCard key={user.id} user={user} />;
+            return (
+              <UserCard
+                key={user.id}
+                user={user}
+                claerSearch={this.props.clearSearch}
+              />
+            );
           })}
       </div>
     );
   }
 }
 
-export default UsersContainer;
+export default withRouter(UsersContainer);
