@@ -90,7 +90,7 @@ btn {
 .users-container {
   width: 100%;
   height: auto;
-  margin-left: 40px;
+  margin-left: 40%;
   margin-top: 40px;
   overflow: hidden;
 }
@@ -314,12 +314,19 @@ btn {
 }
 
 .post,
-.comment {
+.comment{
   position: relative;
   margin-top: -3.5em;
   margin-left: 3em;
 }
 
 .comment {
+  padding-bottom: 1em;
+}
+
+.usercard {
+  position: relative;
+  margin-top: -3.5em;
+  margin-left: 4em;
   padding-bottom: 1em;
 }

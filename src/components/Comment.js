@@ -6,7 +6,7 @@ class Comment extends Component {
   render() {
     return (
     <React.Fragment>
-      <span><img
+      <Link to={`/user/${this.props.comment.user.id}`}><span><img
                     src={
                       this.props.comment.user.profile_img
                     }
@@ -14,7 +14,7 @@ class Comment extends Component {
                       this.props.comment.user.username
                     }
                     className="profile-icon"
-                  /></span>
+                  /></span></Link>
       <div className="comment">
       <p className="username"><Link to={`/user/${this.props.comment.user.id}`}>{this.props.comment.user.username}</Link></p><br/><p>{this.props.comment.comment}</p></div>
       </React.Fragment>)

@@ -29,7 +29,7 @@ class Post extends React.Component {
   render() {
     return (
       <div className="post-wrapper">
-        <img alt="" src={""} />
+        
         <div className="post-content">
           {this.props.post.user_id === parseInt(localStorage.getItem("id")) ||
           parseInt(localStorage.getItem("id")) === 10 ? (
