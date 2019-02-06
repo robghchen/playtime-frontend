@@ -28,7 +28,7 @@ class UsersContainer extends Component {
               <UserCard
                 key={user.id}
                 user={user}
-                claerSearch={this.props.clearSearch}
+                clearSearch={this.props.clearSearch}
               />
             );
           })}

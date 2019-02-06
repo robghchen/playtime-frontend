@@ -184,6 +184,7 @@ class App extends Component {
           </Switch>
         ) : (
           <SearchPage
+            clearSearch={this.clearSearch}
             isUserLoggedIn={this.state.isUserLoggedIn}
             search={this.state.search}
             users={this.props.users}

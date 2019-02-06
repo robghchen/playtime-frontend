@@ -4,7 +4,6 @@ import UsersContainer from "../containers/UsersContainer";
 
 class SearchPage extends Component {
   render() {
-    console.log(this.props.clearSearch);
     return (
       <UsersContainer
         filteredUsers={[...this.props.users]}
