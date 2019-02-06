@@ -10,16 +10,16 @@ class NavBar extends Component {
           <Link to={"/home"} className="item">
             PlayTime
           </Link>
-          {this.props.currentPath === "/home" ? null : (
+          {this.props.isUserLoggedIn ? (
             <Fragment>
               <p>energy bar</p>
               <p>exp bar</p>
-              <SearchForm
-                search={this.props.search}
-                changeHandler={this.props.changeHandler}
-              />
             </Fragment>
-          )}
+          ) : null }
+          <SearchForm
+            search={this.props.search}
+            changeHandler={this.props.changeHandler}
+          />
         </Fragment>
         {this.props.isUserLoggedIn ? (
           <span className="ui menu navright">
