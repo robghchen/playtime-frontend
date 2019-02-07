@@ -18,6 +18,7 @@ class UserShowPage extends Component {
           comments={this.props.comments}
           users={this.props.users}
           editCover={this.props.editCover}
+          editProfilePic={this.props.editProfilePic}
         />
     );
   }

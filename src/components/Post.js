@@ -72,7 +72,7 @@ class Post extends React.Component {
                 </span>
               </Link>
               <div className="post">
-                <p className="username" onClick={this.props.hideEditCover}>
+                <p className="username" onClick={this.props.hideEditCoverAndProfilePic}>
                   <Link
                     to={`/user/${
                       this.props.users.find(

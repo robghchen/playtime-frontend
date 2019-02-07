@@ -3,22 +3,28 @@ import Post from "../components/Post";
 import NewPostForm from "../components/NewPostForm";
 import { withRouter } from "react-router-dom";
 import EditCover from "../components/EditCover";
+import EditProfilePic from "../components/EditProfilePic";
 
 class PostsContainer extends Component {
   state = {
     user_id: this.props.user_id,
-    showEditCover: false
+    showEditCover: false,
+    showEditProfilePic: false
   };
 
   editCover = () => {
-    this.props.editCover()
-    this.setState({showEditCover: false})
-  }
+    this.props.editCover();
+    this.setState({ showEditCover: false });
+  };
 
-  hideEditCover = () => {
-    this.props.editCover()
-    this.setState({showEditCover: false})
-  }
+  editProfilePic = () => {
+    this.props.editProfilePic();
+    this.setState({ showEditProfilePic: false });
+  };
+
+  hideEditCoverAndProfilePic = () => {
+    this.setState({ showEditCover: false, showEditProfilePic: false });
+  };
 
   showPostArray = () => {
     let posts = this.props.posts
@@ -44,7 +50,7 @@ class PostsContainer extends Component {
                 isUserLoggedIn={this.props.isUserLoggedIn}
                 users={this.props.users}
                 comments={this.props.comments}
-                hideEditCover={this.hideEditCover}
+                hideEditCoverAndProfilePic={this.hideEditCoverAndProfilePic}
               />
             </div>
           );
@@ -55,6 +61,10 @@ class PostsContainer extends Component {
 
   toggleEditCover = () => {
     this.setState({ showEditCover: !this.state.showEditCover });
+  };
+
+  toggleEditProfilePic = () => {
+    this.setState({ showEditProfilePic: !this.state.showEditProfilePic });
   };
 
   render() {
@@ -79,16 +89,29 @@ class PostsContainer extends Component {
                 : null
             }
           />
-          {this.state.showEditCover ? <EditCover 
-          editCover={this.editCover}/> : null}
+          {this.state.showEditCover ? (
+            <EditCover editCover={this.editCover} />
+          ) : null}
           <img
             src={
               this.props.users.find(user => user.id === this.props.user_id)
                 .profile_img
             }
             alt="profile pic"
-            className="profile-picture"
+            className={
+              this.props.user_id === this.props.currentUser.id
+                ? "profile-picture pointer"
+                : "profile-picture"
+            }
+            onClick={
+              this.props.user_id === this.props.currentUser.id
+                ? this.toggleEditProfilePic
+                : null
+            }
           />
+          {this.state.showEditProfilePic ? (
+            <EditProfilePic editProfilePic={this.editProfilePic} />
+          ) : null}
           <h2 className="username">
             {
               this.props.users.find(user => user.id === this.props.user_id)
