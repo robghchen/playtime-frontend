@@ -113,6 +113,7 @@ class App extends Component {
                     editPostHandler={this.editPostHandler}
                     comments={this.state.comments}
                     users={JSON.parse(localStorage.getItem("users"))}
+                    editCover={this.editCover}
                   />
                 ) : (
                   <HomePage />
@@ -134,6 +135,7 @@ class App extends Component {
                     editPostHandler={this.editPostHandler}
                     comments={this.state.comments}
                     users={JSON.parse(localStorage.getItem("users"))}
+                    editCover={this.editCover}
                   />
                 );
               }}
@@ -234,6 +236,32 @@ class App extends Component {
       .then(data => {
         let newArr = [...this.state.comments, data];
         this.setState({ comments: newArr });
+      });
+  };
+
+  editCover = (input) => {
+    fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem("token")
+      },
+      body: JSON.stringify({
+        cover_img: input
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        let newArr = [...this.state.users];
+        newArr = newArr.map(user => {
+          if (user.id === this.state.currentUser.id) {
+            return data;
+          } else {
+            return user;
+          }
+        });
+        this.setState({ users: newArr });
       });
   };
 

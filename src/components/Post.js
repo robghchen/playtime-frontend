@@ -29,7 +29,6 @@ class Post extends React.Component {
   render() {
     return (
       <div className="post-wrapper">
-        
         <div className="post-content">
           {this.props.post.user_id === parseInt(localStorage.getItem("id")) ||
           parseInt(localStorage.getItem("id")) === 10 ? (
@@ -56,7 +55,7 @@ class Post extends React.Component {
                   ).id
                 }`}
               >
-                <span>
+                <span onClick={this.props.hideEditCover}>
                   <img
                     src={
                       this.props.users.find(
@@ -73,7 +72,7 @@ class Post extends React.Component {
                 </span>
               </Link>
               <div className="post">
-                <p className="username">
+                <p className="username" onClick={this.props.hideEditCover}>
                   <Link
                     to={`/user/${
                       this.props.users.find(

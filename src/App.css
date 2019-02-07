@@ -304,7 +304,7 @@ btn {
 
 .search-form {
   position: absolute;
-  right: -40%;
+  left: 40%;
 }
 
 .profile-icon {
@@ -349,4 +349,16 @@ btn {
   position: absolute;
   margin-left: 8em;
   margin-top: -3em;
+}
+
+.ui.card.form.cover {
+  position: absolute;
+  right: 10%;
+  margin-top: -3.5em;
+}
+
+.ui.card.form.profile {
+  position: absolute;
+  margin-left: 13em;
+  margin-top: -3.5em;
 }

@@ -2,11 +2,23 @@ import React, { Component } from "react";
 import Post from "../components/Post";
 import NewPostForm from "../components/NewPostForm";
 import { withRouter } from "react-router-dom";
+import EditCover from "../components/EditCover";
 
 class PostsContainer extends Component {
   state = {
-    user_id: this.props.user_id
+    user_id: this.props.user_id,
+    showEditCover: false
   };
+
+  editCover = () => {
+    this.props.editCover()
+    this.setState({showEditCover: false})
+  }
+
+  hideEditCover = () => {
+    this.props.editCover()
+    this.setState({showEditCover: false})
+  }
 
   showPostArray = () => {
     let posts = this.props.posts
@@ -32,12 +44,17 @@ class PostsContainer extends Component {
                 isUserLoggedIn={this.props.isUserLoggedIn}
                 users={this.props.users}
                 comments={this.props.comments}
+                hideEditCover={this.hideEditCover}
               />
             </div>
           );
         })}
       </div>
     );
+  };
+
+  toggleEditCover = () => {
+    this.setState({ showEditCover: !this.state.showEditCover });
   };
 
   render() {
@@ -51,8 +68,19 @@ class PostsContainer extends Component {
                 .cover_img
             }
             alt="cover photo"
-            className="cover-photo"
+            className={
+              this.props.user_id === this.props.currentUser.id
+                ? "cover-photo pointer"
+                : "cover-photo"
+            }
+            onClick={
+              this.props.user_id === this.props.currentUser.id
+                ? this.toggleEditCover
+                : null
+            }
           />
+          {this.state.showEditCover ? <EditCover 
+          editCover={this.editCover}/> : null}
           <img
             src={
               this.props.users.find(user => user.id === this.props.user_id)

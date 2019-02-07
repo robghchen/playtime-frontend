@@ -17,6 +17,7 @@ class UserShowPage extends Component {
           editPostHandler={this.props.editPostHandler}
           comments={this.props.comments}
           users={this.props.users}
+          editCover={this.props.editCover}
         />
     );
   }
