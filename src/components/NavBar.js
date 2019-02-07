@@ -4,6 +4,7 @@ import SearchForm from "./SearchForm";
 
 class NavBar extends Component {
   render() {
+    // console.log(this.props.currentUser);
     return (
       <div className="ui menu navBar">
         <Fragment>
@@ -11,11 +12,12 @@ class NavBar extends Component {
             PlayTime
           </Link>
           {this.props.isUserLoggedIn ? (
-            <Fragment>
-              <p>energy bar</p>
-              <p>exp bar</p>
-            </Fragment>
-          ) : null }
+            <div className="status">
+              <div className="energy">Energy: {this.props.currentUser.energy} / {this.props.currentUser.max_energy}</div>
+              <div className="lvl">Lvl {this.props.currentUser.lvl}</div>
+              <div className="exp">Exp: {this.props.currentUser.exp}</div>
+            </div>
+          ) : null}
           <SearchForm
             search={this.props.search}
             changeHandler={this.props.changeHandler}

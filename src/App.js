@@ -25,7 +25,15 @@ class App extends Component {
       city: "",
       school: "",
       work: "",
-      exp: 0
+      lvl: 1,
+      exp: 0,
+      energy: 5,
+      max_energy: 5,
+      speed: 1,
+      profile_img:
+        "https://c1.staticflickr.com/6/5643/23778807571_e9649ee35e_b.jpg",
+      cover_img:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Friends_logo.svg/2000px-Friends_logo.svg.png"
     },
     users: [],
     posts: [],
@@ -53,7 +61,20 @@ class App extends Component {
       this.setState({
         currentUser: {
           id: parseInt(localStorage.getItem("id")),
-          username: localStorage.getItem("username")
+          username: localStorage.getItem("username"),
+          first_name: localStorage.getItem("first_name"),
+          last_name: localStorage.getItem("last_name"),
+          email: localStorage.getItem("email"),
+          city: localStorage.getItem("city"),
+          school: localStorage.getItem("school"),
+          work: localStorage.getItem("work"),
+          lvl: localStorage.getItem("lvl"),
+          exp: localStorage.getItem("exp"),
+          energy: localStorage.getItem("energy"),
+          max_energy: localStorage.getItem("max_energy"),
+          speed: localStorage.getItem("speed"),
+          profile_img: localStorage.getItem("profile_img"),
+          cover_img: localStorage.getItem("cover_img")
         },
         token: localStorage.getItem("token"),
         isUserLoggedIn: true
@@ -73,6 +94,10 @@ class App extends Component {
     localStorage.clear();
   }
 
+  statusHandler = () => {
+    
+  }
+
   changeHandler = e => {
     this.setState({
       search: e.target.value
@@ -86,6 +111,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(this.state.currentUser);
     return (
       <div>
         <NavBar
@@ -94,6 +120,7 @@ class App extends Component {
           currentPath={this.props.location.pathname}
           search={this.state.search}
           changeHandler={this.changeHandler}
+          currentUser={this.state.currentUser}
         />
 
         {this.state.search === "" ? (
@@ -241,7 +268,7 @@ class App extends Component {
       });
   };
 
-  editCover = (input) => {
+  editCover = input => {
     fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
       method: "PATCH",
       headers: {
@@ -266,8 +293,8 @@ class App extends Component {
         this.setState({ users: newArr });
       });
   };
-  
-  editProfilePic = (input) => {
+
+  editProfilePic = input => {
     fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
       method: "PATCH",
       headers: {
@@ -346,12 +373,15 @@ class App extends Component {
         localStorage.setItem("token", res.jwt);
         localStorage.setItem("id", res.user.id);
         localStorage.setItem("username", res.user.username);
+        //come back
         this.setState({
           isUserLoggedIn: true,
           token: localStorage.getItem("token"),
           currentUser: {
             id: res.user.id,
             username: res.user.username,
+            first_name: res.user.first_name,
+            last_name: res.user.last_name,
             password: ""
           }
         });
@@ -387,15 +417,42 @@ class App extends Component {
       // .then(res => res.json())
       .then(res => {
         localStorage.setItem("token", res.jwt);
-        localStorage.setItem("username", res.user.username);
         localStorage.setItem("id", res.user.id);
+        localStorage.setItem("username", res.user.username);
+        localStorage.setItem("first_name", res.user.first_name);
+        localStorage.setItem("last_name", res.user.last_name);
+        localStorage.setItem("email", res.user.email);
+        localStorage.setItem("city", res.user.city);
+        localStorage.setItem("school", res.user.school);
+        localStorage.setItem("work", res.user.work);
+        localStorage.setItem("lvl", res.user.lvl);
+        localStorage.setItem("exp", res.user.exp);
+        localStorage.setItem("energy", res.user.energy);
+        localStorage.setItem("max_energy", res.user.max_energy);
+        localStorage.setItem("speed", res.user.speed);
+        localStorage.setItem("profile_img", res.user.profile_img);
+        localStorage.setItem("cover_img", res.user.cover_img);
+
         this.setState({
           isUserLoggedIn: true,
           token: localStorage.getItem("token"),
           currentUser: {
             id: res.user.id,
             username: res.user.username,
-            password: ""
+            first_name: res.user.first_name,
+            last_name: res.user.last_name,
+            email: res.user.email,
+            password: "",
+            city: res.user.city,
+            school: res.user.school,
+            work: res.user.work,
+            lvl: res.user.lvl,
+            exp: res.user.exp,
+            energy: res.user.energy,
+            max_energy: res.user.max_energy,
+            speed: res.user.speed,
+            profile_img: res.user.profile_img,
+            cover_img: res.user.cover_img
           }
         });
       })

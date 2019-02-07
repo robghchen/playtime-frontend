@@ -42,7 +42,13 @@ export const addUser = user => {
         city: user.city,
         school: user.school,
         work: user.work,
-        exp: user.exp
+        lvl: user.lvl,
+        exp: user.exp,
+        energy: user.energy,
+        max_energy: user.max_energy,
+        speed: user.speed,
+        profile_img: user.profile_img,
+        cover_img: user.cover_img
       })
     })
       .then(res => res.json())
