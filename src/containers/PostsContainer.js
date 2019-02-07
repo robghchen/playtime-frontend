@@ -112,7 +112,7 @@ class PostsContainer extends Component {
           {this.state.showEditProfilePic ? (
             <EditProfilePic editProfilePic={this.editProfilePic} />
           ) : null}
-          <h2 className="username">
+          <h2 className="profile-username">
             {
               this.props.users.find(user => user.id === this.props.user_id)
                 .username
@@ -120,7 +120,7 @@ class PostsContainer extends Component {
           </h2>
         </div>
 
-        <div style={show}>
+        <div style={show} >
           <NewPostForm
             addPost={this.props.addPost}
             users={this.props.users}

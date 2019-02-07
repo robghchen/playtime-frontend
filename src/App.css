@@ -281,6 +281,7 @@ btn {
 
 .comments-container {
   margin-left: 2em;
+  padding-bottom: 2em;
 }
 
 .ui.card.form.comment {
@@ -288,14 +289,15 @@ btn {
   width: 90%;
 }
 
-.username {
-  font-weight: bold;
-}
-
 .posts-container {
   float: left;
   width: 70%;
   padding: 3em;
+}
+
+
+.username {
+  font-weight: bold;
 }
 
 .comment-form {
@@ -345,9 +347,14 @@ btn {
   margin-left: 2em;
 }
 
-.username {
+.profile-username {
   position: absolute;
   margin-left: 8em;
+  margin-top: -3em;
+}
+
+.username {
+  position: absolute;
   margin-top: -3em;
 }
 

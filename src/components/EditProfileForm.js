@@ -2,20 +2,13 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
 class EditProfileForm extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
+ state = {
       id: this.props.currentUser.id,
-      full_name: this.props.currentUser.full_name,
+      username: this.props.currentUser.username,
       password: "",
-      mod_id: this.props.currentUser.mod_id,
       alert_error: false
     };
 
-    this.submitHandler = this.submitHandler.bind(this);
-    this.changeHandler = this.changeHandler.bind(this);
-  }
 
   render() {
     return (
