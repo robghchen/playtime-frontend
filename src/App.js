@@ -124,7 +124,7 @@ class App extends Component {
               render={RouterProps => {
                 return (
                   <UserShowPage
-                    user_id={RouterProps.match.params.id}
+                    user_id={parseInt(RouterProps.match.params.id)}
                     posts={this.state.posts}
                     addPost={this.addPost}
                     addComment={this.addComment}

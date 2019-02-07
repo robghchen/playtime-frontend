@@ -6,17 +6,6 @@ class UserShowPage extends Component {
   state = {};
   render() {
     return (
-      <React.Fragment>
-        <div>
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Friends_logo.svg/2000px-Friends_logo.svg.png"
-            alt="cover photo"
-            // {
-            //   this.props.users.find(user => user.id === this.user_id).cover_img
-            // }
-            className="cover-photo"
-          />
-        </div>
         <PostsContainer
           user_id={this.props.user_id}
           posts={this.props.posts}
@@ -29,7 +18,6 @@ class UserShowPage extends Component {
           comments={this.props.comments}
           users={this.props.users}
         />
-      </React.Fragment>
     );
   }
 }

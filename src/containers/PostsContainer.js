@@ -44,9 +44,35 @@ class PostsContainer extends Component {
     const show = { display: this.props.isUserLoggedIn ? "block" : "none" };
     return (
       <div className="ui">
+        <div className="banner">
+          <img
+            src={
+              this.props.users.find(user => user.id === this.props.user_id)
+                .cover_img
+            }
+            alt="cover photo"
+            className="cover-photo"
+          />
+          <img
+            src={
+              this.props.users.find(user => user.id === this.props.user_id)
+                .profile_img
+            }
+            alt="profile pic"
+            className="profile-picture"
+          />
+          <h2 className="username">
+            {
+              this.props.users.find(user => user.id === this.props.user_id)
+                .username
+            }
+          </h2>
+        </div>
+
         <div style={show}>
           <NewPostForm
             addPost={this.props.addPost}
+            users={this.props.users}
             user_id={this.props.user_id}
             currentUser={this.props.currentUser}
           />

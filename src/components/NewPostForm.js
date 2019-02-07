@@ -34,6 +34,10 @@ class NewPostForm extends Component {
   };
 
   render() {
+    const name = this.props.users.find(
+      user => user.id === parseInt(this.props.user_id)
+    ).first_name;
+
     return (
       <div id="new-post-form" className="ui card form">
         <form onSubmit={this.handleSubmit}>
@@ -41,7 +45,7 @@ class NewPostForm extends Component {
           <textarea
             className="form-control"
             type="text"
-            placeholder="What's on your mind?"
+            placeholder={`Write something to ${name.charAt(0).toUpperCase()}${name.slice(1)}...`}
             cols="1200"
             rows="1"
             maxLength="600"
