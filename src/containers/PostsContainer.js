@@ -113,14 +113,22 @@ class PostsContainer extends Component {
             <EditProfilePic editProfilePic={this.editProfilePic} />
           ) : null}
           <h2 className="profile-username">
-            {
+          <span>
+              Lvl{" "}
+              {
+                this.props.users.find(user => user.id === this.props.user_id)
+                  .lvl
+              }{" "}
+            </span>
+            <span>{
               this.props.users.find(user => user.id === this.props.user_id)
                 .username
-            }
+            }</span>
+            
           </h2>
         </div>
 
-        <div style={show} >
+        <div style={show}>
           <NewPostForm
             addPost={this.props.addPost}
             users={this.props.users}

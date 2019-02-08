@@ -73,7 +73,9 @@ class Post extends React.Component {
               </Link>
               <div className="post">
                 <p className="username" onClick={this.props.hideEditCoverAndProfilePic}>
-                  <Link
+                <span>Lvl {this.props.users.find(
+                        user => user.id === this.props.post.player_id
+                      ).lvl} </span><Link
                     to={`/user/${
                       this.props.users.find(
                         user => user.id === this.props.post.player_id

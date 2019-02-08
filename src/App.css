@@ -295,11 +295,6 @@ btn {
   padding: 3em;
 }
 
-
-.username {
-  font-weight: bold;
-}
-
 .comment-form {
   width: 100%;
 }
@@ -353,9 +348,14 @@ btn {
   margin-top: -3em;
 }
 
+.search-username {
+  font-weight: bold;
+}
+
 .username {
   position: absolute;
   margin-top: -3em;
+  font-weight: bold;
 }
 
 .ui.card.form.cover {

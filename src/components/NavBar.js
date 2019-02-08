@@ -4,18 +4,20 @@ import SearchForm from "./SearchForm";
 
 class NavBar extends Component {
   render() {
-    // console.log(this.props.currentUser);
     return (
       <div className="ui menu navBar">
         <Fragment>
           <Link to={"/home"} className="item">
-            PlayTime
+            <span onClick={this.props.clearSearch}>PlayTime ⏰</span>
           </Link>
           {this.props.isUserLoggedIn ? (
             <div className="stats">
-              <div className="energy">Energy: {this.props.currentUser.energy} / {this.props.currentUser.max_energy}</div>
               <div className="lvl">Lvl {this.props.currentUser.lvl}</div>
               <div className="exp">Exp: {this.props.currentUser.exp}</div>
+              <div className="energy">
+                Energy: {this.props.currentUser.energy} /{" "}
+                {this.props.currentUser.max_energy} ⚡️
+              </div>
             </div>
           ) : null}
           <SearchForm
@@ -26,19 +28,19 @@ class NavBar extends Component {
         {this.props.isUserLoggedIn ? (
           <span className="ui menu navright">
             <Link to={"/editProfile"} className="item">
-              Edit Profile
+              <span onClick={this.props.clearSearch}>Edit Profile</span>
             </Link>
             <span className="item pointer" onClick={this.props.logout}>
-              Logout
+              <span onClick={this.props.clearSearch}>Logout</span>
             </span>
           </span>
         ) : (
           <span className="ui menu navright">
             <Link to={"/login"} className="item">
-              Login
+              <span onClick={this.props.clearSearch}>Login</span>
             </Link>
             <Link to={"/signup"} className="item">
-              SignUp
+              <span onClick={this.props.clearSearch}>Sign Up</span>
             </Link>
           </span>
         )}

@@ -27,6 +27,7 @@ class App extends Component {
       work: "",
       lvl: 1,
       exp: 0,
+      exp_limit: 200,
       energy: 5,
       max_energy: 5,
       speed: 1,
@@ -70,6 +71,7 @@ class App extends Component {
           work: localStorage.getItem("work"),
           lvl: localStorage.getItem("lvl"),
           exp: localStorage.getItem("exp"),
+          exp_limit: localStorage.getItem("exp_limit"),
           energy: localStorage.getItem("energy"),
           max_energy: localStorage.getItem("max_energy"),
           speed: localStorage.getItem("speed"),
@@ -94,43 +96,78 @@ class App extends Component {
     localStorage.clear();
   }
 
+  addExp = activity => {
+    fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem("token")
+      },
+      body: JSON.stringify({
+        exp: (this.state.currentUser.exp +=
+          activity === "post"
+            ? 60
+            : activity === "comment"
+            ? 40
+            : activity === "tag"
+            ? 40
+            : activity === "emoji"
+            ? 20
+            : 0)
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        let newArr = [...this.state.users];
+        newArr = newArr.map(user => {
+          if (user.id === this.state.currentUser.id) {
+            return data;
+          } else {
+            return user;
+          }
+        });
+        this.setState({ users: newArr });
+      })
+      .then(this.statsHandler());
+  };
+
   statsHandler = () => {
-    if (this.state.currentUser.lvl === 1 && this.state.currentUser.exp >= 200) {
-      
-        
-
-
+    let currentUser = this.state.currentUser;
+    if (currentUser.exp >= currentUser.exp_limit) {
+      this.levelUp();
     }
-  }
+  };
 
   levelUp = () => {
     fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: localStorage.getItem("token")
-          },
-          body: JSON.stringify({
-            lvl: this.state.lvl += 1,
-            exp: 0,
-            max_energy: this.state.max_energy *= 1.05,
-            energy: this.state.max_energy *= 1.05
-          })
-        })
-          .then(res => res.json())
-          .then(data => {
-            let newArr = [...this.state.users];
-            newArr = newArr.map(user => {
-              if (user.id === this.state.currentUser.id) {
-                return data;
-              } else {
-                return user;
-              }
-            });
-            this.setState({ users: newArr });
-          });
-  }
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem("token")
+      },
+      body: JSON.stringify({
+        lvl: (this.state.currentUser.lvl += 1),
+        exp: (this.state.currentUser.exp -= this.state.currentUser.exp_limit),
+        exp_limit: (this.state.currentUser.exp_limit *= 1.05),
+        max_energy: (this.state.currentUser.max_energy *= 1.05),
+        energy: (this.state.currentUser.max_energy *= 1.05)
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        let newArr = [...this.state.users];
+        newArr = newArr.map(user => {
+          if (user.id === this.state.currentUser.id) {
+            return data;
+          } else {
+            return user;
+          }
+        });
+        this.setState({ users: newArr });
+      });
+  };
 
   changeHandler = e => {
     this.setState({
@@ -145,7 +182,6 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state.currentUser);
     return (
       <div>
         <NavBar
@@ -155,6 +191,7 @@ class App extends Component {
           search={this.state.search}
           changeHandler={this.changeHandler}
           currentUser={this.state.currentUser}
+          clearSearch={this.clearSearch}
         />
 
         {this.state.search === "" ? (
@@ -278,7 +315,8 @@ class App extends Component {
         let newArr = [...this.state.posts];
         newArr.push(data);
         this.setState({ posts: newArr });
-      });
+      })
+      .then(this.addExp());
   };
 
   addComment = (input, playerId, postId) => {
@@ -416,6 +454,12 @@ class App extends Component {
             username: res.user.username,
             first_name: res.user.first_name,
             last_name: res.user.last_name,
+            lvl: 1,
+            exp: 0,
+            exp_limit: 200,
+            energy: 50,
+            max_energy: 50,
+            speed: 1,
             password: ""
           }
         });
@@ -461,6 +505,7 @@ class App extends Component {
         localStorage.setItem("work", res.user.work);
         localStorage.setItem("lvl", res.user.lvl);
         localStorage.setItem("exp", res.user.exp);
+        localStorage.setItem("exp_limit", res.user.exp_limit);
         localStorage.setItem("energy", res.user.energy);
         localStorage.setItem("max_energy", res.user.max_energy);
         localStorage.setItem("speed", res.user.speed);
@@ -482,6 +527,7 @@ class App extends Component {
             work: res.user.work,
             lvl: res.user.lvl,
             exp: res.user.exp,
+            exp_limit: res.user.exp_limit,
             energy: res.user.energy,
             max_energy: res.user.max_energy,
             speed: res.user.speed,

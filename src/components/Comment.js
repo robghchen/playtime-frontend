@@ -16,7 +16,7 @@ class Comment extends Component {
                     className="profile-icon"
                   /></span></Link>
       <div className="comment">
-      <p className="username"><Link to={`/user/${this.props.comment.user.id}`}>{this.props.comment.user.username}</Link></p><br/><p>{this.props.comment.comment}</p></div>
+      <p className="username"><span>Lvl {this.props.comment.user.lvl} </span><Link to={`/user/${this.props.comment.user.id}`}>{this.props.comment.user.username}</Link></p><br/><p>{this.props.comment.comment}</p></div>
       </React.Fragment>)
   }
 }

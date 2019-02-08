@@ -17,15 +17,20 @@ class UserCard extends Component {
           </span>
         </Link>
         <div className="usercard">
-          <p>
+          <div>
+            <span className="search-username">Lvl {this.props.user.lvl} </span>
             <Link to={`/user/${this.props.user.id}`}>
-              <span onClick={this.props.clearSearch} className="username">
+              <span
+                onClick={this.props.clearSearch}
+                className="search-username"
+              >
                 {this.props.user.username}{" "}
               </span>
             </Link>
-            <br />
+          </div>
+          <span>
             {this.props.user.first_name} {this.props.user.last_name}
-          </p>
+          </span>
         </div>
       </React.Fragment>
     );
