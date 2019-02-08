@@ -28,8 +28,8 @@ class App extends Component {
       lvl: 1,
       exp: 0,
       exp_limit: 200,
-      energy: 5,
-      max_energy: 5,
+      energy: 50,
+      max_energy: 50,
       speed: 1,
       profile_img:
         "https://c1.staticflickr.com/6/5643/23778807571_e9649ee35e_b.jpg",
@@ -40,7 +40,8 @@ class App extends Component {
     posts: [],
     comments: [],
     token: "",
-    search: ""
+    search: "",
+    energyClassName: "energy-hide"
   };
 
   componentDidMount() {
@@ -105,8 +106,8 @@ class App extends Component {
         Authorization: localStorage.getItem("token")
       },
       body: JSON.stringify({
-        exp: (this.state.currentUser.exp +=
-          activity === "post"
+        exp: this.state.currentUser.exp = parseInt(this.state.currentUser.exp) +
+          (activity === "post"
             ? 60
             : activity === "comment"
             ? 40
@@ -114,6 +115,16 @@ class App extends Component {
             ? 40
             : activity === "emoji"
             ? 20
+            : 0),
+        energy: (this.state.currentUser.energy -=
+          activity === "post"
+            ? 20
+            : activity === "comment"
+            ? 5
+            : activity === "tag"
+            ? 5
+            : activity === "emoji"
+            ? 1
             : 0)
       })
     })
@@ -148,11 +159,11 @@ class App extends Component {
         Authorization: localStorage.getItem("token")
       },
       body: JSON.stringify({
-        lvl: (this.state.currentUser.lvl += 1),
+        lvl: this.state.currentUser.lvl = (parseInt(this.state.currentUser.lvl) + 1),
         exp: (this.state.currentUser.exp -= this.state.currentUser.exp_limit),
-        exp_limit: (this.state.currentUser.exp_limit *= 1.05),
-        max_energy: (this.state.currentUser.max_energy *= 1.05),
-        energy: (this.state.currentUser.max_energy *= 1.05)
+        exp_limit: (this.state.currentUser.exp_limit *= 1.05).Math.round(),
+        max_energy: (this.state.currentUser.max_energy *= 1.05).Math.round(),
+        energy: (this.state.currentUser.max_energy *= 1.05).Math.round()
       })
     })
       .then(res => res.json())
@@ -182,6 +193,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(this.state.currentUser);
     return (
       <div>
         <NavBar
@@ -292,53 +304,71 @@ class App extends Component {
             users={this.props.users}
           />
         )}
+        <div className={this.state.energyClassName}><p className="red">Not enough energy at the moment.</p><span onClick={this.energyHide} className="close pointer">x</span></div>
       </div>
     );
   }
 
   addPost = (input, playerId, friendId) => {
-    fetch("http://localhost:3000/api/v1/posts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem("token")
-      },
-      body: JSON.stringify({
-        content: input,
-        player_id: playerId,
-        friend_id: friendId
+    if (this.state.currentUser.energy >= 20) {
+      fetch("http://localhost:3000/api/v1/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: localStorage.getItem("token")
+        },
+        body: JSON.stringify({
+          content: input,
+          player_id: playerId,
+          friend_id: friendId
+        })
       })
-    })
-      .then(res => res.json())
-      .then(data => {
-        let newArr = [...this.state.posts];
-        newArr.push(data);
-        this.setState({ posts: newArr });
-      })
-      .then(this.addExp());
+        .then(res => res.json())
+        .then(data => {
+          let newArr = [...this.state.posts];
+          newArr.push(data);
+          this.setState({ posts: newArr });
+        })
+        .then(this.addExp("post"));
+    } else {
+      this.energyShow()
+    }
   };
 
   addComment = (input, playerId, postId) => {
-    fetch("http://localhost:3000/api/v1/comments", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem("token")
-      },
-      body: JSON.stringify({
-        comment: input,
-        user_id: playerId,
-        post_id: postId
+    if (this.state.currentUser.energy >= 5) {
+      fetch("http://localhost:3000/api/v1/comments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: localStorage.getItem("token")
+        },
+        body: JSON.stringify({
+          comment: input,
+          user_id: playerId,
+          post_id: postId
+        })
       })
-    })
-      .then(res => res.json())
-      .then(data => {
-        let newArr = [...this.state.comments, data];
-        this.setState({ comments: newArr });
-      });
+        .then(res => res.json())
+        .then(data => {
+          let newArr = [...this.state.comments, data];
+          this.setState({ comments: newArr });
+        })
+        .then(this.addExp("comment"));
+    } else {
+      this.energyShow()
+    }
   };
+
+  energyShow = () => {
+    this.setState({ energyClassName: "energy-show" });
+  }
+
+  energyHide = () => {
+    this.setState({ energyClassName: "energy-hide" });
+  }
 
   editCover = input => {
     fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
@@ -434,7 +464,15 @@ class App extends Component {
       },
       body: JSON.stringify({
         username: userInfo.username,
-        password: userInfo.password
+        password: userInfo.password,
+        first_name: userInfo.first_name,
+        last_name: userInfo.last_name,
+        lvl: 1,
+        exp: 0,
+        exp_limit: 200,
+        energy: 50,
+        max_energy: 50,
+        speed: 1
       })
     })
       .then(res => {

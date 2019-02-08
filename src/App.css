@@ -301,7 +301,7 @@ btn {
 
 .search-form {
   position: absolute;
-  left: 40%;
+  left: 38em;
 }
 
 .profile-icon {
@@ -371,5 +371,33 @@ btn {
 }
 
 .stats {
-  margin-left: 2em;
+  position: absolute;
+  margin-left: 9em;
+}
+
+.red {
+  color: red;
+}
+
+.energy-hide {
+  display: none;
+}
+
+.energy-show {
+  position: sticky;
+  width: 20em;
+  border-radius: 2em;
+  border-bottom: 2px solid #ff6f69;
+  display: block;
+  padding: 2em;
+  padding-bottom: 0em;
+  margin-top: -50%;
+  left: 40%;
+}
+
+.close {
+  color: red;
+  position: relative;
+  right: -17em;
+  top: -5em;
 }
