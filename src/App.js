@@ -94,8 +94,42 @@ class App extends Component {
     localStorage.clear();
   }
 
-  statusHandler = () => {
-    
+  statsHandler = () => {
+    if (this.state.currentUser.lvl === 1 && this.state.currentUser.exp >= 200) {
+      
+        
+
+
+    }
+  }
+
+  levelUp = () => {
+    fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: localStorage.getItem("token")
+          },
+          body: JSON.stringify({
+            lvl: this.state.lvl += 1,
+            exp: 0,
+            max_energy: this.state.max_energy *= 1.05,
+            energy: this.state.max_energy *= 1.05
+          })
+        })
+          .then(res => res.json())
+          .then(data => {
+            let newArr = [...this.state.users];
+            newArr = newArr.map(user => {
+              if (user.id === this.state.currentUser.id) {
+                return data;
+              } else {
+                return user;
+              }
+            });
+            this.setState({ users: newArr });
+          });
   }
 
   changeHandler = e => {
