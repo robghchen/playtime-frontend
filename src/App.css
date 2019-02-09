@@ -303,7 +303,7 @@ btn {
 
 .posts-container {
   float: left;
-  width: 70%;
+  width: 60%;
   padding: 3em;
 }
 
@@ -445,4 +445,5 @@ btn {
 .date {
   font-weight: lighter;
   color: #a9a9a9;
+  font-size: 85%;
 }

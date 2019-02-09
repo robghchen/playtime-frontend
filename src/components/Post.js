@@ -92,7 +92,7 @@ class Post extends React.Component {
                     }/{
                       this.props.post.created_at.slice(8,10)
                     }/{
-                      this.props.post.created_at.slice(0,4)
+                      this.props.post.created_at.slice(2,4)
                     }</span>
                 </p>
                 <br />
