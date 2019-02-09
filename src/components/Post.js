@@ -87,7 +87,13 @@ class Post extends React.Component {
                         user => user.id === this.props.post.player_id
                       ).username
                     }{" "}
-                  </Link>
+                  </Link><span className="date">{
+                      this.props.post.created_at.slice(5,7)
+                    }/{
+                      this.props.post.created_at.slice(8,10)
+                    }/{
+                      this.props.post.created_at.slice(0,4)
+                    }</span>
                 </p>
                 <br />
                 <p>{this.props.post.content}</p>
