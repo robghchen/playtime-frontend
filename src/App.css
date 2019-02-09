@@ -90,7 +90,7 @@ btn {
 .users-container {
   width: 100%;
   height: auto;
-  margin-left: 40%;
+  margin-left: 30%;
   margin-top: 40px;
   overflow: hidden;
 }
@@ -411,4 +411,12 @@ btn {
   position: relative;
   right: -17em;
   top: -5em;
+}
+
+.city, .school, .work {
+  position: absolute;
+  left: 10em;
+}
+.work {
+  left: 20em;
 }
