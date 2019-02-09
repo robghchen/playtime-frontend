@@ -24,9 +24,7 @@ class NewCommentForm extends Component {
         alert_error: false
       });
     } else {
-      {
-        this.setState({ alert_error: true });
-      }
+      this.setState({ alert_error: true });
       this.props.history.push(`/home`);
     }
   };
@@ -45,7 +43,11 @@ class NewCommentForm extends Component {
             value={this.state.input}
             onChange={this.handleChange}
           />
-          <input className="submit button pointer" type="submit" />
+          <input
+            className="submit button pointer"
+            type="submit"
+            value="Comment"
+          />
         </form>
       </div>
     );

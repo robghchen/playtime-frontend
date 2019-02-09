@@ -10,7 +10,7 @@ class Post extends React.Component {
   };
 
   componentDidMount() {
-    // fetch("https://welcome-board-backend.herokuapp.com/api/v1/likes")
+    // fetch("https://backend.herokuapp.com/api/v1/likes")
     //   .then(resp => resp.json())
     //   .then(likes => {
     //     const postLikes = likes.filter(

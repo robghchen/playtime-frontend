@@ -26,9 +26,7 @@ class NewPostForm extends Component {
         alert_error: false
       });
     } else {
-      {
-        this.setState({ alert_error: true });
-      }
+      this.setState({ alert_error: true });
       this.props.history.push(`/home`);
     }
   };
@@ -45,7 +43,9 @@ class NewPostForm extends Component {
           <textarea
             className="form-control"
             type="text"
-            placeholder={`Write something to ${name.charAt(0).toUpperCase()}${name.slice(1)}...`}
+            placeholder={`Write something to ${name
+              .charAt(0)
+              .toUpperCase()}${name.slice(1)}...`}
             cols="1200"
             rows="1"
             maxLength="600"
@@ -57,7 +57,7 @@ class NewPostForm extends Component {
             <span className="alert-error">Post cannot be blank.</span>
           ) : null}
 
-          <input className="submit button pointer" type="submit" />
+          <input className="submit button pointer" type="submit" value="Post" />
         </form>
       </div>
     );

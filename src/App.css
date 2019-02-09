@@ -142,7 +142,8 @@ btn {
   border-radius: 3px;
 }
 
-.login.button, .signup.button {
+.login.button,
+.signup.button {
   position: relative;
   margin-top: 1em;
   left: 10em;
@@ -411,12 +412,32 @@ btn {
   position: relative;
   right: -17em;
   top: -5em;
+  border: 1px solid #ff6f69;
+  border-bottom: 2px;
 }
 
-.city, .school, .work {
+.city,
+.school,
+.work {
   position: absolute;
   left: 10em;
 }
-.work {
+.city {
   left: 20em;
+}
+
+.name-city {
+  position: relative;
+  margin-top: -2em;
+  left: 10.7em;
+}
+
+.school-work {
+  position: relative;
+  margin-top: -4.8em;
+  left: 32em;
+}
+
+.big-br {
+  line-height: 170%;
 }

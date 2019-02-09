@@ -1,6 +1,5 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
-import PostsContainer from "../containers/PostsContainer";
+import { withRouter } from "react-router-dom";
 
 class HomePage extends React.Component {
   state = {};

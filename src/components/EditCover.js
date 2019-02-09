@@ -19,9 +19,7 @@ class EditCover extends Component {
         alert_error: false
       });
     } else {
-      {
-        this.setState({ alert_error: true });
-      }
+      this.setState({ alert_error: true });
       this.props.history.push(`/home`);
     }
   };
