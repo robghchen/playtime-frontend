@@ -57,7 +57,7 @@ class SignUpForm extends Component {
                   </span>
                   <input
                     type="submit"
-                    className="submit button"
+                    className="signup button pointer"
                     value="Submit"
                   />
                 </form>
