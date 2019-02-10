@@ -120,7 +120,8 @@ class App extends Component {
         Authorization: localStorage.getItem("token")
       },
       body: JSON.stringify({
-        user_id: this.state.currentUser.id,
+        player_id: this.state.currentUser.id,
+        friend_id: 1,
         task:
           activity === "post"
             ? `+60 exp, post to ${username} on ${datetime.slice(
@@ -174,6 +175,7 @@ class App extends Component {
         Authorization: localStorage.getItem("token")
       },
       body: JSON.stringify({
+        username: this.state.currentUser.username,
         exp: (this.state.currentUser.exp =
           parseInt(this.state.currentUser.exp) +
           (activity === "post"
@@ -199,6 +201,7 @@ class App extends Component {
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         let newArr = [...this.state.users];
         newArr = newArr.map(user => {
           if (user.id === this.state.currentUser.id) {
@@ -228,6 +231,7 @@ class App extends Component {
         Authorization: localStorage.getItem("token")
       },
       body: JSON.stringify({
+        username: this.state.currentUser.username,
         lvl: (this.state.currentUser.lvl =
           parseInt(this.state.currentUser.lvl) + 1),
         exp: (this.state.currentUser.exp -= this.state.currentUser.exp_limit),
@@ -458,6 +462,7 @@ class App extends Component {
         Authorization: localStorage.getItem("token")
       },
       body: JSON.stringify({
+        username: this.state.currentUser.username,
         cover_img: input
       })
     })
@@ -484,6 +489,7 @@ class App extends Component {
         Authorization: localStorage.getItem("token")
       },
       body: JSON.stringify({
+        username: this.state.currentUser.username,
         profile_img: input
       })
     })

@@ -279,6 +279,10 @@ btn {
   padding: 3em;
 } */
 
+.ui {
+  background-color: #ffeead;
+}
+
 .ui.menu.navBar,
 .ui.menu.navright {
   background-color: #ffcc5c;
@@ -311,6 +315,7 @@ btn {
   border-radius: 0.5em;
   border: 1px solid #ff6f69;
   border-bottom: 2px solid #ff6f69;
+  background-color: #ffeead;
 }
 
 .comment-form {
@@ -457,6 +462,7 @@ btn {
 
 .activities-container {
   position: absolute;
+  width: 34.5%;
   float: right;
   top: 53em;
   left: 63%;
