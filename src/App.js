@@ -262,7 +262,6 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state.activities);
     return (
       <div>
         <NavBar
@@ -318,6 +317,7 @@ class App extends Component {
                     users={JSON.parse(localStorage.getItem("users"))}
                     editCover={this.editCover}
                     editProfilePic={this.editProfilePic}
+                    activities={this.state.activities}
                   />
                 );
               }}

@@ -260,11 +260,11 @@ btn {
 #new-post-form {
   position: relative;
   top: 3em;
-  width: 80%;
+  width: 94%;
   padding-right: 7em;
   padding-left: 2em;
   padding-bottom: 2em;
-  left: 10%;
+  left: 3.5%;
   background-color: #ffeead;
   border: 1px solid #ff6f69;
   border-bottom: 2px solid #ff6f69;
@@ -302,9 +302,15 @@ btn {
 }
 
 .posts-container {
+  position: relative;
   float: left;
   width: 55%;
-  padding: 3em;
+  top: 2.8em;
+  padding: 2em;
+  padding-right: 6em;
+  border-radius: 0.5em;
+  border: 1px solid #ff6f69;
+  border-bottom: 2px solid #ff6f69;
 }
 
 .comment-form {
@@ -351,12 +357,12 @@ btn {
   height: 150px;
   border-radius: 4px;
   margin-top: -75px;
-  margin-left: 2em;
+  margin-left: 3em;
 }
 
 .profile-username {
   position: absolute;
-  margin-left: 8em;
+  margin-left: 9em;
   margin-top: -3em;
 }
 
@@ -373,12 +379,12 @@ btn {
 .ui.card.form.cover {
   position: absolute;
   right: 10%;
-  margin-top: -3.5em;
+  margin-top: -3.3em;
 }
 
 .ui.card.form.profile {
   position: absolute;
-  margin-left: 14em;
+  margin-left: 15.5em;
   margin-top: -9em;
 }
 
@@ -412,6 +418,7 @@ btn {
   position: relative;
   right: -17em;
   top: -5em;
+  border-radius: 10em;
   border: 1px solid #ff6f69;
   border-bottom: 2px;
 }
@@ -429,7 +436,7 @@ btn {
 .name-city {
   position: relative;
   margin-top: -2em;
-  left: 10.7em;
+  left: 12em;
 }
 
 .school-work {
@@ -464,4 +471,8 @@ btn {
 
 .center {
   text-align: center;
+}
+
+.lvl {
+  font-weight: bold;
 }

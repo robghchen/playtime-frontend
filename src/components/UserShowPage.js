@@ -2,12 +2,25 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import PostsContainer from "../containers/PostsContainer";
 import ActivitiesContainer from "../containers/ActivitiesContainer";
+import Banner from "../components/Banner";
 
 class UserShowPage extends Component {
-  state = {};
+  state = {
+    showEditCover: false,
+    showEditProfilePic: false};
+
+    hideEditCoverAndProfilePic = () => {
+      this.setState({ showEditCover: false, showEditProfilePic: false });
+    };
+    
   render() {
     return (
       <React.Fragment>
+        <Banner
+          users={this.props.users}
+          user_id={this.props.user_id}
+          currentUser={this.props.currentUser}
+        />
         <PostsContainer
           user_id={this.props.user_id}
           posts={this.props.posts}

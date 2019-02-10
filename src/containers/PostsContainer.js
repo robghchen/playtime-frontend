@@ -2,18 +2,13 @@ import React, { Component } from "react";
 import Post from "../components/Post";
 import NewPostForm from "../components/NewPostForm";
 import { withRouter } from "react-router-dom";
-import Banner from "../components/Banner";
 
 class PostsContainer extends Component {
   state = {
-    user_id: this.props.user_id,
-    showEditCover: false,
-    showEditProfilePic: false
+    user_id: this.props.user_id
   };
 
-  hideEditCoverAndProfilePic = () => {
-    this.setState({ showEditCover: false, showEditProfilePic: false });
-  };
+  
 
   showPostArray = () => {
     let posts = this.props.posts
@@ -39,7 +34,7 @@ class PostsContainer extends Component {
                 isUserLoggedIn={this.props.isUserLoggedIn}
                 users={this.props.users}
                 comments={this.props.comments}
-                hideEditCoverAndProfilePic={this.hideEditCoverAndProfilePic}
+                hideEditCoverAndProfilePic={this.props.hideEditCoverAndProfilePic}
               />
             </div>
           );
@@ -52,11 +47,7 @@ class PostsContainer extends Component {
     const show = { display: this.props.isUserLoggedIn ? "block" : "none" };
     return (
       <div className="ui">
-        <Banner
-          users={this.props.users}
-          user_id={this.props.user_id}
-          currentUser={this.props.currentUser}
-        />
+        
 
         <div style={show}>
           <NewPostForm

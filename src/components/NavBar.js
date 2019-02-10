@@ -13,10 +13,11 @@ class NavBar extends Component {
           {this.props.isUserLoggedIn ? (
             <div className="stats">
               <div className="lvl">Lvl {this.props.currentUser.lvl}</div>
-              <div className="exp">Exp: {this.props.currentUser.exp}</div>
+              <div className="exp">Exp: {this.props.currentUser.exp} /{" "}
+                {this.props.currentUser.exp_limit}</div>
               <div className="energy">
                 Energy: {this.props.currentUser.energy} /{" "}
-                {this.props.currentUser.max_energy} ⚡️
+                {this.props.currentUser.max_energy}
               </div>
             </div>
           ) : null}
