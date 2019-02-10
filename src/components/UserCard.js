@@ -29,14 +29,15 @@ class UserCard extends Component {
                 >
                   {this.props.user.username}{" "}
                 </span>
-              </Link><span className="school">School: {this.props.user.school}</span><span className="city">City: {this.props.user.city}</span>
+              </Link>
+              <span className="school">School: {this.props.user.school}</span>
+              <span className="city">City: {this.props.user.city}</span>
             </div>
             <span>
               {this.props.user.first_name} {this.props.user.last_name}
             </span>
           </span>
           <span className="work">Work: {this.props.user.work}</span>
-          
         </div>
       </React.Fragment>
     );

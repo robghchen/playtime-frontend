@@ -37,6 +37,7 @@ class App extends Component {
         "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Friends_logo.svg/2000px-Friends_logo.svg.png"
     },
     users: [],
+    filteredUsers: [],
     posts: [],
     comments: [],
     activities: [],
@@ -51,7 +52,7 @@ class App extends Component {
     fetch("http://localhost:3000/api/v1/users")
       .then(resp => resp.json())
       .then(users => {
-        this.setState({ users });
+        this.setState({ users, filteredUsers: users });
       });
 
     fetch("http://localhost:3000/api/v1/posts")
@@ -330,7 +331,7 @@ class App extends Component {
                     clearSearch={this.clearSearch}
                     isUserLoggedIn={this.state.isUserLoggedIn}
                     search={this.state.search}
-                    users={this.props.users}
+                    filteredUsers={this.state.filteredUsers}
                   />
                 );
               }}
@@ -371,7 +372,7 @@ class App extends Component {
             clearSearch={this.clearSearch}
             isUserLoggedIn={this.state.isUserLoggedIn}
             search={this.state.search}
-            users={this.props.users}
+            filteredUsers={this.state.filteredUsers}
           />
         )}
         <div className={this.state.energyClassName}>

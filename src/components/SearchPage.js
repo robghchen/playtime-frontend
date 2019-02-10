@@ -6,7 +6,7 @@ class SearchPage extends Component {
   render() {
     return (
       <UsersContainer
-        filteredUsers={[...this.props.users]}
+        filteredUsers={this.props.filteredUsers}
         search={this.props.search}
         clearSearch={this.props.clearSearch}
       />
