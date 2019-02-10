@@ -8,7 +8,7 @@ class ActivitiesContainer extends Component {
         <h2 className="center">Activities</h2>
         {this.props.activities
           .filter(activity => {
-            return activity.user_id === this.props.currentUser.id;
+            return activity.player_id === this.props.currentUser.id;
           })
           .reverse()
           .map(activity => {

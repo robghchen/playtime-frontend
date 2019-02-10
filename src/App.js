@@ -111,7 +111,7 @@ class App extends Component {
     localStorage.clear();
   }
 
-  addActivity = (activity, username, datetime) => {
+  addActivity = (activity, username, datetime, friendId) => {
     fetch(`http://localhost:3000/api/v1/activities`, {
       method: "POST",
       headers: {
@@ -121,7 +121,7 @@ class App extends Component {
       },
       body: JSON.stringify({
         player_id: this.state.currentUser.id,
-        friend_id: 1,
+        friend_id: friendId,
         task:
           activity === "post"
             ? `+60 exp, post to ${username} on ${datetime.slice(
@@ -412,7 +412,7 @@ class App extends Component {
           let username = this.state.users.find(user => {
             return user.id === friendId;
           }).username;
-          this.addActivity("post", username, data.created_at);
+          this.addActivity("post", username, data.created_at, friendId);
         });
     } else {
       this.energyShow();
@@ -438,7 +438,12 @@ class App extends Component {
         .then(data => {
           let newArr = [...this.state.comments, data];
           this.setState({ comments: newArr });
-          this.addActivity("comment", data.user.username, data.created_at);
+          this.addActivity(
+            "comment",
+            data.user.username,
+            data.created_at,
+            data.post.friend_id
+          );
         });
     } else {
       this.energyShow();
