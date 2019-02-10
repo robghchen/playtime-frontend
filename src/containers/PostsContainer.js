@@ -6,7 +6,9 @@ import Banner from "../components/Banner";
 
 class PostsContainer extends Component {
   state = {
-    user_id: this.props.user_id
+    user_id: this.props.user_id,
+    showEditCover: false,
+    showEditProfilePic: false
   };
 
   hideEditCoverAndProfilePic = () => {

@@ -303,7 +303,7 @@ btn {
 
 .posts-container {
   float: left;
-  width: 60%;
+  width: 55%;
   padding: 3em;
 }
 
@@ -446,4 +446,22 @@ btn {
   font-weight: lighter;
   color: #a9a9a9;
   font-size: 85%;
+}
+
+.activities-container {
+  position: absolute;
+  float: right;
+  top: 53em;
+  left: 63%;
+  padding: 2em;
+  border-radius: 0.5em;
+  border: 1px solid #ff6f69;
+  border-bottom: 2px solid #ff6f69;
+  height: 15em;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.center {
+  text-align: center;
 }

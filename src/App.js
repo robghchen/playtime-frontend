@@ -6,7 +6,7 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { getUsers } from "./actions/userActions";
 import { connect } from "react-redux";
-import UserShowPage from "./containers/PostsContainer";
+import UserShowPage from "./components/UserShowPage";
 import EditProfileForm from "./components/EditProfileForm";
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
@@ -39,13 +39,20 @@ class App extends Component {
     users: [],
     posts: [],
     comments: [],
+    activities: [],
     token: "",
     search: "",
     energyClassName: "energy-hide"
   };
 
   componentDidMount() {
-    this.props.getUsers();
+    // this.props.getUsers();
+
+    fetch("http://localhost:3000/api/v1/users")
+      .then(resp => resp.json())
+      .then(users => {
+        this.setState({ users });
+      });
 
     fetch("http://localhost:3000/api/v1/posts")
       .then(resp => resp.json())
@@ -57,6 +64,12 @@ class App extends Component {
       .then(resp => resp.json())
       .then(comments => {
         this.setState({ comments });
+      });
+
+    fetch("http://localhost:3000/api/v1/activities")
+      .then(resp => resp.json())
+      .then(activities => {
+        this.setState({ activities });
       });
 
     if (localStorage.getItem("token") !== null) {
@@ -97,6 +110,60 @@ class App extends Component {
     localStorage.clear();
   }
 
+  addActivity = (activity, username, datetime) => {
+    fetch(`http://localhost:3000/api/v1/activities`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem("token")
+      },
+      body: JSON.stringify({
+        user_id: this.state.currentUser.id,
+        task:
+          activity === "post"
+            ? `+60 exp, post to ${username} on ${datetime.slice(
+                5,
+                7
+              )}/${datetime.slice(8, 10)}/${datetime.slice(
+                2,
+                4
+              )} at ${datetime.slice(11, 16)}.`
+            : "comment"
+            ? `+40 exp, comment to ${username} on ${datetime.slice(
+                5,
+                7
+              )}/${datetime.slice(8, 10)}/${datetime.slice(
+                2,
+                4
+              )} at ${datetime.slice(11, 16)}.`
+            : "tag"
+            ? `+40 exp, tag ${username} on ${datetime.slice(
+                5,
+                7
+              )}/${datetime.slice(8, 10)}/${datetime.slice(
+                2,
+                4
+              )} at ${datetime.slice(11, 16)}.`
+            : "emoji"
+            ? `+20 exp, react to ${username} on ${datetime.slice(
+                5,
+                7
+              )}/${datetime.slice(8, 10)}/${datetime.slice(
+                2,
+                4
+              )} at ${datetime.slice(11, 16)}.`
+            : null
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        let newArr = [...this.state.activities, data];
+        this.setState({ activities: newArr });
+      })
+      .then(this.addExp(activity));
+  };
+
   addExp = activity => {
     fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
       method: "PATCH",
@@ -106,7 +173,8 @@ class App extends Component {
         Authorization: localStorage.getItem("token")
       },
       body: JSON.stringify({
-        exp: this.state.currentUser.exp = parseInt(this.state.currentUser.exp) +
+        exp: (this.state.currentUser.exp =
+          parseInt(this.state.currentUser.exp) +
           (activity === "post"
             ? 60
             : activity === "comment"
@@ -115,7 +183,7 @@ class App extends Component {
             ? 40
             : activity === "emoji"
             ? 20
-            : 0),
+            : 0)),
         energy: (this.state.currentUser.energy -=
           activity === "post"
             ? 20
@@ -159,7 +227,8 @@ class App extends Component {
         Authorization: localStorage.getItem("token")
       },
       body: JSON.stringify({
-        lvl: this.state.currentUser.lvl = (parseInt(this.state.currentUser.lvl) + 1),
+        lvl: (this.state.currentUser.lvl =
+          parseInt(this.state.currentUser.lvl) + 1),
         exp: (this.state.currentUser.exp -= this.state.currentUser.exp_limit),
         exp_limit: (this.state.currentUser.exp_limit *= 1.05).Math.round(),
         max_energy: (this.state.currentUser.max_energy *= 1.05).Math.round(),
@@ -193,7 +262,7 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state.currentUser);
+    console.log(this.state.activities);
     return (
       <div>
         <NavBar
@@ -225,6 +294,7 @@ class App extends Component {
                     users={JSON.parse(localStorage.getItem("users"))}
                     editCover={this.editCover}
                     editProfilePic={this.editProfilePic}
+                    activities={this.state.activities}
                   />
                 ) : (
                   <HomePage />
@@ -304,7 +374,12 @@ class App extends Component {
             users={this.props.users}
           />
         )}
-        <div className={this.state.energyClassName}><p className="red">Not enough energy at the moment.</p><span onClick={this.energyHide} className="close pointer">x</span></div>
+        <div className={this.state.energyClassName}>
+          <p className="red">Not enough energy at the moment.</p>
+          <span onClick={this.energyHide} className="close pointer">
+            x
+          </span>
+        </div>
       </div>
     );
   }
@@ -329,10 +404,13 @@ class App extends Component {
           let newArr = [...this.state.posts];
           newArr.push(data);
           this.setState({ posts: newArr });
-        })
-        .then(this.addExp("post"));
+          let username = this.state.users.find(user => {
+            return user.id === friendId;
+          }).username;
+          this.addActivity("post", username, data.created_at);
+        });
     } else {
-      this.energyShow()
+      this.energyShow();
     }
   };
 
@@ -355,20 +433,20 @@ class App extends Component {
         .then(data => {
           let newArr = [...this.state.comments, data];
           this.setState({ comments: newArr });
-        })
-        .then(this.addExp("comment"));
+          this.addActivity("comment", data.user.username, data.created_at);
+        });
     } else {
-      this.energyShow()
+      this.energyShow();
     }
   };
 
   energyShow = () => {
     this.setState({ energyClassName: "energy-show" });
-  }
+  };
 
   energyHide = () => {
     this.setState({ energyClassName: "energy-hide" });
-  }
+  };
 
   editCover = input => {
     fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
