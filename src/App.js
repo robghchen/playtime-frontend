@@ -166,6 +166,10 @@ class App extends Component {
       .then(this.addExp(activity));
   };
 
+  // addStreak = (activity) => {
+
+  // }
+
   addExp = activity => {
     fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
       method: "PATCH",
@@ -437,10 +441,13 @@ class App extends Component {
         .then(res => res.json())
         .then(data => {
           let newArr = [...this.state.comments, data];
+          let username = this.state.users.find(
+            user => user.id === data.post.friend_id
+          ).username;
           this.setState({ comments: newArr });
           this.addActivity(
             "comment",
-            data.user.username,
+            username,
             data.created_at,
             data.post.friend_id
           );
