@@ -147,7 +147,7 @@ class App extends Component {
                 2,
                 4
               )} at ${datetime.slice(11, 16)}.`
-            : "emoji"
+            : "reaction"
             ? `+20 exp, react to ${username} on ${datetime.slice(
                 5,
                 7
@@ -167,7 +167,7 @@ class App extends Component {
   };
 
   // addStreak = (activity) => {
-
+  // coming soon
   // }
 
   addExp = activity => {
@@ -188,7 +188,7 @@ class App extends Component {
             ? 40
             : activity === "tag"
             ? 40
-            : activity === "emoji"
+            : activity === "reaction"
             ? 20
             : 0)),
         energy: (this.state.currentUser.energy -=
@@ -198,14 +198,13 @@ class App extends Component {
             ? 5
             : activity === "tag"
             ? 5
-            : activity === "emoji"
+            : activity === "reaction"
             ? 1
             : 0)
       })
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         let newArr = [...this.state.users];
         newArr = newArr.map(user => {
           if (user.id === this.state.currentUser.id) {
@@ -214,7 +213,7 @@ class App extends Component {
             return user;
           }
         });
-        this.setState({ users: newArr });
+        this.setState({ users: newArr, currentUser: data });
       })
       .then(this.statsHandler());
   };
@@ -236,16 +235,17 @@ class App extends Component {
       },
       body: JSON.stringify({
         username: this.state.currentUser.username,
-        lvl: (this.state.currentUser.lvl =
-          parseInt(this.state.currentUser.lvl) + 1),
-        exp: (this.state.currentUser.exp -= this.state.currentUser.exp_limit),
-        exp_limit: (this.state.currentUser.exp_limit *= 1.05).Math.round(),
-        max_energy: (this.state.currentUser.max_energy *= 1.05).Math.round(),
-        energy: (this.state.currentUser.max_energy *= 1.05).Math.round()
+        lvl: this.state.currentUser.lvl =
+        (parseInt(this.state.currentUser.lvl) + 1),
+        exp: this.state.currentUser.exp -= (this.state.currentUser.exp_limit),
+        exp_limit: this.state.currentUser.exp_limit = (this.state.currentUser.exp_limit * 1.05).Math.round(),
+        max_energy: this.state.currentUser.max_energy = (this.state.currentUser.max_energy * 1.05).Math.round(),
+        energy: this.state.currentUser.max_energy = (this.state.currentUser.max_energy * 1.05).Math.round()
       })
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         let newArr = [...this.state.users];
         newArr = newArr.map(user => {
           if (user.id === this.state.currentUser.id) {

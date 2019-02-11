@@ -482,3 +482,22 @@ btn {
 .lvl {
   font-weight: bold;
 }
+
+.homepage {
+  background-color: #ffeead;
+  padding: 4em;
+}
+
+.homepage-images {
+  width: 400px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}

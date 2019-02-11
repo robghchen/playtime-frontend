@@ -5,6 +5,8 @@ class SignUpForm extends Component {
   state = {
     username: "",
     password: "",
+    first_name: "",
+    last_name: "",
     alert_error: false
   };
 
@@ -41,6 +43,28 @@ class SignUpForm extends Component {
                     type="password"
                     placeholder="Enter a password"
                     value={this.state.password}
+                    onChange={this.changeHandler}
+                  />
+                  <br />
+                  <label htmlFor="first-name">First Name:</label>
+                  <input
+                    id="first-name"
+                    className="form-control"
+                    name="first_name"
+                    type="text"
+                    placeholder="Enter your first name"
+                    value={this.state.first_name}
+                    onChange={this.changeHandler}
+                  />
+                  <br />
+                  <label htmlFor="last-name">Last Name:</label>
+                  <input
+                    id="last-name"
+                    className="form-control"
+                    name="last_name"
+                    type="text"
+                    placeholder="Enter your last name"
+                    value={this.state.last_name}
                     onChange={this.changeHandler}
                   />
                   <br />
@@ -82,7 +106,9 @@ class SignUpForm extends Component {
       this.props.submitSignUpHandler(this.state, event);
       this.setState({
         username: "",
-        password: ""
+        password: "",
+        first_name: "",
+        last_name: ""
       });
     } else {
       this.setState({ alert_error: true });
