@@ -488,16 +488,60 @@ btn {
   padding: 4em;
 }
 
+.playtime {
+  padding-bottom: 2em;
+}
+
 .homepage-images {
   width: 400px;
   height: auto;
-  border-radius: 4px;
+  border-radius: 10px;
 }
 
-.right {
-  float: right;
+.one {
+  position: absolute;
+  left: 4em;
 }
 
-.left {
-  float: left;
+.one-text {
+  position: absolute;
+  left: 50%;
+  margin-top: 3em;
+}
+
+.two {
+  position: absolute;
+  left: 50%;
+  margin-top: 10em;
+}
+
+.two-text {
+  position: absolute;
+  left: 4em;
+  margin-top: 20em;
+}
+
+.three {
+  position: absolute;
+  left: 4em;
+  margin-top: 31em;
+}
+
+.three-text {
+  position: absolute;
+  left: 50%;
+  margin-top: 28em;
+}
+
+.four {
+  position: absolute;
+  left: 50%;
+  margin-top: 41em;
+  padding-bottom: 4em;
+}
+
+.four-text {
+  position: absolute;
+  left: 4em;
+  margin-top: 45em;
 }

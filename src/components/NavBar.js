@@ -8,7 +8,7 @@ class NavBar extends Component {
       <div className="ui menu navBar">
         <Fragment>
           <Link to={"/home"} className="item">
-            <span onClick={this.props.clearSearch}>PlayTime <span role="img" aria-label="alarm clock">⏰</span></span>
+            <span onClick={this.props.clearSearch}>PlayTime! <span role="img" aria-label="alarm clock">⏰</span></span>
           </Link>
           {this.props.isUserLoggedIn ? (
             <div className="stats">

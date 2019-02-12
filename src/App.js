@@ -53,6 +53,18 @@ class App extends Component {
       .then(resp => resp.json())
       .then(users => {
         this.setState({ users, filteredUsers: users });
+
+        if (localStorage.getItem("token") !== null) {
+          let currentUser = users.find(user => {
+            return user.id === parseInt(localStorage.getItem("id"));
+          });
+          this.setState({
+            currentUser,
+            token: localStorage.getItem("token"),
+            isUserLoggedIn: true
+          });
+        }
+        this.addEnergy()
       });
 
     fetch("http://localhost:3000/api/v1/posts")
@@ -72,32 +84,26 @@ class App extends Component {
       .then(activities => {
         this.setState({ activities });
       });
-
-    if (localStorage.getItem("token") !== null) {
-      this.setState({
-        currentUser: {
-          id: parseInt(localStorage.getItem("id")),
-          username: localStorage.getItem("username"),
-          first_name: localStorage.getItem("first_name"),
-          last_name: localStorage.getItem("last_name"),
-          email: localStorage.getItem("email"),
-          city: localStorage.getItem("city"),
-          school: localStorage.getItem("school"),
-          work: localStorage.getItem("work"),
-          lvl: localStorage.getItem("lvl"),
-          exp: localStorage.getItem("exp"),
-          exp_limit: localStorage.getItem("exp_limit"),
-          energy: localStorage.getItem("energy"),
-          max_energy: localStorage.getItem("max_energy"),
-          speed: localStorage.getItem("speed"),
-          profile_img: localStorage.getItem("profile_img"),
-          cover_img: localStorage.getItem("cover_img")
-        },
-        token: localStorage.getItem("token"),
-        isUserLoggedIn: true
-      });
-    }
   }
+
+  // : {
+  //   id: parseInt(localStorage.getItem("id")),
+  //   username: localStorage.getItem("username"),
+  //   first_name: localStorage.getItem("first_name"),
+  //   last_name: localStorage.getItem("last_name"),
+  //   email: localStorage.getItem("email"),
+  //   city: localStorage.getItem("city"),
+  //   school: localStorage.getItem("school"),
+  //   work: localStorage.getItem("work"),
+  //   lvl: localStorage.getItem("lvl"),
+  //   exp: localStorage.getItem("exp"),
+  //   exp_limit: localStorage.getItem("exp_limit"),
+  //   energy: localStorage.getItem("energy"),
+  //   max_energy: localStorage.getItem("max_energy"),
+  //   speed: localStorage.getItem("speed"),
+  //   profile_img: localStorage.getItem("profile_img"),
+  //   cover_img: localStorage.getItem("cover_img")
+  // }
 
   componentDidUpdate(prevProps, prevState) {
     fetch("http://localhost:3000/api/v1/users")
@@ -105,11 +111,46 @@ class App extends Component {
       .then(users => {
         localStorage.setItem("users", JSON.stringify(users));
       });
+
+    
   }
 
   componentWillUnmount() {
     localStorage.clear();
   }
+
+  addEnergy = () => {
+    setInterval(() => {
+    if (this.state.currentUser.energy < this.state.currentUser.max_energy) {
+        fetch(
+          `http://localhost:3000/api/v1/users/${this.state.currentUser.id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              Authorization: localStorage.getItem("token")
+            },
+            body: JSON.stringify({
+              energy: this.state.currentUser.energy + 1
+            })
+          }
+        )
+          .then(res => res.json())
+          .then(data => {
+            let newArr = [...this.state.users];
+            newArr = newArr.map(user => {
+              if (user.id === this.state.currentUser.id) {
+                return data;
+              } else {
+                return user;
+              }
+            });
+            this.setState({ users: newArr, currentUser: data });
+          });
+        }
+      }, 300000);
+  };
 
   addActivity = (activity, username, datetime, friendId) => {
     fetch(`http://localhost:3000/api/v1/activities`, {
@@ -123,7 +164,16 @@ class App extends Component {
         player_id: this.state.currentUser.id,
         friend_id: friendId,
         task:
-          activity === "post"
+          activity ===
+          // "levelup"
+          //   ? `You leveled up! Congrats on reaching Lvl ${username} on ${datetime.slice(
+          //       5,
+          //       7
+          //     )}/${datetime.slice(8, 10)}/${datetime.slice(
+          //       2,
+          //       4
+          //     )} at ${datetime.slice(11, 16)}.` :
+          "post"
             ? `+60 exp, post to ${username} on ${datetime.slice(
                 5,
                 7
@@ -163,14 +213,14 @@ class App extends Component {
         let newArr = [...this.state.activities, data];
         this.setState({ activities: newArr });
       })
-      .then(this.addExp(activity));
+      .then(this.addExp(activity, datetime, friendId));
   };
 
   // addStreak = (activity) => {
   // coming soon
   // }
 
-  addExp = activity => {
+  addExp = (activity, datetime, friendId) => {
     fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
       method: "PATCH",
       headers: {
@@ -215,47 +265,41 @@ class App extends Component {
         });
         this.setState({ users: newArr, currentUser: data });
       })
-      .then(this.statsHandler());
+      .then(this.levelUp(datetime, friendId));
   };
 
-  statsHandler = () => {
+  levelUp = (datetime, friendId) => {
     let currentUser = this.state.currentUser;
     if (currentUser.exp >= currentUser.exp_limit) {
-      this.levelUp();
-    }
-  };
-
-  levelUp = () => {
-    fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem("token")
-      },
-      body: JSON.stringify({
-        username: this.state.currentUser.username,
-        lvl: this.state.currentUser.lvl =
-        (parseInt(this.state.currentUser.lvl) + 1),
-        exp: this.state.currentUser.exp -= (this.state.currentUser.exp_limit),
-        exp_limit: this.state.currentUser.exp_limit = (this.state.currentUser.exp_limit * 1.05).Math.round(),
-        max_energy: this.state.currentUser.max_energy = (this.state.currentUser.max_energy * 1.05).Math.round(),
-        energy: this.state.currentUser.max_energy = (this.state.currentUser.max_energy * 1.05).Math.round()
+      fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: localStorage.getItem("token")
+        },
+        body: JSON.stringify({
+          lvl: (currentUser.lvl = parseInt(currentUser.lvl) + 1),
+          exp: (currentUser.exp = currentUser.exp - currentUser.exp_limit),
+          exp_limit: (currentUser.exp_limit = currentUser.exp_limit * 1.15),
+          energy: (currentUser.max_energy = currentUser.max_energy * 1.05),
+          max_energy: (currentUser.max_energy = currentUser.max_energy * 1.05)
+        })
       })
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        let newArr = [...this.state.users];
-        newArr = newArr.map(user => {
-          if (user.id === this.state.currentUser.id) {
-            return data;
-          } else {
-            return user;
-          }
+        .then(res => res.json())
+        .then(data => {
+          let newArr = [...this.state.users];
+          newArr = newArr.map(user => {
+            if (user.id === this.state.currentUser.id) {
+              return data;
+            } else {
+              return user;
+            }
+          });
+          this.setState({ users: newArr, currentUser: data });
         });
-        this.setState({ users: newArr });
-      });
+      // .then(this.addActivity("levelup", currentUser.lvl, datetime, friendId));
+    }
   };
 
   changeHandler = e => {
