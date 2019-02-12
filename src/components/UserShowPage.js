@@ -7,14 +7,17 @@ import Banner from "../components/Banner";
 class UserShowPage extends Component {
   state = {
     showEditCover: false,
-    showEditProfilePic: false};
+    showEditProfilePic: false
+  };
 
-    hideEditCoverAndProfilePic = () => {
-      this.setState({ showEditCover: false, showEditProfilePic: false });
-    };
-    
+  hideEditCoverAndProfilePic = () => {
+    this.setState({ showEditCover: false, showEditProfilePic: false });
+  };
+
   render() {
-    return (
+    return this.props.currentUser.id > this.props.users.length ? (
+      <h3>Loading . . .</h3>
+    ) : (
       <React.Fragment>
         <Banner
           users={this.props.users}

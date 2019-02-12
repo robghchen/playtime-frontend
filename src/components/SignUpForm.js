@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, withRouter } from "react-router-dom";
+import { Route, withRouter, Link } from "react-router-dom";
 
 class SignUpForm extends Component {
   state = {
@@ -79,11 +79,11 @@ class SignUpForm extends Component {
                       ? localStorage.getItem("signupError")
                       : null}
                   </span>
-                  <input
-                    type="submit"
-                    className="signup button pointer"
-                    value="Submit"
-                  />
+                    <input
+                      type="submit"
+                      className="signup button pointer"
+                      value="Submit"
+                    />
                 </form>
               </div>
             );

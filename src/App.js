@@ -64,7 +64,7 @@ class App extends Component {
             isUserLoggedIn: true
           });
         }
-        this.addEnergy()
+        this.addEnergy();
       });
 
     fetch("http://localhost:3000/api/v1/posts")
@@ -111,8 +111,6 @@ class App extends Component {
       .then(users => {
         localStorage.setItem("users", JSON.stringify(users));
       });
-
-    
   }
 
   componentWillUnmount() {
@@ -121,7 +119,7 @@ class App extends Component {
 
   addEnergy = () => {
     setInterval(() => {
-    if (this.state.currentUser.energy < this.state.currentUser.max_energy) {
+      if (this.state.currentUser.energy < this.state.currentUser.max_energy) {
         fetch(
           `http://localhost:3000/api/v1/users/${this.state.currentUser.id}`,
           {
@@ -148,8 +146,8 @@ class App extends Component {
             });
             this.setState({ users: newArr, currentUser: data });
           });
-        }
-      }, 300000);
+      }
+    }, 300000);
   };
 
   addActivity = (activity, username, datetime, friendId) => {
@@ -315,7 +313,7 @@ class App extends Component {
   };
 
   render() {
-    return (
+    return this.state.users !== [] ? (
       <div>
         <NavBar
           isUserLoggedIn={this.state.isUserLoggedIn}
@@ -333,21 +331,25 @@ class App extends Component {
               path="/home"
               render={RouterProps => {
                 return this.state.isUserLoggedIn ? (
-                  <UserShowPage
-                    user_id={this.state.currentUser.id}
-                    posts={this.state.posts}
-                    addPost={this.addPost}
-                    addComment={this.addComment}
-                    isUserLoggedIn={this.state.isUserLoggedIn}
-                    currentUser={this.state.currentUser}
-                    deleteHandler={this.deleteHandler}
-                    editPostHandler={this.editPostHandler}
-                    comments={this.state.comments}
-                    users={JSON.parse(localStorage.getItem("users"))}
-                    editCover={this.editCover}
-                    editProfilePic={this.editProfilePic}
-                    activities={this.state.activities}
-                  />
+                  this.state.currentUser.id > this.state.users.length ? (
+                    <h3>Loading . . .</h3>
+                  ) : (
+                    <UserShowPage
+                      user_id={this.state.currentUser.id}
+                      posts={this.state.posts}
+                      addPost={this.addPost}
+                      addComment={this.addComment}
+                      isUserLoggedIn={this.state.isUserLoggedIn}
+                      currentUser={this.state.currentUser}
+                      deleteHandler={this.deleteHandler}
+                      editPostHandler={this.editPostHandler}
+                      comments={this.state.comments}
+                      users={this.state.users}
+                      editCover={this.editCover}
+                      editProfilePic={this.editProfilePic}
+                      activities={this.state.activities}
+                    />
+                  )
                 ) : (
                   <HomePage />
                 );
@@ -412,7 +414,27 @@ class App extends Component {
             <Route
               path="/signUp"
               render={() => {
-                return (
+                return this.state.isUserLoggedIn ? (
+                  this.state.currentUser.id === 0 ? (
+                    <h3>Loading . . .</h3>
+                  ) : (
+                    <UserShowPage
+                      user_id={this.state.currentUser.id}
+                      posts={this.state.posts}
+                      addPost={this.addPost}
+                      addComment={this.addComment}
+                      isUserLoggedIn={this.state.isUserLoggedIn}
+                      currentUser={this.state.currentUser}
+                      deleteHandler={this.deleteHandler}
+                      editPostHandler={this.editPostHandler}
+                      comments={this.state.comments}
+                      users={JSON.parse(localStorage.getItem("users"))}
+                      editCover={this.editCover}
+                      editProfilePic={this.editProfilePic}
+                      activities={this.state.activities}
+                    />
+                  )
+                ) : (
                   <SignUpForm submitSignUpHandler={this.submitSignUpHandler} />
                 );
               }}
@@ -434,6 +456,8 @@ class App extends Component {
           </span>
         </div>
       </div>
+    ) : (
+      <div className="loading">Loading . . .</div>
     );
   }
 
@@ -613,7 +637,15 @@ class App extends Component {
         exp_limit: 200,
         energy: 50,
         max_energy: 50,
-        speed: 1
+        speed: 1,
+        city: "N/A",
+        work: "N/A",
+        school: "N/A",
+        email: "N/A",
+        profile_img:
+          "https://c1.staticflickr.com/6/5643/23778807571_e9649ee35e_b.jpg",
+        cover_img:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Friends_logo.svg/2000px-Friends_logo.svg.png"
       })
     })
       .then(res => {
@@ -624,7 +656,10 @@ class App extends Component {
         localStorage.setItem("token", res.jwt);
         localStorage.setItem("id", res.user.id);
         localStorage.setItem("username", res.user.username);
-        //come back
+
+        let newArr = [...this.state.users];
+        newArr.push(res.user);
+
         this.setState({
           isUserLoggedIn: true,
           token: localStorage.getItem("token"),
@@ -639,12 +674,17 @@ class App extends Component {
             energy: 50,
             max_energy: 50,
             speed: 1,
-            password: ""
-          }
+            password: "",
+            profile_img:
+              "https://c1.staticflickr.com/6/5643/23778807571_e9649ee35e_b.jpg",
+            cover_img:
+              "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Friends_logo.svg/2000px-Friends_logo.svg.png"
+          },
+          users: newArr
         });
       })
       .catch(error => {
-        localStorage.setItem("signupError", "Duplicate account");
+        localStorage.setItem("signupError", "Duplicate account/Invalid input");
         this.props.history.push("/signup");
       });
   };
