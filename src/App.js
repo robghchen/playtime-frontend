@@ -398,7 +398,6 @@ class App extends Component {
                     isUserLoggedIn={this.state.isUserLoggedIn}
                     currentUser={this.state.currentUser}
                     updateHandler={this.updateHandler}
-                    mods={this.state.mods}
                   />
                 );
               }}
@@ -561,6 +560,7 @@ class App extends Component {
   };
 
   editProfilePic = input => {
+    console.log(input);
     fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
       method: "PATCH",
       headers: {
@@ -588,8 +588,6 @@ class App extends Component {
   };
 
   updateHandler = currentUser => {
-    this.setState({ currentUser });
-
     fetch(`http://localhost:3000/api/v1/users/${currentUser.id}`, {
       method: "PATCH",
       headers: {
@@ -598,17 +596,23 @@ class App extends Component {
         Authorization: this.state.token
       },
       body: JSON.stringify({
+        id: currentUser.id,
         username: currentUser.username,
-        password: currentUser.password
+        password: currentUser.password,
+        first_name: currentUser.first_name,
+        last_name: currentUser.last_name,
+        email: currentUser.email,
+        city: currentUser.city,
+        school: currentUser.school,
+        work: currentUser.work,
+        profile_img: currentUser.profile_img,
+        cover_img: currentUser.cover_img
       })
     })
       .then(resp => resp.json())
-      .then(user => {
+      .then(currentUser => {
         this.setState({
-          currentUser: {
-            id: user.id,
-            username: user.username
-          }
+          currentUser
         });
         this.props.history.push("/home");
       });

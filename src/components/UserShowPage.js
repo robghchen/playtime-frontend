@@ -23,6 +23,8 @@ class UserShowPage extends Component {
           users={this.props.users}
           user_id={this.props.user_id}
           currentUser={this.props.currentUser}
+          editProfilePic={this.props.editProfilePic}
+          editCover={this.props.editCover}
         />
         <PostsContainer
           user_id={this.props.user_id}
