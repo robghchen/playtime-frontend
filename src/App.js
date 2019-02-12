@@ -11,6 +11,7 @@ import EditProfileForm from "./components/EditProfileForm";
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import SearchPage from "./components/SearchPage";
+import NewsFeed from "./components/NewsFeed";
 
 class App extends Component {
   state = {
@@ -329,6 +330,31 @@ class App extends Component {
           <Switch>
             <Route
               path="/home"
+              render={RouterProps => {
+                return this.state.isUserLoggedIn ? (
+                  this.state.currentUser.id > this.state.users.length ? (
+                    <h3>Loading . . .</h3>
+                  ) : (
+                    <NewsFeed
+                      user_id={this.state.currentUser.id}
+                      posts={this.state.posts}
+                      addPost={this.addPost}
+                      addComment={this.addComment}
+                      isUserLoggedIn={this.state.isUserLoggedIn}
+                      currentUser={this.state.currentUser}
+                      deleteHandler={this.deleteHandler}
+                      comments={this.state.comments}
+                      users={this.state.users}
+                      activities={this.state.activities}
+                    />
+                  )
+                ) : (
+                  <HomePage />
+                );
+              }}
+            />
+            <Route
+              path="/profile"
               render={RouterProps => {
                 return this.state.isUserLoggedIn ? (
                   this.state.currentUser.id > this.state.users.length ? (

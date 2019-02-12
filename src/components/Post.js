@@ -72,10 +72,19 @@ class Post extends React.Component {
                 </span>
               </Link>
               <div className="post">
-                <p className="username" onClick={this.props.hideEditCoverAndProfilePic}>
-                <span>Lvl {this.props.users.find(
+                <p
+                  className="username"
+                  onClick={this.props.hideEditCoverAndProfilePic}
+                >
+                  <span>
+                    Lvl{" "}
+                    {
+                      this.props.users.find(
                         user => user.id === this.props.post.player_id
-                      ).lvl} </span><Link
+                      ).lvl
+                    }{" "}
+                  </span>
+                  <Link
                     to={`/user/${
                       this.props.users.find(
                         user => user.id === this.props.post.player_id
@@ -86,14 +95,33 @@ class Post extends React.Component {
                       this.props.users.find(
                         user => user.id === this.props.post.player_id
                       ).username
-                    }{" "}
-                  </Link><span className="date">{
-                      this.props.post.created_at.slice(5,7)
-                    }/{
-                      this.props.post.created_at.slice(8,10)
-                    }/{
-                      this.props.post.created_at.slice(2,4)
-                    }</span>
+                    }
+                  </Link>
+                  {" > "}
+                  <Link
+                    to={`/user/${
+                      this.props.users.find(
+                        user => user.id === this.props.post.friend_id
+                      ).id
+                    }`}
+                  >
+                    {
+                      this.props.users.find(
+                        user => user.id === this.props.post.friend_id
+                      ).username
+                    }
+                    {" "}
+                    {/* {
+                      this.props.users.find(
+                        user => user.id === this.props.post.friend_id
+                      ).username
+                    }{" "} */}
+                  </Link>
+                  <span className="date">
+                    {this.props.post.created_at.slice(5, 7)}/
+                    {this.props.post.created_at.slice(8, 10)}/
+                    {this.props.post.created_at.slice(2, 4)}
+                  </span>
                 </p>
                 <br />
                 <p>{this.props.post.content}</p>

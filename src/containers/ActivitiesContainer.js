@@ -4,7 +4,7 @@ import Activity from "../components/Activity";
 class ActivitiesContainer extends Component {
   render() {
     return (
-      <div className="activities-container">
+      <div className={this.props.where === "newsContainer" ? "activities-container-news" : "activities-container"}>
         <h2 className="center">Activities</h2>
         {this.props.activities
           .filter(activity => {

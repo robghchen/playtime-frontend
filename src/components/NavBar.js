@@ -8,13 +8,20 @@ class NavBar extends Component {
       <div className="ui menu navBar">
         <Fragment>
           <Link to={"/home"} className="item">
-            <span onClick={this.props.clearSearch}>PlayTime! <span role="img" aria-label="alarm clock">⏰</span></span>
+            <span onClick={this.props.clearSearch}>
+              PlayTime!{" "}
+              <span role="img" aria-label="alarm clock">
+                ⏰
+              </span>
+            </span>
           </Link>
           {this.props.isUserLoggedIn ? (
             <div className="stats">
               <div className="lvl">Lvl {this.props.currentUser.lvl}</div>
-              <div className="exp">Exp: {this.props.currentUser.exp} /{" "}
-                {this.props.currentUser.exp_limit}</div>
+              <div className="exp">
+                Exp: {this.props.currentUser.exp} /{" "}
+                {this.props.currentUser.exp_limit}
+              </div>
               <div className="energy">
                 Energy: {this.props.currentUser.energy} /{" "}
                 {this.props.currentUser.max_energy}
@@ -28,6 +35,9 @@ class NavBar extends Component {
         </Fragment>
         {this.props.isUserLoggedIn ? (
           <span className="ui menu navright">
+            <Link to={"/profile"} className="item">
+              <span onClick={this.props.clearSearch}>Profile</span>
+            </Link>
             <Link to={"/editProfile"} className="item">
               <span onClick={this.props.clearSearch}>Edit Profile</span>
             </Link>

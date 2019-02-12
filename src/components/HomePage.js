@@ -10,10 +10,10 @@ class HomePage extends React.Component {
       <div className="homepage">
         <h1 className="center playtime">PlayTime! ⏰</h1>
           <h3 className="one-text">
-            Social Media where you actually talk to friends
+            Social Media where you actually talk to your friends
           </h3>
           <h3 className="two-text">
-            Gain experience by engaging with posts and comments
+            Gain experience by engaging posting and commenting on friends' walls
           </h3>
           <h3 className="three-text">
             Level Up and unlock more abilities together
