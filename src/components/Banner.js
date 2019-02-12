@@ -9,13 +9,13 @@ class Banner extends Component {
     showEditProfilePic: false
   };
 
-  editCover = () => {
-    this.props.editCover();
+  editCover = (input) => {
+    this.props.editCover(input);
     this.setState({ showEditCover: false });
   };
 
-  editProfilePic = () => {
-    this.props.editProfilePic();
+  editProfilePic = (input) => {
+    this.props.editProfilePic(input);
     this.setState({ showEditProfilePic: false });
   };
 

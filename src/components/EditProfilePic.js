@@ -25,6 +25,7 @@ class EditProfilePic extends Component {
   };
 
   render() {
+    console.log(this.state.input);
     return (
       <div className="ui card form profile">
         <form onSubmit={this.handleSubmit}>
