@@ -187,7 +187,7 @@ class App extends Component {
         });
         this.setState({ tasks: newArr });
       })
-      .then(this.addActivity(`${activity} task`, username, datetime, friendId));
+      .then(this.addActivity(activity, username, datetime, friendId));
   };
 
   // addStreak = (activity) => {
@@ -773,41 +773,32 @@ class App extends Component {
           },
           users: newArr
         });
-        this.createTask(res.user.id);
+
+        fetch("http://localhost:3000/api/v1/tasks", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: localStorage.getItem("token")
+          },
+          body: JSON.stringify({
+            user_id: res.user.id,
+            post_count: 0,
+            post_max: 1,
+            comment_count: 0,
+            comment_max: 3
+          })
+        })
+          .then(res => res.json())
+          .then(data => {
+            let newArr = [...this.state.tasks, data];
+            this.setState({ tasks: newArr });
+          });
       })
       .catch(error => {
         localStorage.setItem("signupError", "Duplicate account/Invalid input");
         this.props.history.push("/signup");
       });
-  };
-
-  createTask = playerId => {
-    fetch("http://localhost:3000/api/v1/tasks", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem("token")
-      },
-      body: JSON.stringify({
-        user_id: playerId,
-        post_count: 0,
-        post_max: 1,
-        comment_count: 0,
-        comment_max: 3
-      })
-    })
-      .then(res => res.json())
-      .then(data => {
-        let newArr = [...this.state.tasks, data];
-        this.setState({ tasks: newArr });
-      });
-  };
-
-  submitLoginHandler = (userInfo, event) => {
-    event.preventDefault();
-    this.getUser(userInfo);
-    this.props.history.push("/home");
   };
 
   getUser = userInfo => {

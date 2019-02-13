@@ -7,20 +7,25 @@ class DailyTasks extends Component {
       return task.user_id === this.props.currentUser.id;
     });
     return (
-      <div>
-        <h2 className="center">Daily Tasks</h2>
-        
-        {/* <p>
-          {task.post_count >= task.post_max
-            ? "✅ "
-            : `Posts: ${task.post_count} / ${task.post_max}`}{" "}
-        </p>
-        <p>
-          {task.comment_count >= task.comment_max
-            ? "✅ "
-            : `Comments: ${task.comment_count} / ${task.comment_max}`}
-        </p> */}
-      </div>
+      <React.Fragment>
+        {this.props.tasks !== [] ? (
+          <div>
+            <h2 className="center">Daily Tasks</h2>
+            <p>
+              {task.post_count >= task.post_max
+                ? "✅ "
+                : `Posts: ${task.post_count} / ${task.post_max}`}{" "}
+            </p>
+            <p>
+              {task.comment_count >= task.comment_max
+                ? "✅ "
+                : `Comments: ${task.comment_count} / ${task.comment_max}`}
+            </p>{" "}
+          </div>
+        ) : (
+          <p>Loading . . .</p>
+        )}
+      </React.Fragment>
     );
   }
 }

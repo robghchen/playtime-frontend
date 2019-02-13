@@ -9,7 +9,6 @@ class NewsFeed extends Component {
   state = {};
 
   render() {
-    console.log(this.props.posts);
     return this.props.currentUser.id > this.props.users.length ? (
       <h3>Loading . . .</h3>
     ) : (
