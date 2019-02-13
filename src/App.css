@@ -2,6 +2,10 @@ btn {
   border-radius: 2px;
 }
 
+#root {
+  margin-top: 5.8em;
+}
+
 .App {
   text-align: center;
 }
@@ -41,44 +45,6 @@ btn {
   right: 1em;
 }
 
-.mod-link {
-  display: inline-block;
-  width: 100%;
-}
-
-.logo-image {
-  margin-top: -5em;
-  width: 40%;
-}
-
-.mod-link-parent {
-  text-align: center;
-  width: 100%;
-}
-
-.mods-masthead {
-  background-color: #ffffff;
-  /* background-image: url("") !important; */
-  /* background-size: cover !important; */
-  /* background-image: url("/your-dir/your_image.jpg"); */
-  min-height: 100%;
-  /* background-repeat: no-repeat; */
-  /* background-attachment: fixed; */
-  background-position: center;
-}
-
-.mod-name {
-  padding-top: 2.5em;
-  text-align: center;
-  font-size: 3.5em;
-  font-family: fantasy;
-}
-
-.mod-title {
-  font-family: fantasy;
-  font-size: 2.5em;
-}
-
 .post-container {
   width: 100%;
   height: auto;
@@ -86,7 +52,6 @@ btn {
   margin-top: 40px;
   margin-bottom: 2em;
   padding-bottom: 2em;
-  overflow: hidden;
 }
 
 .users-container {
@@ -297,6 +262,13 @@ btn {
   background-color: #ffffff;
 }
 
+.ui.menu.navBar {
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+  top: 0em;
+}
+
 .ui.menu.navBar,
 .ui.menu.navright {
   background-color: #52a2d5;
@@ -320,7 +292,6 @@ btn {
 }
 
 .posts-container {
-  background-color: #90ccf4;
   position: relative;
   float: left;
   width: 55%;
@@ -370,7 +341,7 @@ btn {
 .cover-photo {
   width: 100%;
   height: 30em;
-  object-fit: contain;
+  object-fit: fill;
 }
 
 .profile-picture {
@@ -379,6 +350,17 @@ btn {
   border-radius: 4px;
   margin-top: -75px;
   margin-left: 3em;
+  object-fit: cover;
+}
+
+.profile-picture-nav {
+  position: absolute;
+  margin-top: -1.1em;
+  margin-left: -1.1em;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  object-fit: cover;
 }
 
 .profile-username {

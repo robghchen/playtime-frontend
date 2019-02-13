@@ -704,11 +704,17 @@ class App extends Component {
       })
     })
       .then(resp => resp.json())
-      .then(currentUser => {
-        this.setState({
-          currentUser
+      .then(data => {
+        let newArr = [...this.state.users];
+        newArr = newArr.map(user => {
+          if (user.id === this.state.currentUser.id) {
+            return data;
+          } else {
+            return user;
+          }
         });
-        this.props.history.push("/home");
+        this.setState({ users: newArr, currentUser: data });
+        this.props.history.push("/profile");
       });
   };
 
@@ -806,6 +812,12 @@ class App extends Component {
         localStorage.setItem("signupError", "Duplicate account/Invalid input");
         this.props.history.push("/signup");
       });
+  };
+
+  submitLoginHandler = (userInfo, event) => {
+    event.preventDefault();
+    this.getUser(userInfo);
+    this.props.history.push("/home");
   };
 
   getUser = userInfo => {
