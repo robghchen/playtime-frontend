@@ -155,7 +155,7 @@ class App extends Component {
             this.setState({ users: newArr, currentUser: data });
           });
       }
-    }, 300000);
+    }, 60000);
   };
 
   addPost = (input, playerId, friendId) => {
@@ -395,42 +395,38 @@ class App extends Component {
           }
         });
         this.setState({ users: newArr, currentUser: data });
-      })
-      .then(this.levelUp(datetime, friendId));
-  };
 
-  levelUp = (datetime, friendId) => {
-    let currentUser = this.state.currentUser;
-    if (currentUser.exp >= currentUser.exp_limit) {
-      fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: localStorage.getItem("token")
-        },
-        body: JSON.stringify({
-          lvl: (currentUser.lvl = parseInt(currentUser.lvl) + 1),
-          exp: (currentUser.exp = currentUser.exp - currentUser.exp_limit),
-          exp_limit: (currentUser.exp_limit = currentUser.exp_limit * 1.15),
-          energy: (currentUser.max_energy = currentUser.max_energy * 1.05),
-          max_energy: (currentUser.max_energy = currentUser.max_energy * 1.05)
-        })
-      })
-        .then(res => res.json())
-        .then(data => {
-          let newArr = [...this.state.users];
-          newArr = newArr.map(user => {
-            if (user.id === this.state.currentUser.id) {
-              return data;
-            } else {
-              return user;
-            }
-          });
-          this.setState({ users: newArr, currentUser: data });
-        });
-      // .then(this.addActivity("levelup", currentUser.lvl, datetime, friendId));
-    }
+        if (data.exp >= data.exp_limit) {
+          fetch(`http://localhost:3000/api/v1/users/${data.id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              Authorization: localStorage.getItem("token")
+            },
+            body: JSON.stringify({
+              lvl: (data.lvl = parseInt(data.lvl) + 1),
+              exp: (data.exp = data.exp - data.exp_limit),
+              exp_limit: (data.exp_limit = data.exp_limit * 1.15),
+              energy: (data.max_energy = data.max_energy * 1.05) + 3,
+              max_energy: (data.max_energy = data.max_energy * 1.05)
+            })
+          })
+            .then(res => res.json())
+            .then(userData => {
+              let newArr = [...this.state.users];
+              newArr = newArr.map(user => {
+                if (user.id === this.state.currentUser.id) {
+                  return userData;
+                } else {
+                  return user;
+                }
+              });
+              this.setState({ users: newArr, currentUser: userData });
+            });
+          // .then(this.addActivity("levelup", currentUser.lvl, datetime, friendId));
+        }
+      });
   };
 
   changeHandler = e => {
