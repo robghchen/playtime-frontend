@@ -35,6 +35,7 @@ class NewsFeed extends Component {
         <DailyTasks
           tasks={this.props.tasks}
           currentUser={this.props.currentUser}
+          where="newsContainer"
         />
       </React.Fragment>
     );

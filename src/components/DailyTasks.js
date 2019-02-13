@@ -9,16 +9,16 @@ class DailyTasks extends Component {
     return (
       <React.Fragment>
         {task ? (
-          <div>
+          <div className={this.props.where === "newsContainer" ? "daily-tasks-news" : "daily-tasks"}>
             <h2 className="center">Daily Tasks</h2>
             <p>
               {task.post_count >= task.post_max
-                ? "✅ "
+                ? "Posts: 1 / 1 ✅ "
                 : `Posts: ${task.post_count} / ${task.post_max}`}{" "}
             </p>
             <p>
               {task.comment_count >= task.comment_max
-                ? "✅ "
+                ? "Comments: 3 /3 ✅ "
                 : `Comments: ${task.comment_count} / ${task.comment_max}`}
             </p>{" "}
           </div>

@@ -472,7 +472,7 @@ btn {
   font-size: 85%;
 }
 
-.activities-container {
+.daily-tasks {
   position: absolute;
   width: 34.5%;
   float: right;
@@ -487,11 +487,41 @@ btn {
   overflow-x: hidden;
 }
 
-.activities-container-news {
+.daily-tasks-news {
   position: absolute;
   width: 34.5%;
   float: right;
   top: 17.4em;
+  left: 63%;
+  padding: 2em;
+  border-radius: 0.5em;
+  border: 1px solid #ff6f69;
+  border-bottom: 2px solid #ff6f69;
+  height: 15em;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.activities-container {
+  position: absolute;
+  width: 34.5%;
+  float: right;
+  top: 70em;
+  left: 63%;
+  padding: 2em;
+  border-radius: 0.5em;
+  border: 1px solid #ff6f69;
+  border-bottom: 2px solid #ff6f69;
+  height: 15em;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.activities-container-news {
+  position: absolute;
+  width: 34.5%;
+  float: right;
+  top: 34.4em;
   left: 63%;
   padding: 2em;
   border-radius: 0.5em;
