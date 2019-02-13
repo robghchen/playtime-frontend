@@ -42,6 +42,7 @@ class App extends Component {
     posts: [],
     comments: [],
     activities: [],
+    tasks: [],
     token: "",
     search: "",
     energyClassName: "energy-hide"
@@ -84,6 +85,12 @@ class App extends Component {
       .then(resp => resp.json())
       .then(activities => {
         this.setState({ activities });
+      });
+
+    fetch("http://localhost:3000/api/v1/tasks")
+      .then(resp => resp.json())
+      .then(tasks => {
+        this.setState({ tasks });
       });
   }
 
@@ -151,6 +158,42 @@ class App extends Component {
     }, 300000);
   };
 
+  completeTask = (activity, username, datetime, friendId) => {
+    const task = this.state.tasks.find(
+      task => task.user_id === this.state.currentUser.id
+    );
+    fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem("token")
+      },
+      body: JSON.stringify({
+        post_count: activity === "post" ? ++task.post_count : task.post_count,
+        comment_count:
+          activity === "comment" ? ++task.comment_count : task.comment_count
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        let newArr = [...this.state.tasks];
+        newArr = newArr.map(task => {
+          if (task.user_id === this.state.currentUser.id) {
+            return data;
+          } else {
+            return task;
+          }
+        });
+        this.setState({ tasks: newArr });
+      })
+      .then(this.addActivity(`${activity} task`, username, datetime, friendId));
+  };
+
+  // addStreak = (activity) => {
+  // coming soon
+  // }
+
   addActivity = (activity, username, datetime, friendId) => {
     fetch(`http://localhost:3000/api/v1/activities`, {
       method: "POST",
@@ -172,6 +215,24 @@ class App extends Component {
           //       2,
           //       4
           //     )} at ${datetime.slice(11, 16)}.` :
+
+          // : "post task"
+          // ? `+100 exp, complete post task on ${datetime.slice(
+          //     5,
+          //     7
+          //   )}/${datetime.slice(8, 10)}/${datetime.slice(
+          //     2,
+          //     4
+          //   )} at ${datetime.slice(11, 16)}.`
+          // : "comment task"
+          // ? `+100 exp, complete comment task on ${datetime.slice(
+          //     5,
+          //     7
+          //   )}/${datetime.slice(8, 10)}/${datetime.slice(
+          //     2,
+          //     4
+          //   )} at ${datetime.slice(11, 16)}.`
+
           "post"
             ? `+60 exp, post to ${username} on ${datetime.slice(
                 5,
@@ -214,10 +275,6 @@ class App extends Component {
       })
       .then(this.addExp(activity, datetime, friendId));
   };
-
-  // addStreak = (activity) => {
-  // coming soon
-  // }
 
   addExp = (activity, datetime, friendId) => {
     fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
@@ -346,6 +403,7 @@ class App extends Component {
                       comments={this.state.comments}
                       users={this.state.users}
                       activities={this.state.activities}
+                      tasks={this.state.tasks}
                     />
                   )
                 ) : (
@@ -374,6 +432,7 @@ class App extends Component {
                       editCover={this.editCover}
                       editProfilePic={this.editProfilePic}
                       activities={this.state.activities}
+                      tasks={this.state.tasks}
                     />
                   )
                 ) : (
@@ -399,6 +458,7 @@ class App extends Component {
                     editCover={this.editCover}
                     editProfilePic={this.editProfilePic}
                     activities={this.state.activities}
+                    tasks={this.state.tasks}
                   />
                 );
               }}
@@ -457,6 +517,7 @@ class App extends Component {
                       editCover={this.editCover}
                       editProfilePic={this.editProfilePic}
                       activities={this.state.activities}
+                      tasks={this.state.tasks}
                     />
                   )
                 ) : (
@@ -509,7 +570,7 @@ class App extends Component {
           let username = this.state.users.find(user => {
             return user.id === friendId;
           }).username;
-          this.addActivity("post", username, data.created_at, friendId);
+          this.completeTask("post", username, data.created_at, friendId);
         });
     } else {
       this.energyShow();
@@ -538,7 +599,7 @@ class App extends Component {
             user => user.id === data.post.friend_id
           ).username;
           this.setState({ comments: newArr });
-          this.addActivity(
+          this.completeTask(
             "comment",
             username,
             data.created_at,
@@ -712,10 +773,34 @@ class App extends Component {
           },
           users: newArr
         });
+        this.createTask(res.user.id);
       })
       .catch(error => {
         localStorage.setItem("signupError", "Duplicate account/Invalid input");
         this.props.history.push("/signup");
+      });
+  };
+
+  createTask = playerId => {
+    fetch("http://localhost:3000/api/v1/tasks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem("token")
+      },
+      body: JSON.stringify({
+        user_id: playerId,
+        post_count: 0,
+        post_max: 1,
+        comment_count: 0,
+        comment_max: 3
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        let newArr = [...this.state.tasks, data];
+        this.setState({ tasks: newArr });
       });
   };
 

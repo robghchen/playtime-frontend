@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import PostsContainer from "../containers/PostsContainer";
 import ActivitiesContainer from "../containers/ActivitiesContainer";
 import Banner from "../components/Banner";
+import DailyTasks from "../components/DailyTasks";
 
 class UserShowPage extends Component {
   state = {
@@ -42,6 +43,10 @@ class UserShowPage extends Component {
         />
         <ActivitiesContainer
           activities={this.props.activities}
+          currentUser={this.props.currentUser}
+        />
+        <DailyTasks
+          tasks={this.props.tasks}
           currentUser={this.props.currentUser}
         />
       </React.Fragment>

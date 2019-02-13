@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import NewsContainer from "../containers/NewsContainer";
 import ActivitiesContainer from "../containers/ActivitiesContainer";
 import Banner from "../components/Banner";
+import DailyTasks from "../components/DailyTasks";
 
 class NewsFeed extends Component {
   state = {};
@@ -31,6 +32,10 @@ class NewsFeed extends Component {
           activities={this.props.activities}
           currentUser={this.props.currentUser}
           where="newsContainer"
+        />
+        <DailyTasks
+          tasks={this.props.tasks}
+          currentUser={this.props.currentUser}
         />
       </React.Fragment>
     );
