@@ -8,7 +8,7 @@ class DailyTasks extends Component {
     });
     return (
       <React.Fragment>
-        {this.props.tasks !== [] ? (
+        {task ? (
           <div>
             <h2 className="center">Daily Tasks</h2>
             <p>

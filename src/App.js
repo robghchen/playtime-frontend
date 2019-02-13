@@ -158,6 +158,70 @@ class App extends Component {
     }, 300000);
   };
 
+  addPost = (input, playerId, friendId) => {
+    if (this.state.currentUser.energy >= 20) {
+      fetch("http://localhost:3000/api/v1/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: localStorage.getItem("token")
+        },
+        body: JSON.stringify({
+          content: input,
+          player_id: playerId,
+          friend_id: friendId
+        })
+      })
+        .then(res => res.json())
+        .then(data => {
+          let newArr = [...this.state.posts];
+          newArr.push(data);
+          this.setState({ posts: newArr });
+          let username = this.state.users.find(user => {
+            return user.id === friendId;
+          }).username;
+          this.completeTask("post", username, data.created_at, friendId);
+        });
+    } else {
+      this.energyShow();
+    }
+  };
+
+  addComment = (input, playerId, postId) => {
+    if (this.state.currentUser.energy >= 5) {
+      fetch("http://localhost:3000/api/v1/comments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: localStorage.getItem("token")
+        },
+        body: JSON.stringify({
+          comment: input,
+          user_id: playerId,
+          post_id: postId
+        })
+      })
+        .then(res => res.json())
+        .then(data => {
+          let newArr = [...this.state.comments, data];
+          let username = this.state.users.find(
+            user => user.id === data.post.friend_id
+          ).username;
+          this.setState({ comments: newArr });
+          this.completeTask(
+            "comment",
+            username,
+            data.created_at,
+            data.post.friend_id
+          );
+        });
+    } else {
+      this.energyShow();
+    }
+  };
+
   completeTask = (activity, username, datetime, friendId) => {
     const task = this.state.tasks.find(
       task => task.user_id === this.state.currentUser.id
@@ -547,70 +611,6 @@ class App extends Component {
     );
   }
 
-  addPost = (input, playerId, friendId) => {
-    if (this.state.currentUser.energy >= 20) {
-      fetch("http://localhost:3000/api/v1/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: localStorage.getItem("token")
-        },
-        body: JSON.stringify({
-          content: input,
-          player_id: playerId,
-          friend_id: friendId
-        })
-      })
-        .then(res => res.json())
-        .then(data => {
-          let newArr = [...this.state.posts];
-          newArr.push(data);
-          this.setState({ posts: newArr });
-          let username = this.state.users.find(user => {
-            return user.id === friendId;
-          }).username;
-          this.completeTask("post", username, data.created_at, friendId);
-        });
-    } else {
-      this.energyShow();
-    }
-  };
-
-  addComment = (input, playerId, postId) => {
-    if (this.state.currentUser.energy >= 5) {
-      fetch("http://localhost:3000/api/v1/comments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: localStorage.getItem("token")
-        },
-        body: JSON.stringify({
-          comment: input,
-          user_id: playerId,
-          post_id: postId
-        })
-      })
-        .then(res => res.json())
-        .then(data => {
-          let newArr = [...this.state.comments, data];
-          let username = this.state.users.find(
-            user => user.id === data.post.friend_id
-          ).username;
-          this.setState({ comments: newArr });
-          this.completeTask(
-            "comment",
-            username,
-            data.created_at,
-            data.post.friend_id
-          );
-        });
-    } else {
-      this.energyShow();
-    }
-  };
-
   energyShow = () => {
     this.setState({ energyClassName: "energy-show" });
   };
@@ -744,6 +744,9 @@ class App extends Component {
         else return res.json();
       })
       .then(res => {
+
+        
+
         localStorage.setItem("token", res.jwt);
         localStorage.setItem("id", res.user.id);
         localStorage.setItem("username", res.user.username);
@@ -794,6 +797,7 @@ class App extends Component {
             let newArr = [...this.state.tasks, data];
             this.setState({ tasks: newArr });
           });
+
       })
       .catch(error => {
         localStorage.setItem("signupError", "Duplicate account/Invalid input");
