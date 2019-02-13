@@ -57,7 +57,7 @@ btn {
 }
 
 .mods-masthead {
-  background-color: #ffeead;
+  background-color: #ffffff;
   /* background-image: url("") !important; */
   /* background-size: cover !important; */
   /* background-image: url("/your-dir/your_image.jpg"); */
@@ -84,6 +84,8 @@ btn {
   height: auto;
   margin-left: 40px;
   margin-top: 40px;
+  margin-bottom: 2em;
+  padding-bottom: 2em;
   overflow: hidden;
 }
 
@@ -137,8 +139,8 @@ btn {
   margin-right: 10em;
   border-radius: 2px;
   padding: 0.8em;
-  background-color: #ffcc5c;
-  color: #88d8b0;
+  background-color: #52a2d5;
+  color: #ffffff;
   border-radius: 3px;
 }
 
@@ -148,8 +150,8 @@ btn {
   margin-left: 10em;
   border-radius: 2px;
   padding: 0.8em;
-  background-color: #ffcc5c;
-  color: #88d8b0;
+  background-color: #52a2d5;
+  color: #ffffff;
   border-radius: 3px;
 }
 
@@ -160,8 +162,8 @@ btn {
   left: 10em;
   border-radius: 2px;
   padding: 0.8em;
-  background-color: #ffcc5c;
-  color: #88d8b0;
+  background-color: #52a2d5;
+  color: #ffffff;
   border-radius: 3px;
 }
 
@@ -277,9 +279,9 @@ btn {
   padding-left: 2em;
   padding-bottom: 2em;
   left: 3.5%;
-  background-color: #ffeead;
-  border: 1px solid #ff6f69;
-  border-bottom: 2px solid #ff6f69;
+  background-color: #ffffff;
+  border: 1px solid #f78888;
+  border-bottom: 2px solid #f78888;
 }
 
 /* #new-post-form {
@@ -292,19 +294,19 @@ btn {
 } */
 
 .ui {
-  background-color: #ffeead;
+  background-color: #ffffff;
 }
 
 .ui.menu.navBar,
 .ui.menu.navright {
-  background-color: #ffcc5c;
-  color: #88d8b0;
-  border-bottom: 2px solid #ff6f69;
+  background-color: #52a2d5;
+  color: #ffffff;
+  border-bottom: 2px solid #f78888;
 }
 
 .ui.menu.navBar span,
 .ui.menu.navBar a {
-  color: #88d8b0;
+  color: #ffffff;
 }
 
 .comments-container {
@@ -318,6 +320,7 @@ btn {
 }
 
 .posts-container {
+  background-color: #90ccf4;
   position: relative;
   float: left;
   width: 55%;
@@ -325,9 +328,10 @@ btn {
   padding: 2em;
   padding-right: 6em;
   border-radius: 0.5em;
-  border: 1px solid #ff6f69;
-  border-bottom: 2px solid #ff6f69;
-  background-color: #ffeead;
+  border: 1px solid #f78888;
+  border-bottom: 2px solid #f78888;
+  background-color: #ffffff;
+  box-shadow: 0.5em 0.5em grey;
 }
 
 .comment-form {
@@ -422,7 +426,7 @@ btn {
   position: sticky;
   width: 20em;
   border-radius: 2em;
-  border-bottom: 2px solid #ff6f69;
+  border-bottom: 2px solid #f78888;
   display: block;
   padding: 2em;
   padding-bottom: 0em;
@@ -436,7 +440,7 @@ btn {
   right: -17em;
   top: -5em;
   border-radius: 5em;
-  border: 1px solid #ff6f69;
+  border: 1px solid #f78888;
   border-bottom: 2px;
 }
 
@@ -480,11 +484,12 @@ btn {
   left: 63%;
   padding: 2em;
   border-radius: 0.5em;
-  border: 1px solid #ff6f69;
-  border-bottom: 2px solid #ff6f69;
+  border: 1px solid #f78888;
+  border-bottom: 2px solid #f78888;
   height: 15em;
   overflow: scroll;
   overflow-x: hidden;
+  box-shadow: 0.5em 0.5em grey;
 }
 
 .daily-tasks-news {
@@ -495,11 +500,12 @@ btn {
   left: 63%;
   padding: 2em;
   border-radius: 0.5em;
-  border: 1px solid #ff6f69;
-  border-bottom: 2px solid #ff6f69;
+  border: 1px solid #f78888;
+  border-bottom: 2px solid #f78888;
   height: 15em;
   overflow: scroll;
   overflow-x: hidden;
+  box-shadow: 0.5em 0.5em grey;
 }
 
 .activities-container {
@@ -510,11 +516,12 @@ btn {
   left: 63%;
   padding: 2em;
   border-radius: 0.5em;
-  border: 1px solid #ff6f69;
-  border-bottom: 2px solid #ff6f69;
+  border: 1px solid #f78888;
+  border-bottom: 2px solid #f78888;
   height: 15em;
   overflow: scroll;
   overflow-x: hidden;
+  box-shadow: 0.5em 0.5em grey;
 }
 
 .activities-container-news {
@@ -525,11 +532,12 @@ btn {
   left: 63%;
   padding: 2em;
   border-radius: 0.5em;
-  border: 1px solid #ff6f69;
-  border-bottom: 2px solid #ff6f69;
+  border: 1px solid #f78888;
+  border-bottom: 2px solid #f78888;
   height: 15em;
   overflow: scroll;
   overflow-x: hidden;
+  box-shadow: 0.5em 0.5em grey;
 }
 
 .center {
@@ -541,7 +549,7 @@ btn {
 }
 
 .homepage {
-  background-color: #ffeead;
+  background-color: #ffffff;
   padding: 4em;
 }
 
