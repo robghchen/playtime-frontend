@@ -226,32 +226,43 @@ class App extends Component {
     const task = this.state.tasks.find(
       task => task.user_id === this.state.currentUser.id
     );
-    fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem("token")
-      },
-      body: JSON.stringify({
-        post_count: activity === "post" ? ++task.post_count : task.post_count,
-        comment_count:
-          activity === "comment" ? ++task.comment_count : task.comment_count
+
+    if (
+      task.post_count < task.post_max ||
+      task.comment_count < task.comment_max
+    ) {
+      fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: localStorage.getItem("token")
+        },
+        body: JSON.stringify({
+          post_count:
+            activity === "post" && task.post_count < task.post_max
+              ? ++task.post_count
+              : task.post_count,
+          comment_count:
+            activity === "comment" && task.comment_count < task.comment_max
+              ? ++task.comment_count
+              : task.comment_count
+        })
       })
-    })
-      .then(res => res.json())
-      .then(data => {
-        let newArr = [...this.state.tasks];
-        newArr = newArr.map(task => {
-          if (task.user_id === this.state.currentUser.id) {
-            return data;
-          } else {
-            return task;
-          }
+        .then(res => res.json())
+        .then(data => {
+          let newArr = [...this.state.tasks];
+          newArr = newArr.map(task => {
+            if (task.user_id === this.state.currentUser.id) {
+              return data;
+            } else {
+              return task;
+            }
+          });
+          this.setState({ tasks: newArr });
         });
-        this.setState({ tasks: newArr });
-      })
-      .then(this.addActivity(activity, username, datetime, friendId));
+    }
+    this.addActivity(activity, username, datetime, friendId);
   };
 
   // addStreak = (activity) => {
@@ -744,9 +755,6 @@ class App extends Component {
         else return res.json();
       })
       .then(res => {
-
-        
-
         localStorage.setItem("token", res.jwt);
         localStorage.setItem("id", res.user.id);
         localStorage.setItem("username", res.user.username);
@@ -797,7 +805,6 @@ class App extends Component {
             let newArr = [...this.state.tasks, data];
             this.setState({ tasks: newArr });
           });
-
       })
       .catch(error => {
         localStorage.setItem("signupError", "Duplicate account/Invalid input");
