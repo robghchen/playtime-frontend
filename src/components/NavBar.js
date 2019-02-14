@@ -26,8 +26,11 @@ class NavBar extends Component {
                 Energy: {this.props.currentUser.energy} /{" "}
                 {this.props.currentUser.max_energy}
               </div>
+
+
             </div>
           ) : null}
+
           <SearchForm
             search={this.props.search}
             changeHandler={this.props.changeHandler}
@@ -36,7 +39,13 @@ class NavBar extends Component {
         {this.props.isUserLoggedIn ? (
           <span className="ui menu navright">
             <Link to={"/profile"} className="item">
-              <span onClick={this.props.clearSearch}><img src={this.props.currentUser.profile_img} alt="profile pic" className="profile-picture-nav"/></span>
+              <span onClick={this.props.clearSearch}>
+                <img
+                  src={this.props.currentUser.profile_img}
+                  alt="profile pic"
+                  className="profile-picture-nav"
+                />
+              </span>
             </Link>
             <Link to={"/editProfile"} className="item">
               <span onClick={this.props.clearSearch}>Edit Profile</span>

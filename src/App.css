@@ -276,6 +276,10 @@ btn {
   border-bottom: 2px solid #f78888;
 }
 
+.ui.menu.navright {
+  top: 0.7em;
+}
+
 .ui.menu.navBar span,
 .ui.menu.navBar a {
   color: #ffffff;
@@ -311,7 +315,7 @@ btn {
 
 .search-form {
   position: absolute;
-  left: 33em;
+  left: 55%;
 }
 
 .profile-icon {
@@ -341,7 +345,8 @@ btn {
 .cover-photo {
   width: 100%;
   height: 30em;
-  object-fit: fill;
+  object-fit: cover;
+  background-size: 100%;
 }
 
 .profile-picture {
@@ -351,6 +356,7 @@ btn {
   margin-top: -75px;
   margin-left: 3em;
   object-fit: cover;
+  background-size: 100%;
 }
 
 .profile-picture-nav {
