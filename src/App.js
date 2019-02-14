@@ -610,13 +610,16 @@ class App extends Component {
         )}
         <div className={this.state.energyClassName}>
           <img
-            src="https://cdn.pixabay.com/photo/2017/10/08/20/37/battery-2831535_960_720.png"
+            src="https://imgc.artprintimages.com/img/print/battery-low-energy-to-running_u-l-q18fsx00.jpg?h=550&w=550"
             alt="no energy"
+            className="no-energy-img"
           />
-          <p className="red">Not enough energy at the moment.</p>
-          <span onClick={this.energyHide} className="close pointer">
-            x
-          </span>
+          <div className="no-energy-text">
+            <p className="red">Not enough energy at the moment.</p>
+            <span onClick={this.energyHide} className="close pointer">
+              x
+            </span>
+          </div>
         </div>
         <div className={this.state.levelUpClassName}>
           <img
@@ -633,6 +636,10 @@ class App extends Component {
 
   energyShow = () => {
     this.setState({ energyClassName: "energy-show" });
+
+    setTimeout(() => {
+      this.setState({ energyClassName: "energy-hide" });
+    }, 5000);
   };
 
   energyHide = () => {
@@ -646,7 +653,7 @@ class App extends Component {
       this.setState({ levelUpClassName: "level-up-hide" });
     }, 5000);
   };
-amirshoh
+
   editCover = input => {
     fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
       method: "PATCH",
