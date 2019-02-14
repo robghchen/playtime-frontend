@@ -45,7 +45,8 @@ class App extends Component {
     tasks: [],
     token: "",
     search: "",
-    energyClassName: "energy-hide"
+    energyClassName: "energy-hide",
+    levelUpClassName: "level-up-hide"
   };
 
   componentDidMount() {
@@ -155,7 +156,7 @@ class App extends Component {
             this.setState({ users: newArr, currentUser: data });
           });
       }
-    }, 60000);
+    }, 30000);
   };
 
   addPost = (input, playerId, friendId) => {
@@ -423,6 +424,7 @@ class App extends Component {
                 }
               });
               this.setState({ users: newArr, currentUser: userData });
+              this.levelUpShow();
             });
           // .then(this.addActivity("levelup", currentUser.lvl, datetime, friendId));
         }
@@ -607,10 +609,21 @@ class App extends Component {
           />
         )}
         <div className={this.state.energyClassName}>
+          <img
+            src="https://cdn.pixabay.com/photo/2017/10/08/20/37/battery-2831535_960_720.png"
+            alt="no energy"
+          />
           <p className="red">Not enough energy at the moment.</p>
           <span onClick={this.energyHide} className="close pointer">
             x
           </span>
+        </div>
+        <div className={this.state.levelUpClassName}>
+          <img
+            src="https://ak5.picdn.net/shutterstock/videos/16181545/thumb/1.jpg"
+            alt="no energy"
+            className="level-up-img"
+          />
         </div>
       </div>
     ) : (
@@ -626,6 +639,14 @@ class App extends Component {
     this.setState({ energyClassName: "energy-hide" });
   };
 
+  levelUpShow = () => {
+    this.setState({ levelUpClassName: "level-up-show" });
+
+    setTimeout(() => {
+      this.setState({ levelUpClassName: "level-up-hide" });
+    }, 5000);
+  };
+amirshoh
   editCover = input => {
     fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
       method: "PATCH",
