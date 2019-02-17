@@ -315,7 +315,7 @@ btn {
 
 .search-form {
   position: absolute;
-  left: 55%;
+  left: 42%;
 }
 
 .profile-icon {
@@ -421,7 +421,7 @@ btn {
   display: block;
   padding: 2em;
   padding-bottom: 0em;
-  margin-top: -14%;
+  margin-top: -17%;
   left: 25%;
 
   -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
@@ -518,7 +518,7 @@ btn {
   display: block;
   padding: 2em;
   padding-bottom: 0em;
-  margin-top: -25%;
+  margin-top: -32%;
   left: -10%;
 
   -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
