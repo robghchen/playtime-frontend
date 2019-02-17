@@ -4,7 +4,7 @@ export const ADD_USER = "ADD_USER";
 
 export const getUsers = () => {
   return dispatch => {
-    return fetch("http://localhost:3000/api/v1/users")
+    return fetch("https://playtime-backend.herokuapp.com/api/v1/users")
       .then(res => res.json())
       .then(users => {
         dispatch({
@@ -27,7 +27,7 @@ export const changeUsers = user => {
 
 export const addUser = user => {
   return dispatch => {
-    return fetch("http://locahost:3000/api/v1/users", {
+    return fetch("https://playtime-backend.herokuapp.com/api/v1/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
