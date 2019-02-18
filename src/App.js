@@ -156,7 +156,7 @@ class App extends Component {
             this.setState({ users: newArr, currentUser: data });
           });
       }
-    }, 30000);
+    }, 60000);
   };
 
   addPost = (input, playerId, friendId) => {
@@ -190,7 +190,7 @@ class App extends Component {
   };
 
   addComment = (input, playerId, postId) => {
-    if (this.state.currentUser.energy >= 5) {
+    if (this.state.currentUser.energy >= 15) {
       fetch("https://playtime-backend.herokuapp.com/api/v1/comments", {
         method: "POST",
         headers: {
