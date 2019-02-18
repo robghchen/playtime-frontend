@@ -705,48 +705,48 @@ btn {
 
 .one {
   position: absolute;
-  left: 20%;
+  left: 15%;
 }
 
 .one-text {
   position: absolute;
-  right: 20%;
+  right: 15%;
   margin-top: 3em;
 }
 
 .two {
   position: absolute;
-  right: 20%;
+  right: 15%;
   margin-top: 10em;
 }
 
 .two-text {
   position: absolute;
-  left: 20%;
+  left: 15%;
   margin-top: 20em;
 }
 
 .three {
   position: absolute;
-  left: 20%;
+  left: 15%;
   margin-top: 31em;
 }
 
 .three-text {
   position: absolute;
-  right: 20%;
+  right: 15%;
   margin-top: 28em;
 }
 
 .four {
   position: absolute;
-  right: 20%;
+  right: 15%;
   margin-top: 41em;
   padding-bottom: 4em;
 }
 
 .four-text {
   position: absolute;
-  left: 20%;
+  left: 15%;
   margin-top: 45em;
 }
