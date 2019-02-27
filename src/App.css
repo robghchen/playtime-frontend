@@ -58,7 +58,8 @@ btn {
   width: 100%;
   height: auto;
   margin-left: 30%;
-  margin-top: 12em;
+  margin-top: 8em;
+  padding-top: 4em;
   overflow: hidden;
 }
 
