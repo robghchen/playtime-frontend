@@ -512,6 +512,13 @@ btn {
 
 .level-up-show {
   position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 1;
+  /* position: fixed;
   width: 110%;
   border-radius: 2em;
   border-bottom: 2px solid #f78888;
@@ -519,7 +526,7 @@ btn {
   padding: 2em;
   padding-bottom: 0em;
   margin-top: -32%;
-  left: -10%;
+  left: -10%; */
 
   -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 2s; /* Firefox < 16 */
@@ -578,10 +585,17 @@ btn {
 }
 
 .level-up-img {
-  width: 110%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 1;
+  /* width: 110%;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
 }
 
 .city,
