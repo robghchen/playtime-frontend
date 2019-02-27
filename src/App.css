@@ -58,7 +58,7 @@ btn {
   width: 100%;
   height: auto;
   margin-left: 30%;
-  margin-top: 8em;
+  margin-top: 6em;
   padding-top: 4em;
   overflow: hidden;
 }
@@ -368,6 +368,50 @@ btn {
   height: 30px;
   border-radius: 4px;
   object-fit: cover;
+}
+
+@-webkit-keyframes bounce {
+  0%,
+  30% {
+    -webkit-transform: translateY(0);
+  }
+  15% {
+    -webkit-transform: translateY(-3px);
+  }
+}
+@-moz-keyframes bounce {
+  0%,
+  30% {
+    -moz-transform: translateY(0);
+  }
+  15% {
+    -moz-transform: translateY(-3px);
+  }
+}
+@-o-keyframes bounce {
+  0%,
+  30% {
+    -o-transform: translateY(0);
+  }
+  15% {
+    -o-transform: translateY(-3px);
+  }
+}
+@keyframes bounce {
+  0%,
+  30% {
+    transform: translateY(0);
+  }
+  15% {
+    transform: translateY(-3px);
+  }
+}
+
+.profile-picture-nav:hover {
+  animation: bounce 1s infinite;
+  -webkit-animation: bounce 1s infinite;
+  -moz-animation: bounce 1s infinite;
+  -o-animation: bounce 1s infinite;
 }
 
 .profile-username {
