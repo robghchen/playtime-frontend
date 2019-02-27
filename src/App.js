@@ -417,7 +417,7 @@ class App extends Component {
               body: JSON.stringify({
                 lvl: (data.lvl = parseInt(data.lvl) + 1),
                 exp: (data.exp = data.exp - data.exp_limit),
-                exp_limit: (data.exp_limit = data.exp_limit * 1.15),
+                exp_limit: (data.exp_limit = data.exp_limit * 1.25),
                 energy: (data.max_energy = data.max_energy * 1.05) + 3,
                 max_energy: (data.max_energy = data.max_energy * 1.05)
               })
