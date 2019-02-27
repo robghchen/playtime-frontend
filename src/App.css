@@ -417,12 +417,19 @@ btn {
 
 .energy-show {
   position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 2;
+  /* position: fixed;
   width: 20em;
   display: block;
   padding: 2em;
   padding-bottom: 0em;
   margin-top: -17%;
-  left: 25%;
+  left: 25%; */
 
   -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 2s; /* Firefox < 16 */
@@ -480,19 +487,28 @@ btn {
   }
 }
 
+.no-energy-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .no-energy-text {
   position: relative;
-  margin-top: -31em;
-  left: 10em;
+  margin-top: 1em;
+  left: 37%;
   width: 20em;
   padding: 2em;
   padding-bottom: 0em;
+  z-index: 3;
 }
 
 .close {
   color: red;
   position: relative;
-  right: -25em;
+  right: -16em;
   top: -4em;
   padding-right: 0.5em;
   padding-left: 0.5em;
@@ -517,7 +533,7 @@ btn {
   bottom: 0;
   left: 0;
   overflow: hidden;
-  z-index: 1;
+  z-index: 2;
   /* position: fixed;
   width: 110%;
   border-radius: 2em;
@@ -585,13 +601,11 @@ btn {
 }
 
 .level-up-img {
-  position: fixed;
+  position: absolute;
   top: 0;
-  right: 0;
-  bottom: 0;
   left: 0;
-  overflow: hidden;
-  z-index: 1;
+  width: 100%;
+  height: 100%;
   /* width: 110%;
   background-position: center;
   background-repeat: no-repeat;

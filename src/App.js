@@ -130,7 +130,9 @@ class App extends Component {
     setInterval(() => {
       if (this.state.currentUser.energy < this.state.currentUser.max_energy) {
         fetch(
-          `https://playtime-backend.herokuapp.com/api/v1/users/${this.state.currentUser.id}`,
+          `https://playtime-backend.herokuapp.com/api/v1/users/${
+            this.state.currentUser.id
+          }`,
           {
             method: "PATCH",
             headers: {
@@ -353,38 +355,43 @@ class App extends Component {
   };
 
   addExp = (activity, datetime, friendId) => {
-    fetch(`https://playtime-backend.herokuapp.com/api/v1/users/${this.state.currentUser.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem("token")
-      },
-      body: JSON.stringify({
-        username: this.state.currentUser.username,
-        exp: (this.state.currentUser.exp =
-          parseInt(this.state.currentUser.exp) +
-          (activity === "post"
-            ? 60
-            : activity === "comment"
-            ? 40
-            : activity === "tag"
-            ? 40
-            : activity === "reaction"
-            ? 20
-            : 0)),
-        energy: (this.state.currentUser.energy -=
-          activity === "post"
-            ? 20
-            : activity === "comment"
-            ? 5
-            : activity === "tag"
-            ? 5
-            : activity === "reaction"
-            ? 1
-            : 0)
-      })
-    })
+    fetch(
+      `https://playtime-backend.herokuapp.com/api/v1/users/${
+        this.state.currentUser.id
+      }`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: localStorage.getItem("token")
+        },
+        body: JSON.stringify({
+          username: this.state.currentUser.username,
+          exp: (this.state.currentUser.exp =
+            parseInt(this.state.currentUser.exp) +
+            (activity === "post"
+              ? 60
+              : activity === "comment"
+              ? 40
+              : activity === "tag"
+              ? 40
+              : activity === "reaction"
+              ? 20
+              : 0)),
+          energy: (this.state.currentUser.energy -=
+            activity === "post"
+              ? 20
+              : activity === "comment"
+              ? 5
+              : activity === "tag"
+              ? 5
+              : activity === "reaction"
+              ? 1
+              : 0)
+        })
+      }
+    )
       .then(res => res.json())
       .then(data => {
         let newArr = [...this.state.users];
@@ -398,21 +405,24 @@ class App extends Component {
         this.setState({ users: newArr, currentUser: data });
 
         if (data.exp >= data.exp_limit) {
-          fetch(`https://playtime-backend.herokuapp.com/api/v1/users/${data.id}`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-              Authorization: localStorage.getItem("token")
-            },
-            body: JSON.stringify({
-              lvl: (data.lvl = parseInt(data.lvl) + 1),
-              exp: (data.exp = data.exp - data.exp_limit),
-              exp_limit: (data.exp_limit = data.exp_limit * 1.15),
-              energy: (data.max_energy = data.max_energy * 1.05) + 3,
-              max_energy: (data.max_energy = data.max_energy * 1.05)
-            })
-          })
+          fetch(
+            `https://playtime-backend.herokuapp.com/api/v1/users/${data.id}`,
+            {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: localStorage.getItem("token")
+              },
+              body: JSON.stringify({
+                lvl: (data.lvl = parseInt(data.lvl) + 1),
+                exp: (data.exp = data.exp - data.exp_limit),
+                exp_limit: (data.exp_limit = data.exp_limit * 1.15),
+                energy: (data.max_energy = data.max_energy * 1.05) + 3,
+                max_energy: (data.max_energy = data.max_energy * 1.05)
+              })
+            }
+          )
             .then(res => res.json())
             .then(userData => {
               let newArr = [...this.state.users];
@@ -655,18 +665,23 @@ class App extends Component {
   };
 
   editCover = input => {
-    fetch(`https://playtime-backend.herokuapp.com/api/v1/users/${this.state.currentUser.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem("token")
-      },
-      body: JSON.stringify({
-        username: this.state.currentUser.username,
-        cover_img: input
-      })
-    })
+    fetch(
+      `https://playtime-backend.herokuapp.com/api/v1/users/${
+        this.state.currentUser.id
+      }`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: localStorage.getItem("token")
+        },
+        body: JSON.stringify({
+          username: this.state.currentUser.username,
+          cover_img: input
+        })
+      }
+    )
       .then(res => res.json())
       .then(data => {
         let newArr = [...this.state.users];
@@ -683,18 +698,23 @@ class App extends Component {
 
   editProfilePic = input => {
     console.log(input);
-    fetch(`https://playtime-backend.herokuapp.com/api/v1/users/${this.state.currentUser.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem("token")
-      },
-      body: JSON.stringify({
-        username: this.state.currentUser.username,
-        profile_img: input
-      })
-    })
+    fetch(
+      `https://playtime-backend.herokuapp.com/api/v1/users/${
+        this.state.currentUser.id
+      }`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: localStorage.getItem("token")
+        },
+        body: JSON.stringify({
+          username: this.state.currentUser.username,
+          profile_img: input
+        })
+      }
+    )
       .then(res => res.json())
       .then(data => {
         let newArr = [...this.state.users];
@@ -710,27 +730,30 @@ class App extends Component {
   };
 
   updateHandler = currentUser => {
-    fetch(`https://playtime-backend.herokuapp.com/api/v1/users/${currentUser.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: this.state.token
-      },
-      body: JSON.stringify({
-        id: currentUser.id,
-        username: currentUser.username,
-        password: currentUser.password,
-        first_name: currentUser.first_name,
-        last_name: currentUser.last_name,
-        email: currentUser.email,
-        city: currentUser.city,
-        school: currentUser.school,
-        work: currentUser.work,
-        profile_img: currentUser.profile_img,
-        cover_img: currentUser.cover_img
-      })
-    })
+    fetch(
+      `https://playtime-backend.herokuapp.com/api/v1/users/${currentUser.id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: this.state.token
+        },
+        body: JSON.stringify({
+          id: currentUser.id,
+          username: currentUser.username,
+          password: currentUser.password,
+          first_name: currentUser.first_name,
+          last_name: currentUser.last_name,
+          email: currentUser.email,
+          city: currentUser.city,
+          school: currentUser.school,
+          work: currentUser.work,
+          profile_img: currentUser.profile_img,
+          cover_img: currentUser.cover_img
+        })
+      }
+    )
       .then(resp => resp.json())
       .then(data => {
         let newArr = [...this.state.users];
