@@ -823,3 +823,8 @@ btn {
   left: 15%;
   margin-top: 45em;
 }
+
+.footer {
+  position: absolute;
+  bottom: 0px;
+}
