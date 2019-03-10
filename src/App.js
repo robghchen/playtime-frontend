@@ -43,6 +43,7 @@ class App extends Component {
     comments: [],
     activities: [],
     tasks: [],
+    events: [],
     token: "",
     search: "",
     energyClassName: "energy-hide",
@@ -52,7 +53,7 @@ class App extends Component {
   componentDidMount() {
     // this.props.getUsers();
 
-    fetch("https://playtime-backend.herokuapp.com/api/v1/users")
+    fetch("http://localhost:3000/api/v1/users")
       .then(resp => resp.json())
       .then(users => {
         this.setState({ users, filteredUsers: users });
@@ -70,29 +71,35 @@ class App extends Component {
         this.addEnergy();
       });
 
-    fetch("https://playtime-backend.herokuapp.com/api/v1/posts")
+    fetch("http://localhost:3000/api/v1/posts")
       .then(resp => resp.json())
       .then(posts => {
         this.setState({ posts });
       });
 
-    fetch("https://playtime-backend.herokuapp.com/api/v1/comments")
+    fetch("http://localhost:3000/api/v1/comments")
       .then(resp => resp.json())
       .then(comments => {
         this.setState({ comments });
       });
 
-    fetch("https://playtime-backend.herokuapp.com/api/v1/activities")
+    fetch("http://localhost:3000/api/v1/activities")
       .then(resp => resp.json())
       .then(activities => {
         this.setState({ activities });
       });
 
-    fetch("https://playtime-backend.herokuapp.com/api/v1/tasks")
+    fetch("http://localhost:3000/api/v1/tasks")
       .then(resp => resp.json())
       .then(tasks => {
         this.setState({ tasks });
       });
+
+    fetch("http://localhost:3000/api/v1/events")
+    .then(resp => resp.json())
+    .then(events => {
+      this.setState({ events });
+    });
   }
 
   // : {
@@ -115,7 +122,7 @@ class App extends Component {
   // }
 
   componentDidUpdate(prevProps, prevState) {
-    fetch("https://playtime-backend.herokuapp.com/api/v1/users")
+    fetch("http://localhost:3000/api/v1/users")
       .then(resp => resp.json())
       .then(users => {
         localStorage.setItem("users", JSON.stringify(users));
@@ -130,7 +137,7 @@ class App extends Component {
     setInterval(() => {
       if (this.state.currentUser.energy < this.state.currentUser.max_energy) {
         fetch(
-          `https://playtime-backend.herokuapp.com/api/v1/users/${
+          `http://localhost:3000/api/v1/users/${
             this.state.currentUser.id
           }`,
           {
@@ -163,7 +170,7 @@ class App extends Component {
 
   addPost = (input, playerId, friendId) => {
     if (this.state.currentUser.energy >= 20) {
-      fetch("https://playtime-backend.herokuapp.com/api/v1/posts", {
+      fetch("http://localhost:3000/api/v1/posts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -193,7 +200,7 @@ class App extends Component {
 
   addComment = (input, playerId, postId) => {
     if (this.state.currentUser.energy >= 5) {
-      fetch("https://playtime-backend.herokuapp.com/api/v1/comments", {
+      fetch("http://localhost:3000/api/v1/comments", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -234,7 +241,7 @@ class App extends Component {
       task.post_count < task.post_max ||
       task.comment_count < task.comment_max
     ) {
-      fetch(`https://playtime-backend.herokuapp.com/api/v1/tasks/${task.id}`, {
+      fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -273,7 +280,7 @@ class App extends Component {
   // }
 
   addActivity = (activity, username, datetime, friendId) => {
-    fetch(`https://playtime-backend.herokuapp.com/api/v1/activities`, {
+    fetch(`http://localhost:3000/api/v1/activities`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -356,7 +363,7 @@ class App extends Component {
 
   addExp = (activity, datetime, friendId) => {
     fetch(
-      `https://playtime-backend.herokuapp.com/api/v1/users/${
+      `http://localhost:3000/api/v1/users/${
         this.state.currentUser.id
       }`,
       {
@@ -406,7 +413,7 @@ class App extends Component {
 
         if (data.exp >= data.exp_limit) {
           fetch(
-            `https://playtime-backend.herokuapp.com/api/v1/users/${data.id}`,
+            `http://localhost:3000/api/v1/users/${data.id}`,
             {
               method: "PATCH",
               headers: {
@@ -487,6 +494,7 @@ class App extends Component {
                       users={this.state.users}
                       activities={this.state.activities}
                       tasks={this.state.tasks}
+                      events={this.state.events}
                     />
                   )
                 ) : (
@@ -516,6 +524,7 @@ class App extends Component {
                       editProfilePic={this.editProfilePic}
                       activities={this.state.activities}
                       tasks={this.state.tasks}
+                      events={this.state.events}
                     />
                   )
                 ) : (
@@ -542,6 +551,7 @@ class App extends Component {
                     editProfilePic={this.editProfilePic}
                     activities={this.state.activities}
                     tasks={this.state.tasks}
+                    events={this.state.events}
                   />
                 );
               }}
@@ -601,6 +611,7 @@ class App extends Component {
                       editProfilePic={this.editProfilePic}
                       activities={this.state.activities}
                       tasks={this.state.tasks}
+                      events={this.state.events}
                     />
                   )
                 ) : (
@@ -666,7 +677,7 @@ class App extends Component {
 
   editCover = input => {
     fetch(
-      `https://playtime-backend.herokuapp.com/api/v1/users/${
+      `http://localhost:3000/api/v1/users/${
         this.state.currentUser.id
       }`,
       {
@@ -699,7 +710,7 @@ class App extends Component {
   editProfilePic = input => {
     console.log(input);
     fetch(
-      `https://playtime-backend.herokuapp.com/api/v1/users/${
+      `http://localhost:3000/api/v1/users/${
         this.state.currentUser.id
       }`,
       {
@@ -731,7 +742,7 @@ class App extends Component {
 
   updateHandler = currentUser => {
     fetch(
-      `https://playtime-backend.herokuapp.com/api/v1/users/${currentUser.id}`,
+      `http://localhost:3000/api/v1/users/${currentUser.id}`,
       {
         method: "PATCH",
         headers: {
@@ -776,7 +787,7 @@ class App extends Component {
   };
 
   createUser = userInfo => {
-    fetch("https://playtime-backend.herokuapp.com/api/v1/users", {
+    fetch("http://localhost:3000/api/v1/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -838,7 +849,7 @@ class App extends Component {
           users: newArr
         });
 
-        fetch("https://playtime-backend.herokuapp.com/api/v1/tasks", {
+        fetch("http://localhost:3000/api/v1/tasks", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -872,7 +883,7 @@ class App extends Component {
   };
 
   getUser = userInfo => {
-    fetch("https://playtime-backend.herokuapp.com/api/v1/login", {
+    fetch("http://localhost:3000/api/v1/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -963,7 +974,7 @@ class App extends Component {
   };
 
   editPostHandler = (id, content) => {
-    fetch(`https://playtime-backend.herokuapp.com/api/v1/posts/${id}`, {
+    fetch(`http://localhost:3000/api/v1/posts/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

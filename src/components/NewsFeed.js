@@ -4,6 +4,7 @@ import NewsContainer from "../containers/NewsContainer";
 import ActivitiesContainer from "../containers/ActivitiesContainer";
 import Banner from "../components/Banner";
 import DailyTasks from "../components/DailyTasks";
+import MyEventsList from "./MyEventsList";
 
 class NewsFeed extends Component {
   state = {};
@@ -34,6 +35,11 @@ class NewsFeed extends Component {
         />
         <DailyTasks
           tasks={this.props.tasks}
+          currentUser={this.props.currentUser}
+          where="newsContainer"
+        />
+        <MyEventsList
+          events={this.props.events}
           currentUser={this.props.currentUser}
           where="newsContainer"
         />
