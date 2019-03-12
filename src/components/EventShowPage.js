@@ -19,11 +19,11 @@ class Event extends Component {
       event => event.id === this.props.event_id
     );
     let oldId = 0;
-
     if (
       event &&
       event.seats.find(seat => seat.user_id === this.props.currentUser.id)
     ) {
+      console.log(event.seats);
       oldId = event.seats.find(
         seat => seat.user_id === this.props.currentUser.id
       ).id;
@@ -42,40 +42,42 @@ class Event extends Component {
         <h3>{event.title}</h3>
 
         <form>
-          {event.seats.map(seat => {
-            return (
-              <div className="radio">
-                <label>
-                  <input
-                    type="radio"
-                    value={seat.position}
-                    checked={this.state.selectedOption === seat.position}
-                    onChange={e =>
-                      this.changeSeatHandler(
-                        e,
-                        oldId,
-                        seat.id,
-                        this.props.currentUser.id
-                      )
-                    }
-                    disabled={seat.user_id ? true : null}
-                  />
-                  <span>{seat.position}</span>
-
-                  {seat.user_id ? (
-                    <span>
-                      :{" "}
-                      {
-                        event.users.find(user => {
-                          return user.id === seat.user_id;
-                        }).username
+          {event.seats
+            .sort((a, b) => a.id - b.id)
+            .map(seat => {
+              return (
+                <div key={seat.id} className="radio">
+                  <label>
+                    <input
+                      type="radio"
+                      value={seat.position}
+                      checked={this.state.selectedOption === seat.position}
+                      onChange={e =>
+                        this.changeSeatHandler(
+                          e,
+                          oldId,
+                          seat.id,
+                          this.props.currentUser.id
+                        )
                       }
-                    </span>
-                  ) : null}
-                </label>
-              </div>
-            );
-          })}
+                      disabled={seat.user_id ? true : null}
+                    />
+                    <span>{seat.position}</span>
+
+                    {seat.user_id ? (
+                      <span>
+                        :{" "}
+                        {
+                          event.users.find(user => {
+                            return user.id === seat.user_id;
+                          }).username
+                        }
+                      </span>
+                    ) : null}
+                  </label>
+                </div>
+              );
+            })}
         </form>
 
         <p>{event.description}</p>

@@ -1009,8 +1009,7 @@ class App extends Component {
       });
   };
 
-  editSeatHandler = (action, oldId, newId, user_id) => {
-    let i = 0
+  editSeatHandler = (action, oldId, newId, user_id, i = 0) => {
     if (i < 2) {
       fetch(`http://localhost:3000/api/v1/seats/${action === "add" ? newId : oldId}`, {
       method: "PATCH",
@@ -1043,11 +1042,10 @@ class App extends Component {
           });
       }).then(() => {
         if (oldId !== 0) {
-          this.editSeatHandler("old", oldId, newId, user_id)
+          this.editSeatHandler("remove", oldId, newId, user_id, i = i + 1)
         }
       })
     }
-    i++
   };
 }
 
