@@ -1009,8 +1009,10 @@ class App extends Component {
       });
   };
 
-  editSeatHandler = (oldId, newId, user_id) => {
-    fetch(`http://localhost:3000/api/v1/seats/${newId}`, {
+  editSeatHandler = (action, oldId, newId, user_id) => {
+    let i = 0
+    if (i < 2) {
+      fetch(`http://localhost:3000/api/v1/seats/${action === "add" ? newId : oldId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -1018,7 +1020,7 @@ class App extends Component {
         Authorization: this.state.token
       },
       body: JSON.stringify({
-        user_id
+        user_id: action === "add" ? user_id : null
       })
     })
       .then(res => res.json())
@@ -1039,74 +1041,13 @@ class App extends Component {
           .then(events => {
             this.setState({ events });
           });
+      }).then(() => {
+        if (oldId !== 0) {
+          this.editSeatHandler("old", oldId, newId, user_id)
+        }
       })
-      .then(() => {
-        if (oldId !== 0) {
-          fetch(`http://localhost:3000/api/v1/seats/${oldId}`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-              Authorization: this.state.token
-            },
-            body: JSON.stringify({
-              user_id: null
-            })
-          })
-            .then(res => res.json())
-            .then(data => {
-              let newArr = [...this.state.seats];
-              newArr = newArr.map(seat => {
-                if (seat.id === oldId) {
-                  return data;
-                } else {
-                  return seat;
-                }
-              });
-              this.setState({ seats: newArr });
-            })
-            .then(() => {
-              fetch("http://localhost:3000/api/v1/events")
-                .then(resp => resp.json())
-                .then(events => {
-                  this.setState({ events });
-                });
-            });
-        }
-
-        if (oldId !== 0) {
-          fetch(`http://localhost:3000/api/v1/seats/${oldId}`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-              Authorization: this.state.token
-            },
-            body: JSON.stringify({
-              user_id: null
-            })
-          })
-            .then(res => res.json())
-            .then(data => {
-              let newArr = [...this.state.seats];
-              newArr = newArr.map(seat => {
-                if (seat.id === oldId) {
-                  return data;
-                } else {
-                  return seat;
-                }
-              });
-              this.setState({ seats: newArr });
-            })
-            .then(() => {
-              fetch("http://localhost:3000/api/v1/events")
-                .then(resp => resp.json())
-                .then(events => {
-                  this.setState({ events });
-                });
-            });
-        }
-      });
+    }
+    i++
   };
 }
 

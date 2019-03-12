@@ -11,7 +11,7 @@ class Event extends Component {
       selectedOption: e.target.value
     });
 
-    this.props.editSeatHandler(oldId, newId, user_id);
+    this.props.editSeatHandler("add", oldId, newId, user_id);
   };
 
   render() {
