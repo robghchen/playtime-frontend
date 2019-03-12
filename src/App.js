@@ -12,6 +12,8 @@ import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import SearchPage from "./components/SearchPage";
 import NewsFeed from "./components/NewsFeed";
+import EventsContainer from "./containers/EventsContainer";
+import EventShowPage from "./components/EventShowPage";
 
 class App extends Component {
   state = {
@@ -44,6 +46,7 @@ class App extends Component {
     activities: [],
     tasks: [],
     events: [],
+    seats: [],
     token: "",
     search: "",
     energyClassName: "energy-hide",
@@ -96,10 +99,16 @@ class App extends Component {
       });
 
     fetch("http://localhost:3000/api/v1/events")
-    .then(resp => resp.json())
-    .then(events => {
-      this.setState({ events });
-    });
+      .then(resp => resp.json())
+      .then(events => {
+        this.setState({ events });
+      });
+
+    fetch("http://localhost:3000/api/v1/seats")
+      .then(resp => resp.json())
+      .then(seats => {
+        this.setState({ seats });
+      });
   }
 
   // : {
@@ -137,9 +146,7 @@ class App extends Component {
     setInterval(() => {
       if (this.state.currentUser.energy < this.state.currentUser.max_energy) {
         fetch(
-          `http://localhost:3000/api/v1/users/${
-            this.state.currentUser.id
-          }`,
+          `http://localhost:3000/api/v1/users/${this.state.currentUser.id}`,
           {
             method: "PATCH",
             headers: {
@@ -362,43 +369,38 @@ class App extends Component {
   };
 
   addExp = (activity, datetime, friendId) => {
-    fetch(
-      `http://localhost:3000/api/v1/users/${
-        this.state.currentUser.id
-      }`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: localStorage.getItem("token")
-        },
-        body: JSON.stringify({
-          username: this.state.currentUser.username,
-          exp: (this.state.currentUser.exp =
-            parseInt(this.state.currentUser.exp) +
-            (activity === "post"
-              ? 60
-              : activity === "comment"
-              ? 40
-              : activity === "tag"
-              ? 40
-              : activity === "reaction"
-              ? 20
-              : 0)),
-          energy: (this.state.currentUser.energy -=
-            activity === "post"
-              ? 20
-              : activity === "comment"
-              ? 5
-              : activity === "tag"
-              ? 5
-              : activity === "reaction"
-              ? 1
-              : 0)
-        })
-      }
-    )
+    fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem("token")
+      },
+      body: JSON.stringify({
+        username: this.state.currentUser.username,
+        exp: (this.state.currentUser.exp =
+          parseInt(this.state.currentUser.exp) +
+          (activity === "post"
+            ? 60
+            : activity === "comment"
+            ? 40
+            : activity === "tag"
+            ? 40
+            : activity === "reaction"
+            ? 20
+            : 0)),
+        energy: (this.state.currentUser.energy -=
+          activity === "post"
+            ? 20
+            : activity === "comment"
+            ? 5
+            : activity === "tag"
+            ? 5
+            : activity === "reaction"
+            ? 1
+            : 0)
+      })
+    })
       .then(res => res.json())
       .then(data => {
         let newArr = [...this.state.users];
@@ -412,24 +414,21 @@ class App extends Component {
         this.setState({ users: newArr, currentUser: data });
 
         if (data.exp >= data.exp_limit) {
-          fetch(
-            `http://localhost:3000/api/v1/users/${data.id}`,
-            {
-              method: "PATCH",
-              headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-                Authorization: localStorage.getItem("token")
-              },
-              body: JSON.stringify({
-                lvl: (data.lvl = parseInt(data.lvl) + 1),
-                exp: (data.exp = data.exp - data.exp_limit),
-                exp_limit: (data.exp_limit = data.exp_limit * 1.25),
-                energy: (data.max_energy = data.max_energy * 1.05) + 3,
-                max_energy: (data.max_energy = data.max_energy * 1.05)
-              })
-            }
-          )
+          fetch(`http://localhost:3000/api/v1/users/${data.id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              Authorization: localStorage.getItem("token")
+            },
+            body: JSON.stringify({
+              lvl: (data.lvl = parseInt(data.lvl) + 1),
+              exp: (data.exp = data.exp - data.exp_limit),
+              exp_limit: (data.exp_limit = data.exp_limit * 1.25),
+              energy: (data.max_energy = data.max_energy * 1.05) + 3,
+              max_energy: (data.max_energy = data.max_energy * 1.05)
+            })
+          })
             .then(res => res.json())
             .then(userData => {
               let newArr = [...this.state.users];
@@ -557,6 +556,31 @@ class App extends Component {
               }}
             />
             <Route
+              path="/events/:id"
+              render={RouterProps => {
+                return (
+                  <EventShowPage
+                    currentUser={this.state.currentUser}
+                    events={this.state.events}
+                    event_id={parseInt(RouterProps.match.params.id)}
+                    editSeatHandler={this.editSeatHandler}
+                    seats={this.state.seats}
+                  />
+                );
+              }}
+            />
+            <Route
+              path="/events"
+              render={RouterProps => {
+                return (
+                  <EventsContainer
+                    currentUser={this.state.currentUser}
+                    events={this.state.events}
+                  />
+                );
+              }}
+            />
+            <Route
               path="/search"
               render={() => {
                 return (
@@ -676,23 +700,18 @@ class App extends Component {
   };
 
   editCover = input => {
-    fetch(
-      `http://localhost:3000/api/v1/users/${
-        this.state.currentUser.id
-      }`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: localStorage.getItem("token")
-        },
-        body: JSON.stringify({
-          username: this.state.currentUser.username,
-          cover_img: input
-        })
-      }
-    )
+    fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem("token")
+      },
+      body: JSON.stringify({
+        username: this.state.currentUser.username,
+        cover_img: input
+      })
+    })
       .then(res => res.json())
       .then(data => {
         let newArr = [...this.state.users];
@@ -708,24 +727,18 @@ class App extends Component {
   };
 
   editProfilePic = input => {
-    console.log(input);
-    fetch(
-      `http://localhost:3000/api/v1/users/${
-        this.state.currentUser.id
-      }`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: localStorage.getItem("token")
-        },
-        body: JSON.stringify({
-          username: this.state.currentUser.username,
-          profile_img: input
-        })
-      }
-    )
+    fetch(`http://localhost:3000/api/v1/users/${this.state.currentUser.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem("token")
+      },
+      body: JSON.stringify({
+        username: this.state.currentUser.username,
+        profile_img: input
+      })
+    })
       .then(res => res.json())
       .then(data => {
         let newArr = [...this.state.users];
@@ -741,30 +754,27 @@ class App extends Component {
   };
 
   updateHandler = currentUser => {
-    fetch(
-      `http://localhost:3000/api/v1/users/${currentUser.id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: this.state.token
-        },
-        body: JSON.stringify({
-          id: currentUser.id,
-          username: currentUser.username,
-          password: currentUser.password,
-          first_name: currentUser.first_name,
-          last_name: currentUser.last_name,
-          email: currentUser.email,
-          city: currentUser.city,
-          school: currentUser.school,
-          work: currentUser.work,
-          profile_img: currentUser.profile_img,
-          cover_img: currentUser.cover_img
-        })
-      }
-    )
+    fetch(`http://localhost:3000/api/v1/users/${currentUser.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: this.state.token
+      },
+      body: JSON.stringify({
+        id: currentUser.id,
+        username: currentUser.username,
+        password: currentUser.password,
+        first_name: currentUser.first_name,
+        last_name: currentUser.last_name,
+        email: currentUser.email,
+        city: currentUser.city,
+        school: currentUser.school,
+        work: currentUser.work,
+        profile_img: currentUser.profile_img,
+        cover_img: currentUser.cover_img
+      })
+    })
       .then(resp => resp.json())
       .then(data => {
         let newArr = [...this.state.users];
@@ -996,6 +1006,106 @@ class App extends Component {
           }
         });
         this.setState({ posts: newArr });
+      });
+  };
+
+  editSeatHandler = (oldId, newId, user_id) => {
+    fetch(`http://localhost:3000/api/v1/seats/${newId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: this.state.token
+      },
+      body: JSON.stringify({
+        user_id
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        let newArr = [...this.state.seats];
+        newArr = newArr.map(seat => {
+          if (seat.id === newId) {
+            return data;
+          } else {
+            return seat;
+          }
+        });
+        this.setState({ seats: newArr });
+      })
+      .then(() => {
+        fetch("http://localhost:3000/api/v1/events")
+          .then(resp => resp.json())
+          .then(events => {
+            this.setState({ events });
+          });
+      })
+      .then(() => {
+        if (oldId !== 0) {
+          fetch(`http://localhost:3000/api/v1/seats/${oldId}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              Authorization: this.state.token
+            },
+            body: JSON.stringify({
+              user_id: null
+            })
+          })
+            .then(res => res.json())
+            .then(data => {
+              let newArr = [...this.state.seats];
+              newArr = newArr.map(seat => {
+                if (seat.id === oldId) {
+                  return data;
+                } else {
+                  return seat;
+                }
+              });
+              this.setState({ seats: newArr });
+            })
+            .then(() => {
+              fetch("http://localhost:3000/api/v1/events")
+                .then(resp => resp.json())
+                .then(events => {
+                  this.setState({ events });
+                });
+            });
+        }
+
+        if (oldId !== 0) {
+          fetch(`http://localhost:3000/api/v1/seats/${oldId}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              Authorization: this.state.token
+            },
+            body: JSON.stringify({
+              user_id: null
+            })
+          })
+            .then(res => res.json())
+            .then(data => {
+              let newArr = [...this.state.seats];
+              newArr = newArr.map(seat => {
+                if (seat.id === oldId) {
+                  return data;
+                } else {
+                  return seat;
+                }
+              });
+              this.setState({ seats: newArr });
+            })
+            .then(() => {
+              fetch("http://localhost:3000/api/v1/events")
+                .then(resp => resp.json())
+                .then(events => {
+                  this.setState({ events });
+                });
+            });
+        }
       });
   };
 }
