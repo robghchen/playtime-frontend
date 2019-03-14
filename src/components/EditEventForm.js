@@ -2,37 +2,22 @@ import React, { Component } from "react";
 
 class EditEventForm extends Component {
   state = {
-    title: "",
-    price: "",
-    date: "",
-    location: "",
-    description: "",
-    banner_img: "",
-    event_img: "",
-    user_id: this.props.currentUser.id,
-    enable_posts: true,
-    enable_seats: false
+    id: this.props.currentEvent.id,
+    title: this.props.currentEvent.title,
+    price: this.props.currentEvent.price,
+    date: this.props.currentEvent.date,
+    location: this.props.currentEvent.location,
+    description: this.props.currentEvent.description,
+    banner_img: this.props.currentEvent.banner_img,
+    event_img: this.props.currentEvent.event_img,
+    user_id: this.props.currentEvent.user_id,
+    enable_posts: this.props.currentEvent.enable_posts,
+    enable_seats: this.props.currentEvent.enable_seats,
+    users: this.props.currentEvent.users,
+    seats: this.props.currentEvent.seats
   };
 
   render() {
-    // const event = this.props.events.find(
-    //   event => event.id === this.props.event_id
-    // );
-
-    // this.setState({
-    //   id: event.id,
-    //   title: event.title,
-    //   price: event.price,
-    //   date: event.date,
-    //   location: event.location,
-    //   description: event.description,
-    //   banner_img: event.banner_img,
-    //   event_img: event.event_img,
-    //   user_id: event.user_id,
-    //   enable_posts: event.enable_posts,
-    //   enable_seats: event.enable_seats
-    // });
-
     return (
       <div id="new-event-form" className="ui card form">
         <h2>Edit Event</h2>
@@ -208,9 +193,11 @@ class EditEventForm extends Component {
       description: "",
       banner_img: "",
       event_img: "",
-      user_id: this.props.currentUser.id,
+      user_id: null,
       enable_posts: true,
-      enable_seats: false
+      enable_seats: false,
+      users: [],
+      seats: []
     });
   };
 }

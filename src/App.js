@@ -41,6 +41,21 @@ class App extends Component {
       cover_img:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Friends_logo.svg/2000px-Friends_logo.svg.png"
     },
+    currentEvent: {
+      id: null,
+      title: "",
+      price: "",
+      date: "",
+      location: "",
+      description: "",
+      banner_img: "",
+      event_img: "",
+      user_id: null,
+      enable_posts: true,
+      enable_seats: false,
+      users: [],
+      seats: []
+    },
     users: [],
     filteredUsers: [],
     posts: [],
@@ -562,9 +577,7 @@ class App extends Component {
               render={RouterProps => {
                 return (
                   <EditEventForm
-                    currentUser={this.state.currentUser}
-                    events={this.state.events}
-                    event_id={parseInt(RouterProps.match.params.id)}
+                    currentEvent={this.state.currentEvent}
                     updateEventHandler={this.updateEventHandler}
                   />
                 );
@@ -578,6 +591,7 @@ class App extends Component {
                     currentUser={this.state.currentUser}
                     events={this.state.events}
                     event_id={parseInt(RouterProps.match.params.id)}
+                    setEventHandler={this.setEventHandler}
                     editSeatHandler={this.editSeatHandler}
                     seats={this.state.seats}
                   />
@@ -943,6 +957,11 @@ class App extends Component {
       });
   };
 
+  setEventHandler = currentEvent => {
+    console.log(currentEvent);
+    this.setState({ currentEvent });
+  };
+
   updateEventHandler = currentEvent => {
     fetch(`http://localhost:3000/api/v1/events/${currentEvent.id}`, {
       method: "PATCH",
@@ -953,16 +972,16 @@ class App extends Component {
       },
       body: JSON.stringify({
         id: currentEvent.id,
-      title: currentEvent.title,
-      price: currentEvent.price,
-      date: currentEvent.date,
-      location: currentEvent.location,
-      description: currentEvent.description,
-      banner_img: currentEvent.banner_img,
-      event_img: currentEvent.event_img,
-      user_id: currentEvent.user_id,
-      enable_posts: currentEvent.enable_posts,
-      enable_seats: currentEvent.enable_seats
+        title: currentEvent.title,
+        price: currentEvent.price,
+        date: currentEvent.date,
+        location: currentEvent.location,
+        description: currentEvent.description,
+        banner_img: currentEvent.banner_img,
+        event_img: currentEvent.event_img,
+        user_id: currentEvent.user_id,
+        enable_posts: currentEvent.enable_posts,
+        enable_seats: currentEvent.enable_seats
       })
     })
       .then(resp => resp.json())
@@ -979,6 +998,10 @@ class App extends Component {
         this.props.history.push(`/events/${data.id}`);
       });
   };
+
+  deleteEventHandler = () => {
+    
+  }
 
   submitLoginHandler = (userInfo, event) => {
     event.preventDefault();

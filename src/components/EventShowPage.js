@@ -15,16 +15,18 @@ class EventShowPage extends Component {
   };
 
   render() {
-    const event = this.props.events.find(
+    const currentEvent = this.props.events.find(
       event => event.id === this.props.event_id
     );
 
     let oldId = 0;
     if (
-      event &&
-      event.seats.find(seat => seat.user_id === this.props.currentUser.id)
+      currentEvent &&
+      currentEvent.seats.find(
+        seat => seat.user_id === this.props.currentUser.id
+      )
     ) {
-      oldId = event.seats.find(
+      oldId = currentEvent.seats.find(
         seat => seat.user_id === this.props.currentUser.id
       ).id;
     }
@@ -34,19 +36,19 @@ class EventShowPage extends Component {
     ) : (
       <div>
         <img
-          src={event.banner_img}
+          src={currentEvent.banner_img}
           alt="event banner"
           className="event-banner"
         />
         <img
-          src={event.event_img}
+          src={currentEvent.event_img}
           alt="event img"
           className="event-img-showpage"
         />
-        <h3>{event.title}</h3>
+        <h3>{currentEvent.title}</h3>
 
         <form>
-          {event.seats
+          {currentEvent.seats
             .sort((a, b) => a.id - b.id)
             .map(seat => {
               return (
@@ -72,7 +74,7 @@ class EventShowPage extends Component {
                       <span>
                         :{" "}
                         {
-                          event.users.find(user => {
+                          currentEvent.users.find(user => {
                             return user.id === seat.user_id;
                           }).username
                         }
@@ -84,10 +86,13 @@ class EventShowPage extends Component {
             })}
         </form>
 
-        <p>{event.description}</p>
+        <p>{currentEvent.description}</p>
 
-        {event.user_id === this.props.currentUser.id ? (
-          <Link to={`/events/${event.id}/edit`}>
+        {currentEvent.user_id === this.props.currentUser.id ? (
+          <Link
+            to={`/events/${currentEvent.id}/edit`}
+            onClick={() => this.props.setEventHandler(currentEvent)}
+          >
             <h4>Edit Event</h4>
           </Link>
         ) : null}
@@ -99,9 +104,9 @@ class EventShowPage extends Component {
         </div>
 
         <div>
-          <p>How much: ${event.price}</p>
-          <p>When: {event.date}</p>
-          <p>Where: {event.location}</p>
+          <p>How much: ${currentEvent.price}</p>
+          <p>When: {currentEvent.date}</p>
+          <p>Where: {currentEvent.location}</p>
         </div>
       </div>
     );
