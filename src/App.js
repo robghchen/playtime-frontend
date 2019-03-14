@@ -14,6 +14,8 @@ import SearchPage from "./components/SearchPage";
 import NewsFeed from "./components/NewsFeed";
 import EventsContainer from "./containers/EventsContainer";
 import EventShowPage from "./components/EventShowPage";
+import NewEventForm from "./components/NewEventForm";
+import EditEventForm from "./components/EditEventForm";
 
 class App extends Component {
   state = {
@@ -556,6 +558,19 @@ class App extends Component {
               }}
             />
             <Route
+              path="/events/:id/edit"
+              render={RouterProps => {
+                return (
+                  <EditEventForm
+                    currentUser={this.state.currentUser}
+                    events={this.state.events}
+                    event_id={parseInt(RouterProps.match.params.id)}
+                    updateEventHandler={this.updateEventHandler}
+                  />
+                );
+              }}
+            />
+            <Route
               path="/events/:id"
               render={RouterProps => {
                 return (
@@ -565,6 +580,17 @@ class App extends Component {
                     event_id={parseInt(RouterProps.match.params.id)}
                     editSeatHandler={this.editSeatHandler}
                     seats={this.state.seats}
+                  />
+                );
+              }}
+            />
+            <Route
+              path="/events/create"
+              render={() => {
+                return (
+                  <NewEventForm
+                    currentUser={this.state.currentUser}
+                    submitNewEventHandler={this.submitNewEventHandler}
                   />
                 );
               }}
@@ -790,8 +816,8 @@ class App extends Component {
       });
   };
 
-  submitSignUpHandler = (userInfo, event) => {
-    event.preventDefault();
+  submitSignUpHandler = (userInfo, e) => {
+    e.preventDefault();
     this.createUser(userInfo);
     this.props.history.push("/home");
   };
@@ -883,6 +909,74 @@ class App extends Component {
       .catch(error => {
         localStorage.setItem("signupError", "Duplicate account/Invalid input");
         this.props.history.push("/signup");
+      });
+  };
+
+  submitNewEventHandler = (eventInfo, e) => {
+    e.preventDefault();
+
+    fetch("http://localhost:3000/api/v1/events", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem("token")
+      },
+      body: JSON.stringify({
+        title: eventInfo.title,
+        price: eventInfo.price,
+        date: eventInfo.date,
+        location: eventInfo.location,
+        description: eventInfo.description,
+        banner_img: eventInfo.banner_img,
+        event_img: eventInfo.event_img,
+        user_id: eventInfo.user_id,
+        enable_posts: eventInfo.enable_posts,
+        enable_seats: eventInfo.enable_seats
+      })
+    })
+      .then(res => res.json())
+      .then(event => {
+        let newArr = [...this.state.events, event];
+        this.setState({ events: newArr });
+        this.props.history.push(`/events/${event.id}`);
+      });
+  };
+
+  updateEventHandler = currentEvent => {
+    fetch(`http://localhost:3000/api/v1/events/${currentEvent.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: this.state.token
+      },
+      body: JSON.stringify({
+        id: currentEvent.id,
+      title: currentEvent.title,
+      price: currentEvent.price,
+      date: currentEvent.date,
+      location: currentEvent.location,
+      description: currentEvent.description,
+      banner_img: currentEvent.banner_img,
+      event_img: currentEvent.event_img,
+      user_id: currentEvent.user_id,
+      enable_posts: currentEvent.enable_posts,
+      enable_seats: currentEvent.enable_seats
+      })
+    })
+      .then(resp => resp.json())
+      .then(data => {
+        let newArr = [...this.state.events];
+        newArr = newArr.map(event => {
+          if (event.id === data.id) {
+            return data;
+          } else {
+            return event;
+          }
+        });
+        this.setState({ events: newArr });
+        this.props.history.push(`/events/${data.id}`);
       });
   };
 
@@ -1011,40 +1105,46 @@ class App extends Component {
 
   editSeatHandler = (action, oldId, newId, user_id, i = 0) => {
     if (i < 2) {
-      fetch(`http://localhost:3000/api/v1/seats/${action === "add" ? newId : oldId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: this.state.token
-      },
-      body: JSON.stringify({
-        user_id: action === "add" ? user_id : null
-      })
-    })
-      .then(res => res.json())
-      .then(data => {
-        let newArr = [...this.state.seats];
-        newArr = newArr.map(seat => {
-          if (seat.id === newId) {
-            return data;
-          } else {
-            return seat;
+      fetch(
+        `http://localhost:3000/api/v1/seats/${
+          action === "add" ? newId : oldId
+        }`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: this.state.token
+          },
+          body: JSON.stringify({
+            user_id: action === "add" ? user_id : null
+          })
+        }
+      )
+        .then(res => res.json())
+        .then(data => {
+          let newArr = [...this.state.seats];
+          newArr = newArr.map(seat => {
+            if (seat.id === newId) {
+              return data;
+            } else {
+              return seat;
+            }
+          });
+          this.setState({ seats: newArr });
+        })
+        .then(() => {
+          fetch("http://localhost:3000/api/v1/events")
+            .then(resp => resp.json())
+            .then(events => {
+              this.setState({ events });
+            });
+        })
+        .then(() => {
+          if (oldId !== 0) {
+            this.editSeatHandler("remove", oldId, newId, user_id, (i = i + 1));
           }
         });
-        this.setState({ seats: newArr });
-      })
-      .then(() => {
-        fetch("http://localhost:3000/api/v1/events")
-          .then(resp => resp.json())
-          .then(events => {
-            this.setState({ events });
-          });
-      }).then(() => {
-        if (oldId !== 0) {
-          this.editSeatHandler("remove", oldId, newId, user_id, i = i + 1)
-        }
-      })
     }
   };
 }

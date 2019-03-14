@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 
-class Event extends Component {
+class EventShowPage extends Component {
   state = {
-    selectedOption: "option1"
+    selectedOption: ""
   };
 
   changeSeatHandler = (e, oldId, newId, user_id) => {
@@ -18,12 +18,12 @@ class Event extends Component {
     const event = this.props.events.find(
       event => event.id === this.props.event_id
     );
+
     let oldId = 0;
     if (
       event &&
       event.seats.find(seat => seat.user_id === this.props.currentUser.id)
     ) {
-      console.log(event.seats);
       oldId = event.seats.find(
         seat => seat.user_id === this.props.currentUser.id
       ).id;
@@ -33,7 +33,11 @@ class Event extends Component {
       <p>Loading . . .</p>
     ) : (
       <div>
-        <img src={event.banner_img} alt="banner" className="banner" />
+        <img
+          src={event.banner_img}
+          alt="event banner"
+          className="event-banner"
+        />
         <img
           src={event.event_img}
           alt="event img"
@@ -82,6 +86,12 @@ class Event extends Component {
 
         <p>{event.description}</p>
 
+        {event.user_id === this.props.currentUser.id ? (
+          <Link to={`/events/${event.id}/edit`}>
+            <h4>Edit Event</h4>
+          </Link>
+        ) : null}
+
         <div>
           <h4>Attending</h4>
           <span>Yes</span>
@@ -98,4 +108,4 @@ class Event extends Component {
   }
 }
 
-export default withRouter(Event);
+export default withRouter(EventShowPage);

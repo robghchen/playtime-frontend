@@ -343,7 +343,7 @@ btn {
   padding-bottom: 1em;
 }
 
-.cover-photo {
+.cover-photo, .event-banner {
   width: 100%;
   height: 30em;
   object-fit: cover;
@@ -822,4 +822,12 @@ btn {
   position: absolute;
   left: 15%;
   margin-top: 45em;
+}
+
+.event-img {
+  width: 150px;
+}
+
+.event-img-showpage {
+  width: 150px;
 }

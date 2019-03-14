@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import EventCard from "./EventCard"
+import { Link, withRouter } from "react-router-dom";
+import EventCard from "./EventCard";
 
 class MyEventsList extends Component {
   state = {};
@@ -14,7 +14,6 @@ class MyEventsList extends Component {
         }
       >
         <h2 className="center">My Events</h2>
-        Coming Soon
         {/* {this.props.events
           .map(event => {
             event.users.filter(user => {
@@ -29,6 +28,9 @@ class MyEventsList extends Component {
               </div>
             );
           })} */}
+        <Link to={"/events"}>
+          <p>All Events</p>
+        </Link>
       </div>
     );
   }
