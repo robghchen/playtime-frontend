@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import NewsContainer from "../containers/NewsContainer";
-import ActivitiesContainer from "../containers/ActivitiesContainer";
 import Banner from "../components/Banner";
-import DailyTasks from "../components/DailyTasks";
-import MyEventsList from "./MyEventsList";
+import SideBar from "../containers/SideBar";
 
 class NewsFeed extends Component {
   state = {};
@@ -28,19 +26,11 @@ class NewsFeed extends Component {
           comments={this.props.comments}
           users={this.props.users}
         />
-        <ActivitiesContainer
+        <SideBar
+          currentUser={this.props.currentUser}
           activities={this.props.activities}
-          currentUser={this.props.currentUser}
-          where="newsContainer"
-        />
-        <DailyTasks
-          tasks={this.props.tasks}
-          currentUser={this.props.currentUser}
-          where="newsContainer"
-        />
-        <MyEventsList
           events={this.props.events}
-          currentUser={this.props.currentUser}
+          tasks={this.props.tasks}
           where="newsContainer"
         />
       </React.Fragment>

@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import PostsContainer from "../containers/PostsContainer";
-import ActivitiesContainer from "../containers/ActivitiesContainer";
 import Banner from "../components/Banner";
-import DailyTasks from "../components/DailyTasks";
+import SideBar from "../containers/SideBar";
 
 class UserShowPage extends Component {
   state = {
@@ -41,13 +40,11 @@ class UserShowPage extends Component {
           editCover={this.props.editCover}
           editProfilePic={this.props.editProfilePic}
         />
-        <ActivitiesContainer
+        <SideBar
+          currentUser={this.props.currentUser}
           activities={this.props.activities}
-          currentUser={this.props.currentUser}
-        />
-        <DailyTasks
+          events={this.props.events}
           tasks={this.props.tasks}
-          currentUser={this.props.currentUser}
         />
       </React.Fragment>
     );

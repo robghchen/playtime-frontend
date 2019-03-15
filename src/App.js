@@ -7,14 +7,15 @@ import { bindActionCreators } from "redux";
 import { getUsers } from "./actions/userActions";
 import { connect } from "react-redux";
 import UserShowPage from "./components/UserShowPage";
-import EditProfileForm from "./components/EditProfileForm";
+import EditProfilePage from "./components/EditProfilePage";
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import SearchPage from "./components/SearchPage";
 import NewsFeed from "./components/NewsFeed";
 import EventsContainer from "./containers/EventsContainer";
 import EventShowPage from "./components/EventShowPage";
-import NewEventForm from "./components/NewEventForm";
+import EventsPage from "./components/EventsPage";
+import NewEventPage from "./components/NewEventPage";
 import EditEventForm from "./components/EditEventForm";
 
 class App extends Component {
@@ -32,9 +33,9 @@ class App extends Component {
       work: "",
       lvl: 1,
       exp: 0,
-      exp_limit: 180,
-      energy: 30,
-      max_energy: 30,
+      exp_limit: 200,
+      energy: 25,
+      max_energy: 25,
       speed: 1,
       profile_img:
         "https://c1.staticflickr.com/6/5643/23778807571_e9649ee35e_b.jpg",
@@ -193,7 +194,7 @@ class App extends Component {
   };
 
   addPost = (input, playerId, friendId) => {
-    if (this.state.currentUser.energy >= 20) {
+    if (this.state.currentUser.energy >= 10) {
       fetch("http://localhost:3000/api/v1/posts", {
         method: "POST",
         headers: {
@@ -343,7 +344,7 @@ class App extends Component {
           //   )} at ${datetime.slice(11, 16)}.`
 
           "post"
-            ? `+60 exp, post to ${username} on ${datetime.slice(
+            ? `+80 exp, post to ${username} on ${datetime.slice(
                 5,
                 7
               )}/${datetime.slice(8, 10)}/${datetime.slice(
@@ -398,7 +399,7 @@ class App extends Component {
         exp: (this.state.currentUser.exp =
           parseInt(this.state.currentUser.exp) +
           (activity === "post"
-            ? 60
+            ? 80
             : activity === "comment"
             ? 40
             : activity === "tag"
@@ -408,7 +409,7 @@ class App extends Component {
             : 0)),
         energy: (this.state.currentUser.energy -=
           activity === "post"
-            ? 20
+            ? 10
             : activity === "comment"
             ? 5
             : activity === "tag"
@@ -442,7 +443,7 @@ class App extends Component {
               lvl: (data.lvl = parseInt(data.lvl) + 1),
               exp: (data.exp = data.exp - data.exp_limit),
               exp_limit: (data.exp_limit = data.exp_limit * 1.25),
-              energy: (data.max_energy = data.max_energy * 1.05) + 3,
+              energy: (data.max_energy = data.max_energy * 1.05),
               max_energy: (data.max_energy = data.max_energy * 1.05)
             })
           })
@@ -576,8 +577,11 @@ class App extends Component {
               path="/events/create"
               render={() => {
                 return (
-                  <NewEventForm
+                  <NewEventPage
                     currentUser={this.state.currentUser}
+                    activities={this.state.activities}
+                    events={this.state.events}
+                    tasks={this.state.tasks}
                     submitNewEventHandler={this.submitNewEventHandler}
                   />
                 );
@@ -601,7 +605,9 @@ class App extends Component {
                 return (
                   <EventShowPage
                     currentUser={this.state.currentUser}
+                    activities={this.state.activities}
                     events={this.state.events}
+                    tasks={this.state.tasks}
                     event_id={parseInt(RouterProps.match.params.id)}
                     setEventHandler={this.setEventHandler}
                     editSeatHandler={this.editSeatHandler}
@@ -614,9 +620,11 @@ class App extends Component {
               path="/events"
               render={RouterProps => {
                 return (
-                  <EventsContainer
+                  <EventsPage
                     currentUser={this.state.currentUser}
+                    activities={this.state.activities}
                     events={this.state.events}
+                    tasks={this.state.tasks}
                   />
                 );
               }}
@@ -638,10 +646,13 @@ class App extends Component {
               path="/editProfile"
               render={() => {
                 return (
-                  <EditProfileForm
+                  <EditProfilePage
                     isUserLoggedIn={this.state.isUserLoggedIn}
                     currentUser={this.state.currentUser}
                     updateHandler={this.updateHandler}
+                    activities={this.state.activities}
+                    events={this.state.events}
+                    tasks={this.state.tasks}
                   />
                 );
               }}
@@ -851,9 +862,9 @@ class App extends Component {
         last_name: userInfo.last_name,
         lvl: 1,
         exp: 0,
-        exp_limit: 180,
-        energy: 30,
-        max_energy: 30,
+        exp_limit: 200,
+        energy: 25,
+        max_energy: 25,
         speed: 1,
         city: "N/A",
         work: "N/A",
@@ -887,9 +898,9 @@ class App extends Component {
             last_name: res.user.last_name,
             lvl: 1,
             exp: 0,
-            exp_limit: 180,
-            energy: 30,
-            max_energy: 30,
+            exp_limit: 200,
+            energy: 25,
+            max_energy: 25,
             speed: 1,
             password: "",
             profile_img:

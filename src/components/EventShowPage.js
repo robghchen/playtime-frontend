@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
+import SideBar from "../containers/SideBar";
 
 class EventShowPage extends Component {
   state = {
@@ -108,6 +109,13 @@ class EventShowPage extends Component {
           <p>When: {currentEvent.date}</p>
           <p>Where: {currentEvent.location}</p>
         </div>
+
+        <SideBar
+          currentUser={this.props.currentUser}
+          activities={this.props.activities}
+          events={this.props.events}
+          tasks={this.props.tasks}
+        />
       </div>
     );
   }
