@@ -15,6 +15,7 @@ class NewEventForm extends Component {
     enable_seats: false
   };
   render() {
+    console.log(this.state.user_id);
     return (
       <div id="new-event-form" className="ui card form">
         <h2>New Event</h2>
@@ -182,6 +183,7 @@ class NewEventForm extends Component {
     e.preventDefault();
 
     this.props.submitNewEventHandler(this.state, e);
+    
     this.setState({
       title: "",
       price: "",

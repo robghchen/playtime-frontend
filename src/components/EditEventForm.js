@@ -164,6 +164,10 @@ class EditEventForm extends Component {
           </div>
           <br />
 
+          <button onClick={() => this.props.deleteEventHandler(this.state)}>
+            Delete Event
+          </button>
+
           <input type="submit" className="button pointer" value="Submit" />
         </form>
       </div>

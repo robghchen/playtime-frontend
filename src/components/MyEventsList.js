@@ -28,9 +28,14 @@ class MyEventsList extends Component {
               </div>
             );
           })} */}
+  <div>
         <Link to={"/events"}>
-          <p>All Events</p>
+          <span>All Events</span>
         </Link>
+        <span> | </span>
+        <Link to={"/events/create"}>
+          <span>Create Event</span>
+        </Link></div>
       </div>
     );
   }

@@ -573,12 +573,24 @@ class App extends Component {
               }}
             />
             <Route
+              path="/events/create"
+              render={() => {
+                return (
+                  <NewEventForm
+                    currentUser={this.state.currentUser}
+                    submitNewEventHandler={this.submitNewEventHandler}
+                  />
+                );
+              }}
+            />
+            <Route
               path="/events/:id/edit"
               render={RouterProps => {
                 return (
                   <EditEventForm
                     currentEvent={this.state.currentEvent}
                     updateEventHandler={this.updateEventHandler}
+                    deleteEventHandler={this.deleteEventHandler}
                   />
                 );
               }}
@@ -594,17 +606,6 @@ class App extends Component {
                     setEventHandler={this.setEventHandler}
                     editSeatHandler={this.editSeatHandler}
                     seats={this.state.seats}
-                  />
-                );
-              }}
-            />
-            <Route
-              path="/events/create"
-              render={() => {
-                return (
-                  <NewEventForm
-                    currentUser={this.state.currentUser}
-                    submitNewEventHandler={this.submitNewEventHandler}
                   />
                 );
               }}
@@ -958,7 +959,6 @@ class App extends Component {
   };
 
   setEventHandler = currentEvent => {
-    console.log(currentEvent);
     this.setState({ currentEvent });
   };
 
@@ -979,7 +979,7 @@ class App extends Component {
         description: currentEvent.description,
         banner_img: currentEvent.banner_img,
         event_img: currentEvent.event_img,
-        user_id: currentEvent.user_id,
+        user_id: currentEvent.user.id,
         enable_posts: currentEvent.enable_posts,
         enable_seats: currentEvent.enable_seats
       })
@@ -999,9 +999,21 @@ class App extends Component {
       });
   };
 
-  deleteEventHandler = () => {
-    
-  }
+  deleteEventHandler = currentEvent => {
+    fetch(`http://localhost:3000/api/v1/events/${currentEvent.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: this.state.token
+      }
+    }).then(() => {
+      let newArr = [...this.state.events];
+      newArr.filter(event => event.id !== currentEvent.id);
+      this.setState({ events: newArr });
+      this.props.history.push(`/events`);
+    });
+  };
 
   submitLoginHandler = (userInfo, event) => {
     event.preventDefault();
