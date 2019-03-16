@@ -478,6 +478,7 @@ class App extends Component {
   };
 
   render() {
+    console.log("app.js render events in state", this.state.events);
     return this.state.users !== [] ? (
       <div>
         <NavBar
@@ -990,7 +991,7 @@ class App extends Component {
         description: currentEvent.description,
         banner_img: currentEvent.banner_img,
         event_img: currentEvent.event_img,
-        user_id: currentEvent.user.id,
+        user_id: currentEvent.user_id,
         enable_posts: currentEvent.enable_posts,
         enable_seats: currentEvent.enable_seats
       })
@@ -1018,12 +1019,18 @@ class App extends Component {
         Accept: "application/json",
         Authorization: this.state.token
       }
-    }).then(() => {
-      let newArr = [...this.state.events];
-      newArr.filter(event => event.id !== currentEvent.id);
-      this.setState({ events: newArr });
-      this.props.history.push(`/events`);
-    });
+    })
+      .then(res => res.json())
+      .then(data => {
+        // console.log("data", data);
+        // let newArr = [...this.state.events].filter(
+        //   event => event.id !== data.id
+        // );
+
+        this.setState({ events: data });
+      })
+      .then(() => this.props.history.push("/events"))
+      .then(console.log("state", this.state.events));
   };
 
   submitLoginHandler = (userInfo, event) => {

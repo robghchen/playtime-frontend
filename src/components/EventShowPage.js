@@ -18,7 +18,7 @@ class EventShowPage extends Component {
   render() {
     const currentEvent = this.props.events.find(
       event => event.id === this.props.event_id
-    );
+    )
 
     let oldId = 0;
     if (
@@ -32,7 +32,7 @@ class EventShowPage extends Component {
       ).id;
     }
 
-    return this.props.events.length < 1 ? (
+    return this.props.events.length < 1 || currentEvent === undefined ? (
       <p>Loading . . .</p>
     ) : (
       <div>
