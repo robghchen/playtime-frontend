@@ -696,7 +696,14 @@ class App extends Component {
                 );
               }}
             />
-            <Route path="/" component={HomePage} />
+            <Route
+              path="/"
+              render={() => {
+                return (
+                  <HomePage submitSignUpHandler={this.submitSignUpHandler} />
+                );
+              }}
+            />
           </Switch>
         ) : (
           <SearchPage
@@ -708,7 +715,7 @@ class App extends Component {
         )}
         <div className={this.state.energyClassName}>
           <img
-            src="https://imgc.artprintimages.com/img/print/battery-low-energy-to-running_u-l-q18fsx00.jpg?h=550&w=550"
+            src="/assets/noenergy.jpg"
             alt="no energy"
             className="no-energy-img"
           />
@@ -721,7 +728,7 @@ class App extends Component {
         </div>
         <div className={this.state.levelUpClassName}>
           <img
-            src="https://ak5.picdn.net/shutterstock/videos/16181545/thumb/1.jpg"
+            src="/assets/table.jpg"
             alt="no energy"
             className="level-up-img"
           />

@@ -343,7 +343,8 @@ btn {
   padding-bottom: 1em;
 }
 
-.cover-photo, .event-banner {
+.cover-photo,
+.event-banner {
   width: 100%;
   height: 30em;
   object-fit: cover;
@@ -761,9 +762,53 @@ btn {
   font-weight: bold;
 }
 
-.homepage {
+.homepage-banner {
+  background-image: url("/assets/jump.jpg");
+  min-height: 500px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  margin-top: -1em;
+}
+
+.homepage-banner-text {
+  margin: auto;
+  width: 40%;
+  background-color: #000000;
+  z-index: 1;
+  padding: 2em;
+  border-radius: 5px;
+}
+
+.playtime {
+  opacity: 1;
+  color: #ffffff;
+  z-index: 2;
+}
+
+.slogan {
+  opacity: 1;
+  margin-top: -3em;
+  color: #ffffff;
+  z-index: 2;
+}
+
+.column-layout {
   background-color: #ffffff;
   padding: 4em;
+  display: flex;
+}
+
+.main-column {
+  flex: 5;
+  margin-right: 2em;
+}
+
+.sidebar-right {
+  flex: 2;
+  margin-left: 2em;
 }
 
 .playtime {
@@ -771,57 +816,46 @@ btn {
 }
 
 .homepage-images {
-  width: 400px;
+  width: 33%;
   height: auto;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
-.one {
-  position: absolute;
-  left: 15%;
-}
-
-.one-text {
-  position: absolute;
-  right: 15%;
-  margin-top: 3em;
-}
-
-.two {
-  position: absolute;
-  right: 15%;
-  margin-top: 10em;
-}
-
-.two-text {
-  position: absolute;
-  left: 15%;
-  margin-top: 20em;
-}
-
-.three {
-  position: absolute;
-  left: 15%;
-  margin-top: 31em;
-}
-
-.three-text {
-  position: absolute;
-  right: 15%;
-  margin-top: 28em;
-}
-
-.four {
-  position: absolute;
-  right: 15%;
-  margin-top: 41em;
+.call-outs-container {
+  max-width: 90%;
+  margin: 4em auto 0 auto;
   padding-bottom: 4em;
+  border-radius: 5px;
+  display: flex;
 }
 
-.four-text {
-  position: absolute;
-  left: 15%;
-  margin-top: 45em;
+.call-out {
+  flex: 1;
+  border-radius: 5px;
+}
+
+.call-out-text {
+  margin: 1em;
+  padding-bottom: 1em;
+  text-align: center;
+}
+
+.call-out:nth-child(1) {
+  background-color: #f78888;
+}
+
+.call-out:nth-child(2) {
+  background-color: #ffffff;
+}
+
+.call-out:nth-child(3) {
+  background-color: #52a2d5;
+}
+
+.call-out-images {
+  width: 100%;
+  height: 200px;
+  border-radius: 5px 5px 0px 0px;
 }
 
 .event-img {

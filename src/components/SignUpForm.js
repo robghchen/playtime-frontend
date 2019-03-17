@@ -19,7 +19,7 @@ class SignUpForm extends Component {
       <div id="signup-form" className="ui card form">
         <h2>Sign Up</h2>
         <Route
-          path="/signup"
+          path="/(signup|home|)"
           render={() => {
             return (
               <div>
@@ -79,11 +79,11 @@ class SignUpForm extends Component {
                       ? localStorage.getItem("signupError")
                       : null}
                   </span>
-                    <input
-                      type="submit"
-                      className="signup button pointer"
-                      value="Submit"
-                    />
+                  <input
+                    type="submit"
+                    className="signup button pointer"
+                    value="Submit"
+                  />
                 </form>
               </div>
             );
