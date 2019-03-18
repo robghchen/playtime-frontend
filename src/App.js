@@ -3,7 +3,7 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import HomePage from "./components/HomePage";
 import { Route, Switch, withRouter } from "react-router-dom";
-import { bindActionCreators } from "redux";
+import { bindActionCreators, applyMiddleware } from "redux";
 import { getUsers } from "./actions/userActions";
 import { connect } from "react-redux";
 import UserShowPage from "./components/UserShowPage";
@@ -17,6 +17,8 @@ import EventShowPage from "./components/EventShowPage";
 import EventsPage from "./components/EventsPage";
 import NewEventPage from "./components/NewEventPage";
 import EditEventForm from "./components/EditEventForm";
+import {Provider} from "react-redux"
+import store from "./store"
 
 class App extends Component {
   state = {
@@ -72,7 +74,8 @@ class App extends Component {
   };
 
   componentDidMount() {
-    // this.props.getUsers();
+
+    this.props.fetchPosts()
 
     fetch("http://localhost:3000/api/v1/users")
       .then(resp => resp.json())
@@ -92,11 +95,6 @@ class App extends Component {
         this.addEnergy();
       });
 
-    fetch("http://localhost:3000/api/v1/posts")
-      .then(resp => resp.json())
-      .then(posts => {
-        this.setState({ posts });
-      });
 
     fetch("http://localhost:3000/api/v1/comments")
       .then(resp => resp.json())
@@ -478,8 +476,8 @@ class App extends Component {
   };
 
   render() {
-    console.log("app.js render events in state", this.state.events);
     return this.state.users !== [] ? (
+      <Provider store={store}>
       <div>
         <NavBar
           isUserLoggedIn={this.state.isUserLoggedIn}
@@ -734,6 +732,7 @@ class App extends Component {
           />
         </div>
       </div>
+      </Provider>
     ) : (
       <div className="loading">Loading . . .</div>
     );

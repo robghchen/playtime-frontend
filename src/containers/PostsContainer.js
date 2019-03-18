@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import Post from "../components/Post";
 import NewPostForm from "../components/NewPostForm";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { fetchPosts } from "../actions/postActions";
+import { PropTypes } from "prop-types"
 
 class PostsContainer extends Component {
   state = {
     user_id: this.props.user_id
   };
-
-  
 
   showPostArray = () => {
     let posts = this.props.posts
@@ -34,7 +35,9 @@ class PostsContainer extends Component {
                 isUserLoggedIn={this.props.isUserLoggedIn}
                 users={this.props.users}
                 comments={this.props.comments}
-                hideEditCoverAndProfilePic={this.props.hideEditCoverAndProfilePic}
+                hideEditCoverAndProfilePic={
+                  this.props.hideEditCoverAndProfilePic
+                }
               />
             </div>
           );
@@ -47,8 +50,6 @@ class PostsContainer extends Component {
     const show = { display: this.props.isUserLoggedIn ? "block" : "none" };
     return (
       <div className="main-column">
-        
-
         <div style={show}>
           <NewPostForm
             addPost={this.props.addPost}
@@ -63,4 +64,18 @@ class PostsContainer extends Component {
   }
 }
 
-export default withRouter(PostsContainer);
+PostsContainer.propTypes = {
+  fetchPosts: PropTypes.func.isRequired,
+  posts: PropTypes.array.isRequired
+}
+
+const mapStateToProps = state => ({
+  posts: state.posts.items
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { fetchPosts }
+  )(PostsContainer)
+);
