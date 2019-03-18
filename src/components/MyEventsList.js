@@ -9,7 +9,7 @@ class MyEventsList extends Component {
       <div
         className={
           this.props.where === "newsContainer"
-            ? "my-events-list--news"
+            ? "my-events-list-news"
             : "my-events-list"
         }
       >

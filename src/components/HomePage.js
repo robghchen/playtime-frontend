@@ -17,6 +17,10 @@ class HomePage extends React.Component {
           </div>
         </div>
 
+        <div className="center homepage-tagline">
+          <h2>Hanging out with friends should be fun ^^</h2>
+        </div>
+
         <div className="column-layout">
           <div className="main-column">
             <img
@@ -54,11 +58,16 @@ class HomePage extends React.Component {
             />
           </div>
           <div className="sidebar-right">
-            <SignUpForm submitSignUpHandler={this.props.submitSignUpHandler}/>
+            <SignUpForm
+              className="homepage-signup"
+              submitSignUpHandler={this.props.submitSignUpHandler}
+            />
           </div>
         </div>
 
-        <div className="center"><h2>Hanging out with friends online should be fun ^^</h2></div>
+        <div className="center">
+          <h2>Continuing the conversation online should also be fun :D</h2>
+        </div>
 
         <div class="call-outs-container">
           <div class="call-out">

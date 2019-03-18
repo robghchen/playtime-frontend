@@ -754,6 +754,38 @@ btn {
   box-shadow: 0.5em 0.5em grey;
 }
 
+.my-events-list {
+  position: absolute;
+  width: 34.5%;
+  float: right;
+  top: 87.1em;
+  left: 63%;
+  padding: 2em;
+  border-radius: 0.5em;
+  border: 1px solid #f78888;
+  border-bottom: 2px solid #f78888;
+  height: 15em;
+  overflow: scroll;
+  overflow-x: hidden;
+  box-shadow: 0.5em 0.5em grey;
+}
+
+.my-events-list-news {
+  position: absolute;
+  width: 34.5%;
+  float: right;
+  top: 51.5em;
+  left: 63%;
+  padding: 2em;
+  border-radius: 0.5em;
+  border: 1px solid #f78888;
+  border-bottom: 2px solid #f78888;
+  height: 15em;
+  overflow: scroll;
+  overflow-x: hidden;
+  box-shadow: 0.5em 0.5em grey;
+}
+
 .center {
   text-align: center;
 }
@@ -773,6 +805,10 @@ btn {
   margin-top: -1em;
 }
 
+.homepage-tagline {
+  padding-top: 3em;
+}
+
 .homepage-banner-text {
   margin: auto;
   width: 40%;
@@ -780,6 +816,10 @@ btn {
   z-index: 1;
   padding: 2em;
   border-radius: 5px;
+}
+
+.homepage-signup {
+  margin: auto;
 }
 
 .playtime {
