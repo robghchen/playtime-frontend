@@ -6,7 +6,7 @@ class EventsPage extends Component {
   state = {};
   render() {
     return (
-      <React.Fragment>
+      <div className="column-layout">
         <NewEventForm
           currentUser={this.props.currentUser}
           submitNewEventHandler={this.props.submitNewEventHandler}
@@ -17,7 +17,7 @@ class EventsPage extends Component {
           events={this.props.events}
           tasks={this.props.tasks}
         />
-      </React.Fragment>
+      </div>
     );
   }
 }

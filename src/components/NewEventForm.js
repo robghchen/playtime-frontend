@@ -17,7 +17,7 @@ class NewEventForm extends Component {
   render() {
     console.log(this.state.user_id);
     return (
-      <div id="new-event-form" className="ui card form">
+      <div id="new-event-form " className="ui card form main-column">
         <h2>New Event</h2>
         <form onSubmit={this.submitHandler}>
           <label htmlFor="title">Title:</label>
@@ -68,16 +68,18 @@ class NewEventForm extends Component {
           />
           <br />
 
-          <label htmlFor="description">Description:</label>
-          <input
-            id="description"
-            className="form-control"
-            name="description"
-            type="text-area"
-            placeholder="Enter description"
-            value={this.state.description}
-            onChange={this.changeHandler}
-          />
+          <div class="field">
+            <label htmlFor="description">Description:</label>
+            <textarea
+              rows="2"
+              id="description"
+              className=""
+              name="description"
+              placeholder="Enter description"
+              value={this.state.description}
+              onChange={this.changeHandler}
+            />
+          </div>
           <br />
 
           <label htmlFor="banner-img">Banner Image:</label>
@@ -183,7 +185,7 @@ class NewEventForm extends Component {
     e.preventDefault();
 
     this.props.submitNewEventHandler(this.state, e);
-    
+
     this.setState({
       title: "",
       price: "",
