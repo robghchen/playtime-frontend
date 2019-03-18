@@ -46,7 +46,7 @@ class PostsContainer extends Component {
   render() {
     const show = { display: this.props.isUserLoggedIn ? "block" : "none" };
     return (
-      <div className="ui">
+      <div className="main-column">
         
 
         <div style={show}>

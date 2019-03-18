@@ -48,8 +48,6 @@ btn {
 .post-container {
   width: 100%;
   height: auto;
-  margin-left: 40px;
-  margin-top: 40px;
   margin-bottom: 2em;
   padding-bottom: 2em;
 }
@@ -238,14 +236,10 @@ btn {
 }
 
 #new-post-form {
-  position: relative;
-  top: 3em;
-  width: 94%;
-  padding-right: 7em;
-  padding-left: 2em;
-  padding-bottom: 2em;
-  left: 3.5%;
+  width: 100%;
+  padding: 1em 6em 2em 2em;
   background-color: #ffffff;
+  margin-bottom: 2em;
   border: 1px solid #f78888;
   border-bottom: 2px solid #f78888;
 }

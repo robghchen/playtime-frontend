@@ -26,26 +26,28 @@ class UserShowPage extends Component {
           editProfilePic={this.props.editProfilePic}
           editCover={this.props.editCover}
         />
-        <PostsContainer
-          user_id={this.props.user_id}
-          posts={this.props.posts}
-          addPost={this.props.addPost}
-          addComment={this.props.addComment}
-          isUserLoggedIn={this.props.isUserLoggedIn}
-          currentUser={this.props.currentUser}
-          deleteHandler={this.props.deleteHandler}
-          editPostHandler={this.props.editPostHandler}
-          comments={this.props.comments}
-          users={this.props.users}
-          editCover={this.props.editCover}
-          editProfilePic={this.props.editProfilePic}
-        />
-        <SideBar
-          currentUser={this.props.currentUser}
-          activities={this.props.activities}
-          events={this.props.events}
-          tasks={this.props.tasks}
-        />
+        <div className="column-layout">
+          <PostsContainer
+            user_id={this.props.user_id}
+            posts={this.props.posts}
+            addPost={this.props.addPost}
+            addComment={this.props.addComment}
+            isUserLoggedIn={this.props.isUserLoggedIn}
+            currentUser={this.props.currentUser}
+            deleteHandler={this.props.deleteHandler}
+            editPostHandler={this.props.editPostHandler}
+            comments={this.props.comments}
+            users={this.props.users}
+            editCover={this.props.editCover}
+            editProfilePic={this.props.editProfilePic}
+          />
+          <SideBar
+            currentUser={this.props.currentUser}
+            activities={this.props.activities}
+            events={this.props.events}
+            tasks={this.props.tasks}
+          />
+        </div>
       </React.Fragment>
     );
   }
