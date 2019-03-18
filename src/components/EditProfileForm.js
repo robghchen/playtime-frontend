@@ -19,7 +19,7 @@ class EditProfileForm extends Component {
 
   render() {
     return (
-      <div id="edit-profile-form" className="ui card form">
+      <div id="edit-profile-form" className="ui card form main-column">
         {this.props.isUserLoggedIn ? (
           <form onSubmit={this.submitHandler} className="edit-profile-form">
             <label htmlFor="username">Username: </label>

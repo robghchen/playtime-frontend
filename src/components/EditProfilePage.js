@@ -6,7 +6,7 @@ class EventsPage extends Component {
   state = {};
   render() {
     return (
-      <React.Fragment>
+        <div className="column-layout">
         <EditProfileForm
           isUserLoggedIn={this.props.isUserLoggedIn}
           currentUser={this.props.currentUser}
@@ -17,8 +17,7 @@ class EventsPage extends Component {
           activities={this.props.activities}
           events={this.props.events}
           tasks={this.props.tasks}
-        />
-      </React.Fragment>
+        /></div>
     );
   }
 }
