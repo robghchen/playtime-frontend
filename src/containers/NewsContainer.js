@@ -47,8 +47,8 @@ class NewsContainer extends Component {
   render() {
     const show = { display: this.props.isUserLoggedIn ? "block" : "none" };
     return (
-      <div className="ui">
-        <div className="post-container">{this.showPostArray()}</div>
+      <div className="main-column">
+        {this.showPostArray()}
       </div>
     );
   }

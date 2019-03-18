@@ -297,9 +297,6 @@ btn {
 }
 
 .posts-container {
-  position: relative;
-  float: left;
-  width: 55%;
   top: 2.8em;
   padding: 2em;
   padding-right: 6em;
@@ -690,102 +687,6 @@ btn {
   font-size: 85%;
 }
 
-.daily-tasks {
-  position: absolute;
-  width: 34.5%;
-  float: right;
-  top: 53em;
-  left: 63%;
-  padding: 2em;
-  border-radius: 0.5em;
-  border: 1px solid #f78888;
-  border-bottom: 2px solid #f78888;
-  height: 15em;
-  overflow: scroll;
-  overflow-x: hidden;
-  box-shadow: 0.5em 0.5em grey;
-}
-
-.daily-tasks-news {
-  position: absolute;
-  width: 34.5%;
-  float: right;
-  top: 17.4em;
-  left: 63%;
-  padding: 2em;
-  border-radius: 0.5em;
-  border: 1px solid #f78888;
-  border-bottom: 2px solid #f78888;
-  height: 15em;
-  overflow: scroll;
-  overflow-x: hidden;
-  box-shadow: 0.5em 0.5em grey;
-}
-
-.activities-container {
-  position: absolute;
-  width: 34.5%;
-  float: right;
-  top: 70em;
-  left: 63%;
-  padding: 2em;
-  border-radius: 0.5em;
-  border: 1px solid #f78888;
-  border-bottom: 2px solid #f78888;
-  height: 15em;
-  overflow: scroll;
-  overflow-x: hidden;
-  box-shadow: 0.5em 0.5em grey;
-}
-
-.activities-container-news {
-  position: absolute;
-  width: 34.5%;
-  float: right;
-  top: 34.4em;
-  left: 63%;
-  padding: 2em;
-  border-radius: 0.5em;
-  border: 1px solid #f78888;
-  border-bottom: 2px solid #f78888;
-  height: 15em;
-  overflow: scroll;
-  overflow-x: hidden;
-  box-shadow: 0.5em 0.5em grey;
-}
-
-.my-events-list {
-  position: absolute;
-  width: 34.5%;
-  float: right;
-  top: 87.1em;
-  left: 63%;
-  padding: 2em;
-  border-radius: 0.5em;
-  border: 1px solid #f78888;
-  border-bottom: 2px solid #f78888;
-  height: 15em;
-  overflow: scroll;
-  overflow-x: hidden;
-  box-shadow: 0.5em 0.5em grey;
-}
-
-.my-events-list-news {
-  position: absolute;
-  width: 34.5%;
-  float: right;
-  top: 51.5em;
-  left: 63%;
-  padding: 2em;
-  border-radius: 0.5em;
-  border: 1px solid #f78888;
-  border-bottom: 2px solid #f78888;
-  height: 15em;
-  overflow: scroll;
-  overflow-x: hidden;
-  box-shadow: 0.5em 0.5em grey;
-}
-
 .center {
   text-align: center;
 }
@@ -849,6 +750,32 @@ btn {
 .sidebar-right {
   flex: 2;
   margin-left: 2em;
+  display: flex;
+  flex-direction: column;
+}
+
+.daily-tasks,
+.activities-container {
+  padding: 2em;
+  margin-bottom: 2em;
+  border-radius: 0.5em;
+  border: 1px solid #f78888;
+  border-bottom: 2px solid #f78888;
+  height: 15em;
+  overflow: scroll;
+  overflow-x: hidden;
+  box-shadow: 0.5em 0.5em grey;
+}
+
+.my-events-list {
+  padding: 2em;
+  margin-bottom: 2em;
+  border-radius: 0.5em;
+  border: 1px solid #f78888;
+  border-bottom: 2px solid #f78888;
+  overflow: scroll;
+  overflow-x: hidden;
+  box-shadow: 0.5em 0.5em grey;
 }
 
 .playtime {

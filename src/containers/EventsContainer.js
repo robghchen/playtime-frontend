@@ -6,7 +6,7 @@ class EventsContainer extends Component {
   state = {};
   render() {
     return (
-      <div className="events">
+      <div className="main-column">
         <h2 className="center">Events</h2>
         {this.props.events
           .sort((a, b) => b.id - a.id)

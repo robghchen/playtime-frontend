@@ -7,7 +7,7 @@ class SideBar extends Component {
   state = {};
   render() {
     return (
-      <div className="side-bar">
+      <div className="sidebar-right">
         <DailyTasks
           tasks={this.props.tasks}
           currentUser={this.props.currentUser}
