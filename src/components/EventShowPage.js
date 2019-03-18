@@ -18,7 +18,7 @@ class EventShowPage extends Component {
   render() {
     const currentEvent = this.props.events.find(
       event => event.id === this.props.event_id
-    )
+    );
 
     let oldId = 0;
     if (
@@ -35,88 +35,91 @@ class EventShowPage extends Component {
     return this.props.events.length < 1 || currentEvent === undefined ? (
       <p>Loading . . .</p>
     ) : (
-      <div>
+      <React.Fragment>
         <img
           src={currentEvent.banner_img}
           alt="event banner"
           className="event-banner"
         />
-        <img
-          src={currentEvent.event_img}
-          alt="event img"
-          className="event-img-showpage"
-        />
-        <h3>{currentEvent.title}</h3>
+        <div className="column-layout">
+          <div className="main-column">
+            <img
+              src={currentEvent.event_img}
+              alt="event img"
+              className="event-img-showpage"
+            />
+            <h3>{currentEvent.title}</h3>
 
-        <form>
-          {currentEvent.seats
-            .sort((a, b) => a.id - b.id)
-            .map(seat => {
-              return (
-                <div key={seat.id} className="radio">
-                  <label>
-                    <input
-                      type="radio"
-                      value={seat.position}
-                      checked={this.state.selectedOption === seat.position}
-                      onChange={e =>
-                        this.changeSeatHandler(
-                          e,
-                          oldId,
-                          seat.id,
-                          this.props.currentUser.id
-                        )
-                      }
-                      disabled={seat.user_id ? true : null}
-                    />
-                    <span>{seat.position}</span>
+            <form>
+              {currentEvent.seats
+                .sort((a, b) => a.id - b.id)
+                .map(seat => {
+                  return (
+                    <div key={seat.id} className="radio">
+                      <label>
+                        <input
+                          type="radio"
+                          value={seat.position}
+                          checked={this.state.selectedOption === seat.position}
+                          onChange={e =>
+                            this.changeSeatHandler(
+                              e,
+                              oldId,
+                              seat.id,
+                              this.props.currentUser.id
+                            )
+                          }
+                          disabled={seat.user_id ? true : null}
+                        />
+                        <span>{seat.position}</span>
 
-                    {seat.user_id ? (
-                      <span>
-                        :{" "}
-                        {
-                          currentEvent.users.find(user => {
-                            return user.id === seat.user_id;
-                          }).username
-                        }
-                      </span>
-                    ) : null}
-                  </label>
-                </div>
-              );
-            })}
-        </form>
+                        {seat.user_id ? (
+                          <span>
+                            :{" "}
+                            {
+                              currentEvent.users.find(user => {
+                                return user.id === seat.user_id;
+                              }).username
+                            }
+                          </span>
+                        ) : null}
+                      </label>
+                    </div>
+                  );
+                })}
+            </form>
 
-        <p>{currentEvent.description}</p>
+            <p>{currentEvent.description}</p>
 
-        {currentEvent.user_id === this.props.currentUser.id ? (
-          <Link
-            to={`/events/${currentEvent.id}/edit`}
-            onClick={() => this.props.setEventHandler(currentEvent)}
-          >
-            <h4>Edit Event</h4>
-          </Link>
-        ) : null}
+            {currentEvent.user_id === this.props.currentUser.id ? (
+              <Link
+                to={`/events/${currentEvent.id}/edit`}
+                onClick={() => this.props.setEventHandler(currentEvent)}
+              >
+                <h4>Edit Event</h4>
+              </Link>
+            ) : null}
 
-        <div>
-          <h4>Attending</h4>
-          <span>Yes</span>
-          <span>No</span>
+            <div>
+              <h4>Attending</h4>
+              <span>Yes</span>
+              <span>No</span>
+            </div>
+
+            <div>
+              <p>How much: ${currentEvent.price}</p>
+              <p>When: {currentEvent.date}</p>
+              <p>Where: {currentEvent.location}</p>
+            </div>
+          </div>
+          <SideBar
+            currentUser={this.props.currentUser}
+            activities={this.props.activities}
+            events={this.props.events}
+            tasks={this.props.tasks}
+          />
         </div>
-
-        <div>
-          <p>How much: ${currentEvent.price}</p>
-          <p>When: {currentEvent.date}</p>
-          <p>Where: {currentEvent.location}</p>
-        </div>
-
-        <SideBar
-          currentUser={this.props.currentUser}
-          activities={this.props.activities}
-          events={this.props.events}
-          tasks={this.props.tasks}
-        />
-      </div>
+      </React.Fragment>
     );
   }
 }
