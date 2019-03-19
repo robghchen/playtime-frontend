@@ -11,6 +11,3 @@ export const fetchPosts = () => dispatch => {
     );
 };
 
-// export const createPosts = () => dispatch => {
-  
-// };
