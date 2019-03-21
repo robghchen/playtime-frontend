@@ -40,9 +40,9 @@ btn {
 }
 
 .navright {
-  position: absolute;
-  top: 1em;
-  right: 1em;
+  position: relative;
+  display: flex;
+  padding: 0.5em;
 }
 
 .post-container {
@@ -285,6 +285,7 @@ btn {
 
 .ui.menu.navBar span,
 .ui.menu.navBar a {
+  background-color: #52a2d5;
   color: #ffffff;
 }
 
@@ -313,9 +314,39 @@ btn {
   width: 100%;
 }
 
-.search-form {
-  position: absolute;
-  left: 52%;
+.navbar-layout {
+  position: relative;
+  display: flex;
+  padding: 0.5em;
+}
+
+ .navbar-left {
+  display: flex;
+  flex: 3;
+}
+
+ .navbar-logo {
+  flex: 1;
+  margin: auto;
+}
+
+ .navbar-stats {
+  flex: 1;
+  margin: auto;
+}
+
+ .navbar-search {
+  display: flex;
+  flex: 7;
+  margin: auto;
+  flex-flow: row-reverse;
+  padding-right: 1em;
+}
+
+ .navbar-right {
+  margin: auto;
+  color: #52a2d5;
+  border-bottom: 2px solid #f78888;
 }
 
 .profile-icon {
@@ -440,11 +471,6 @@ btn {
   position: absolute;
   margin-left: 15.5em;
   margin-top: -9em;
-}
-
-.stats {
-  position: absolute;
-  margin-left: 9em;
 }
 
 .red {
