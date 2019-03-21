@@ -822,6 +822,63 @@ btn {
   width: 150px;
 }
 
-.event-img-showpage {
+.event-showpage-topbar {
+  display: flex;
+  padding: 1em;
+  border: 1px solid #f78888;
+  border-bottom: 2px solid #f78888;
+}
+
+.event-showpage-img {
+  flex: 2;
   width: 150px;
+  margin: auto;
+}
+
+.event-showpage-title {
+  flex: 3;
+  margin: auto;
+  margin-left: 1em;
+}
+
+.event-showpage-info {
+  flex: 3;
+  margin: auto;
+}
+
+.event-showpage-attending {
+  flex: 1;
+  margin: auto;
+}
+
+.event-showpage-main {
+  display: flex;
+}
+
+.event-showpage-description {
+  flex: 3;
+  padding: 2em;
+  padding-top: 3em;
+}
+
+.event-showpage-selection {
+  flex: 1;
+  margin-top: 2em;
+  margin-left: 1em;
+  padding: 1em;
+  border: 1px solid #dddddd;
+  border-bottom: 2px solid #dddddd;
+}
+
+.event-card {
+  display: flex;
+}
+
+.event-card-img {
+  flex: 2;
+}
+
+.event-card-info {
+  flex: 4;
+  margin: 1em;
 }

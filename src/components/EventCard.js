@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 class EventCard extends Component {
   state = {};
   render() {
+    let datetime = this.props.event.date;
     return (
-      <div>
-        <span>
+      <div className="event-card">
+        <span className="event-card-img">
           <Link to={`/events/${this.props.event.id}`}>
             <img
               src={this.props.event.event_img}
@@ -15,12 +16,16 @@ class EventCard extends Component {
             />
           </Link>
         </span>
-        <span>
+        <span className="event-card-info">
           <Link to={`/events/${this.props.event.id}`}>
             <h4>{this.props.event.title}</h4>
           </Link>
-          <p>{this.props.event.date}</p>
-          <p>{this.props.event.location}</p>
+          <p>
+            {datetime.slice(5, 7)}/{datetime.slice(8, 10)}/
+            {datetime.slice(2, 4)} at {datetime.slice(11, 16)}
+            <br />
+            {this.props.event.location}
+          </p>
         </span>
       </div>
     );

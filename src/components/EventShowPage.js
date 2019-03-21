@@ -43,66 +43,89 @@ class EventShowPage extends Component {
         />
         <div className="column-layout">
           <div className="main-column">
-            <img
-              src={currentEvent.event_img}
-              alt="event img"
-              className="event-img-showpage"
-            />
-            <h3>{currentEvent.title}</h3>
-            <h4>Reserve your seat:</h4>
-            <form>
-              {currentEvent.seats
-                .sort((a, b) => a.id - b.id)
-                .map(seat => {
-                  return (
-                    <div key={seat.id} className="radio">
-                      <label>
-                        <input
-                          type="radio"
-                          value={seat.position}
-                          checked={this.state.selectedOption === seat.position}
-                          onChange={e =>
-                            this.changeSeatHandler(
-                              e,
-                              oldId,
-                              seat.id,
-                              this.props.currentUser.id,
-                              this.props.currentUser.username
-                            )
-                          }
-                          disabled={seat.user_id ? true : null}
-                        />
-                        <span>{seat.position}</span>
+            <div className="event-showpage-topbar">
+              <span className="event-showpage-img">
+                <img
+                  src={currentEvent.event_img}
+                  alt="event img"
+                  className="event-img"
+                />
+              </span>
+              <h3 className="event-showpage-title">{currentEvent.title}</h3>
 
-                        {seat.username ? <span>:{` ${seat.username}`}</span> : null}
-                      </label>
-                    </div>
-                  );
-                })}
-            </form>
-            <br />
+              <div className="event-showpage-info">
+                <p>
+                  How much: ${currentEvent.price}
+                  <br />
+                  When: {currentEvent.date.slice(5, 7)}/
+                  {currentEvent.date.slice(8, 10)}/
+                  {currentEvent.date.slice(2, 4)} at{" "}
+                  {currentEvent.date.slice(11, 16)}
+                  <br />
+                  Where: {currentEvent.location}
+                </p>
+              </div>
 
-            <p>{currentEvent.description}</p>
+              <div className="event-showpage-attending">
+                {currentEvent.user_id === this.props.currentUser.id ? (
+                  <Link
+                    to={`/events/${currentEvent.id}/edit`}
+                    onClick={() => this.props.setEventHandler(currentEvent)}
+                  >
+                    <h4>Edit Event</h4>
+                  </Link>
+                ) : null}
 
-            {currentEvent.user_id === this.props.currentUser.id ? (
-              <Link
-                to={`/events/${currentEvent.id}/edit`}
-                onClick={() => this.props.setEventHandler(currentEvent)}
-              >
-                <h4>Edit Event</h4>
-              </Link>
-            ) : null}
-
-            <div>
-              <h4>Attending</h4>
-              <span>Yes</span>
-              <span>No</span>
+                <div>
+                  <h4>Attending</h4>
+                  <span>Yes</span>
+                  <span>No</span>
+                </div>
+              </div>
             </div>
+            <div className="event-showpage-main">
+              <p className="event-showpage-description">
+                {currentEvent.description}
+              </p>
+              <div className="event-showpage-selection">
+                <h4>Reserve your seat:</h4>
+                <br />
+                <form>
+                  {currentEvent.seats
+                    .sort((a, b) => a.id - b.id)
+                    .map(seat => {
+                      return (
+                        <div key={seat.id} className="radio">
+                          <label className={seat.user_id ? null : "pointer"}>
+                            <input
+                              type="radio"
+                              value={seat.position}
+                              checked={
+                                this.state.selectedOption === seat.position
+                              }
+                              onChange={e =>
+                                this.changeSeatHandler(
+                                  e,
+                                  oldId,
+                                  seat.id,
+                                  this.props.currentUser.id,
+                                  this.props.currentUser.username
+                                )
+                              }
+                              disabled={seat.user_id ? true : null}
+                              className={seat.user_id ? null : "pointer"}
+                            />
+                            <span>{seat.position}</span>
 
-            <div>
-              <p>How much: ${currentEvent.price}</p>
-              <p>When: {currentEvent.date}</p>
-              <p>Where: {currentEvent.location}</p>
+                            {seat.username ? (
+                              <span>:{` ${seat.username}`}</span>
+                            ) : null}
+                          </label>
+                        </div>
+                      );
+                    })}
+                </form>
+              </div>
             </div>
           </div>
           <SideBar
