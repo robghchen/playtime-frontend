@@ -320,22 +320,22 @@ btn {
   padding: 0.5em;
 }
 
- .navbar-left {
+.navbar-left {
   display: flex;
   flex: 3;
 }
 
- .navbar-logo {
+.navbar-logo {
   flex: 1;
   margin: auto;
 }
 
- .navbar-stats {
+.navbar-stats {
   flex: 1;
   margin: auto;
 }
 
- .navbar-search {
+.navbar-search {
   display: flex;
   flex: 7;
   margin: auto;
@@ -343,7 +343,7 @@ btn {
   padding-right: 1em;
 }
 
- .navbar-right {
+.navbar-right {
   margin: auto;
   color: #52a2d5;
   border-bottom: 2px solid #f78888;
@@ -929,4 +929,10 @@ btn {
 
 .new-event-form-allow-seats {
   flex: 1;
+}
+
+.footer {
+  text-align: center;
+  background-color: #dddddd;
+  padding: 2em;
 }

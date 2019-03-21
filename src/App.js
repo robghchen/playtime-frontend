@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import HomePage from "./components/HomePage";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter, Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { getUsers } from "./actions/userActions";
 import { connect } from "react-redux";
@@ -489,203 +489,83 @@ class App extends Component {
 
   render() {
     return this.state.users !== [] ? (
-      <div>
-        <NavBar
-          isUserLoggedIn={this.state.isUserLoggedIn}
-          logout={this.logout}
-          currentPath={this.props.location.pathname}
-          search={this.state.search}
-          changeHandler={this.changeHandler}
-          currentUser={this.state.currentUser}
-          clearSearch={this.clearSearch}
-        />
+      <React.Fragment>
+        <div>
+          <NavBar
+            isUserLoggedIn={this.state.isUserLoggedIn}
+            logout={this.logout}
+            currentPath={this.props.location.pathname}
+            search={this.state.search}
+            changeHandler={this.changeHandler}
+            currentUser={this.state.currentUser}
+            clearSearch={this.clearSearch}
+          />
 
-        {this.state.search === "" ? (
-          <Switch>
-            <Route
-              path="/home"
-              render={RouterProps => {
-                return this.state.isUserLoggedIn ? (
-                  this.state.currentUser.id > this.state.users.length ? (
-                    <h3>Loading . . .</h3>
+          {this.state.search === "" ? (
+            <Switch>
+              <Route
+                path="/home"
+                render={RouterProps => {
+                  return this.state.isUserLoggedIn ? (
+                    this.state.currentUser.id > this.state.users.length ? (
+                      <h3>Loading . . .</h3>
+                    ) : (
+                      <NewsFeed
+                        user_id={this.state.currentUser.id}
+                        posts={this.state.posts}
+                        addPost={this.addPost}
+                        addComment={this.addComment}
+                        isUserLoggedIn={this.state.isUserLoggedIn}
+                        currentUser={this.state.currentUser}
+                        deleteHandler={this.deleteHandler}
+                        comments={this.state.comments}
+                        users={this.state.users}
+                        activities={this.state.activities}
+                        tasks={this.state.tasks}
+                        events={this.state.events}
+                      />
+                    )
                   ) : (
-                    <NewsFeed
-                      user_id={this.state.currentUser.id}
-                      posts={this.state.posts}
-                      addPost={this.addPost}
-                      addComment={this.addComment}
-                      isUserLoggedIn={this.state.isUserLoggedIn}
-                      currentUser={this.state.currentUser}
-                      deleteHandler={this.deleteHandler}
-                      comments={this.state.comments}
-                      users={this.state.users}
-                      activities={this.state.activities}
-                      tasks={this.state.tasks}
-                      events={this.state.events}
-                    />
-                  )
-                ) : (
-                  <HomePage />
-                );
-              }}
-            />
-            <Route
-              path="/profile"
-              render={RouterProps => {
-                return this.state.isUserLoggedIn ? (
-                  this.state.currentUser.id > this.state.users.length ? (
-                    <h3>Loading . . .</h3>
+                    <HomePage />
+                  );
+                }}
+              />
+              <Route
+                path="/profile"
+                render={RouterProps => {
+                  return this.state.isUserLoggedIn ? (
+                    this.state.currentUser.id > this.state.users.length ? (
+                      <h3>Loading . . .</h3>
+                    ) : (
+                      <UserShowPage
+                        user_id={this.state.currentUser.id}
+                        posts={this.state.posts}
+                        addPost={this.addPost}
+                        addComment={this.addComment}
+                        isUserLoggedIn={this.state.isUserLoggedIn}
+                        currentUser={this.state.currentUser}
+                        deleteHandler={this.deleteHandler}
+                        editPostHandler={this.editPostHandler}
+                        comments={this.state.comments}
+                        users={this.state.users}
+                        editCover={this.editCover}
+                        editProfilePic={this.editProfilePic}
+                        activities={this.state.activities}
+                        tasks={this.state.tasks}
+                        events={this.state.events}
+                      />
+                    )
                   ) : (
+                    <HomePage />
+                  );
+                }}
+              />
+              <Route
+                path="/user/:id"
+                render={RouterProps => {
+                  return (
                     <UserShowPage
-                      user_id={this.state.currentUser.id}
-                      posts={this.state.posts}
-                      addPost={this.addPost}
-                      addComment={this.addComment}
-                      isUserLoggedIn={this.state.isUserLoggedIn}
-                      currentUser={this.state.currentUser}
-                      deleteHandler={this.deleteHandler}
-                      editPostHandler={this.editPostHandler}
-                      comments={this.state.comments}
-                      users={this.state.users}
-                      editCover={this.editCover}
-                      editProfilePic={this.editProfilePic}
-                      activities={this.state.activities}
-                      tasks={this.state.tasks}
-                      events={this.state.events}
-                    />
-                  )
-                ) : (
-                  <HomePage />
-                );
-              }}
-            />
-            <Route
-              path="/user/:id"
-              render={RouterProps => {
-                return (
-                  <UserShowPage
-                    user_id={parseInt(RouterProps.match.params.id)}
-                    posts={this.state.posts}
-                    addPost={this.addPost}
-                    addComment={this.addComment}
-                    isUserLoggedIn={this.state.isUserLoggedIn}
-                    currentUser={this.state.currentUser}
-                    deleteHandler={this.deleteHandler}
-                    editPostHandler={this.editPostHandler}
-                    comments={this.state.comments}
-                    users={JSON.parse(localStorage.getItem("users"))}
-                    editCover={this.editCover}
-                    editProfilePic={this.editProfilePic}
-                    activities={this.state.activities}
-                    tasks={this.state.tasks}
-                    events={this.state.events}
-                  />
-                );
-              }}
-            />
-            <Route
-              path="/events/create"
-              render={() => {
-                return (
-                  <NewEventPage
-                    currentUser={this.state.currentUser}
-                    activities={this.state.activities}
-                    events={this.state.events}
-                    tasks={this.state.tasks}
-                    submitNewEventHandler={this.submitNewEventHandler}
-                    seats={this.state.seats}
-                  />
-                );
-              }}
-            />
-            <Route
-              path="/events/:id/edit"
-              render={RouterProps => {
-                return (
-                  <EditEventForm
-                    currentEvent={this.state.currentEvent}
-                    updateEventHandler={this.updateEventHandler}
-                    deleteEventHandler={this.deleteEventHandler}
-                    addSeatHandler={this.addSeatHandler}
-                  />
-                );
-              }}
-            />
-            <Route
-              path="/events/:id"
-              render={RouterProps => {
-                return (
-                  <EventShowPage
-                    currentUser={this.state.currentUser}
-                    activities={this.state.activities}
-                    events={this.state.events}
-                    tasks={this.state.tasks}
-                    event_id={parseInt(RouterProps.match.params.id)}
-                    setEventHandler={this.setEventHandler}
-                    editSeatHandler={this.editSeatHandler}
-                    seats={this.state.seats}
-                  />
-                );
-              }}
-            />
-            <Route
-              path="/events"
-              render={RouterProps => {
-                return (
-                  <EventsPage
-                    currentUser={this.state.currentUser}
-                    activities={this.state.activities}
-                    events={this.state.events}
-                    tasks={this.state.tasks}
-                  />
-                );
-              }}
-            />
-            <Route
-              path="/search"
-              render={() => {
-                return (
-                  <SearchPage
-                    clearSearch={this.clearSearch}
-                    isUserLoggedIn={this.state.isUserLoggedIn}
-                    search={this.state.search}
-                    filteredUsers={this.state.filteredUsers}
-                  />
-                );
-              }}
-            />
-            <Route
-              path="/editProfile"
-              render={() => {
-                return (
-                  <EditProfilePage
-                    isUserLoggedIn={this.state.isUserLoggedIn}
-                    currentUser={this.state.currentUser}
-                    updateHandler={this.updateHandler}
-                    activities={this.state.activities}
-                    events={this.state.events}
-                    tasks={this.state.tasks}
-                  />
-                );
-              }}
-            />
-            <Route
-              path="/login"
-              render={() => {
-                return (
-                  <LoginForm submitLoginHandler={this.submitLoginHandler} />
-                );
-              }}
-            />
-            <Route
-              path="/signUp"
-              render={() => {
-                return this.state.isUserLoggedIn ? (
-                  this.state.currentUser.id === 0 ? (
-                    <h3>Loading . . .</h3>
-                  ) : (
-                    <UserShowPage
-                      user_id={this.state.currentUser.id}
+                      user_id={parseInt(RouterProps.match.params.id)}
                       posts={this.state.posts}
                       addPost={this.addPost}
                       addComment={this.addComment}
@@ -701,50 +581,184 @@ class App extends Component {
                       tasks={this.state.tasks}
                       events={this.state.events}
                     />
-                  )
-                ) : (
-                  <SignUpForm submitSignUpHandler={this.submitSignUpHandler} />
-                );
-              }}
+                  );
+                }}
+              />
+              <Route
+                path="/events/create"
+                render={() => {
+                  return (
+                    <NewEventPage
+                      currentUser={this.state.currentUser}
+                      activities={this.state.activities}
+                      events={this.state.events}
+                      tasks={this.state.tasks}
+                      submitNewEventHandler={this.submitNewEventHandler}
+                      seats={this.state.seats}
+                    />
+                  );
+                }}
+              />
+              <Route
+                path="/events/:id/edit"
+                render={RouterProps => {
+                  return (
+                    <EditEventForm
+                      currentEvent={this.state.currentEvent}
+                      updateEventHandler={this.updateEventHandler}
+                      deleteEventHandler={this.deleteEventHandler}
+                      addSeatHandler={this.addSeatHandler}
+                    />
+                  );
+                }}
+              />
+              <Route
+                path="/events/:id"
+                render={RouterProps => {
+                  return (
+                    <EventShowPage
+                      currentUser={this.state.currentUser}
+                      activities={this.state.activities}
+                      events={this.state.events}
+                      tasks={this.state.tasks}
+                      event_id={parseInt(RouterProps.match.params.id)}
+                      setEventHandler={this.setEventHandler}
+                      editSeatHandler={this.editSeatHandler}
+                      seats={this.state.seats}
+                    />
+                  );
+                }}
+              />
+              <Route
+                path="/events"
+                render={RouterProps => {
+                  return (
+                    <EventsPage
+                      currentUser={this.state.currentUser}
+                      activities={this.state.activities}
+                      events={this.state.events}
+                      tasks={this.state.tasks}
+                    />
+                  );
+                }}
+              />
+              <Route
+                path="/search"
+                render={() => {
+                  return (
+                    <SearchPage
+                      clearSearch={this.clearSearch}
+                      isUserLoggedIn={this.state.isUserLoggedIn}
+                      search={this.state.search}
+                      filteredUsers={this.state.filteredUsers}
+                    />
+                  );
+                }}
+              />
+              <Route
+                path="/editProfile"
+                render={() => {
+                  return (
+                    <EditProfilePage
+                      isUserLoggedIn={this.state.isUserLoggedIn}
+                      currentUser={this.state.currentUser}
+                      updateHandler={this.updateHandler}
+                      activities={this.state.activities}
+                      events={this.state.events}
+                      tasks={this.state.tasks}
+                    />
+                  );
+                }}
+              />
+              <Route
+                path="/login"
+                render={() => {
+                  return (
+                    <LoginForm submitLoginHandler={this.submitLoginHandler} />
+                  );
+                }}
+              />
+              <Route
+                path="/signUp"
+                render={() => {
+                  return this.state.isUserLoggedIn ? (
+                    this.state.currentUser.id === 0 ? (
+                      <h3>Loading . . .</h3>
+                    ) : (
+                      <UserShowPage
+                        user_id={this.state.currentUser.id}
+                        posts={this.state.posts}
+                        addPost={this.addPost}
+                        addComment={this.addComment}
+                        isUserLoggedIn={this.state.isUserLoggedIn}
+                        currentUser={this.state.currentUser}
+                        deleteHandler={this.deleteHandler}
+                        editPostHandler={this.editPostHandler}
+                        comments={this.state.comments}
+                        users={JSON.parse(localStorage.getItem("users"))}
+                        editCover={this.editCover}
+                        editProfilePic={this.editProfilePic}
+                        activities={this.state.activities}
+                        tasks={this.state.tasks}
+                        events={this.state.events}
+                      />
+                    )
+                  ) : (
+                    <SignUpForm
+                      submitSignUpHandler={this.submitSignUpHandler}
+                    />
+                  );
+                }}
+              />
+              <Route
+                path="/"
+                render={() => {
+                  return (
+                    <HomePage submitSignUpHandler={this.submitSignUpHandler} />
+                  );
+                }}
+              />
+            </Switch>
+          ) : (
+            <SearchPage
+              clearSearch={this.clearSearch}
+              isUserLoggedIn={this.state.isUserLoggedIn}
+              search={this.state.search}
+              filteredUsers={this.state.filteredUsers}
             />
-            <Route
-              path="/"
-              render={() => {
-                return (
-                  <HomePage submitSignUpHandler={this.submitSignUpHandler} />
-                );
-              }}
+          )}
+          <div className={this.state.energyClassName}>
+            <img
+              src="/assets/noenergy.jpg"
+              alt="no energy"
+              className="no-energy-img"
             />
-          </Switch>
-        ) : (
-          <SearchPage
-            clearSearch={this.clearSearch}
-            isUserLoggedIn={this.state.isUserLoggedIn}
-            search={this.state.search}
-            filteredUsers={this.state.filteredUsers}
-          />
-        )}
-        <div className={this.state.energyClassName}>
-          <img
-            src="/assets/noenergy.jpg"
-            alt="no energy"
-            className="no-energy-img"
-          />
-          <div className="no-energy-text">
-            <p className="red">Not enough energy at the moment.</p>
-            <span onClick={this.energyHide} className="close pointer">
-              x
-            </span>
+            <div className="no-energy-text">
+              <p className="red">Not enough energy at the moment.</p>
+              <span onClick={this.energyHide} className="close pointer">
+                x
+              </span>
+            </div>
+          </div>
+          <div className={this.state.levelUpClassName}>
+            <img
+              src="/assets/table.jpg"
+              alt="no energy"
+              className="level-up-img"
+            />
           </div>
         </div>
-        <div className={this.state.levelUpClassName}>
-          <img
-            src="/assets/table.jpg"
-            alt="no energy"
-            className="level-up-img"
-          />
+        <div className="footer">
+          <p>
+            Do you have any suggestions for us? Leave some{" "}
+            <Link to={"/user/3"}>FeedBack</Link>
+            <br />
+            Made with ❤️ in NYC
+            <br />
+            <span>&copy; {new Date().getFullYear()}</span>
+          </p>
         </div>
-      </div>
+      </React.Fragment>
     ) : (
       <div className="loading">Loading . . .</div>
     );
