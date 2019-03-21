@@ -15,9 +15,8 @@ class NewEventForm extends Component {
     enable_seats: false
   };
   render() {
-    console.log(this.state.user_id);
     return (
-      <div id="new-event-form " className="ui card form main-column">
+      <div id="new-event-form" className="ui card form main-column">
         <h2>New Event</h2>
         <form onSubmit={this.submitHandler}>
           <label htmlFor="title">Title:</label>
@@ -104,71 +103,74 @@ class NewEventForm extends Component {
             value={this.state.event_img}
             onChange={this.changeHandler}
           />
-          <br />
 
-          <p>Allow Posts and Comments:</p>
-          <div>
-            <label>
-              <input
-                className="form-control"
-                name="enable_posts"
-                type="radio"
-                value={true}
-                checked={this.state.enable_posts === true}
-                onChange={this.changeHandler}
-              />
-              Yes
-            </label>
-          </div>
-          <div>
-            <label>
-              <input
-                className="form-control"
-                name="enable_posts"
-                type="radio"
-                value={false}
-                checked={this.state.enable_posts === false}
-                onChange={this.changeHandler}
-              />
-              No
-            </label>
-          </div>
-          <br />
+          <div className="new-event-form-selection">
+            <div className="new-event-form-allow-posts">
+              <p>Allow Posts and Comments:</p>
+              <div>
+                <label>
+                  <input
+                    className="form-control"
+                    name="enable_posts"
+                    type="radio"
+                    value={true}
+                    checked={this.state.enable_posts === true}
+                    onChange={this.changeHandler}
+                  />
+                  Yes
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    className="form-control"
+                    name="enable_posts"
+                    type="radio"
+                    value={false}
+                    checked={this.state.enable_posts === false}
+                    onChange={this.changeHandler}
+                  />
+                  No
+                </label>
+              </div>
+            </div>
 
-          <p>Enable Seat Reservations:</p>
-          <div>
-            <label>
-              <input
-                className="form-control"
-                name="enable_seats"
-                type="radio"
-                value={true}
-                checked={this.state.enable_seats === true}
-                onChange={this.changeHandler}
-              />
-              Yes
-            </label>
+            <div className="new-event-form-allow-seats">
+              <p>Enable Seat Reservations:</p>
+              <div>
+                <label>
+                  <input
+                    className="form-control"
+                    name="enable_seats"
+                    type="radio"
+                    value={true}
+                    checked={this.state.enable_seats === true}
+                    onChange={this.changeHandler}
+                  />
+                  Yes
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    className="form-control"
+                    name="enable_seats"
+                    type="radio"
+                    value={false}
+                    checked={this.state.enable_seats === false}
+                    onChange={this.changeHandler}
+                  />
+                  No
+                </label>
+              </div>
+            </div>
           </div>
-          <div>
-            <label>
-              <input
-                className="form-control"
-                name="enable_seats"
-                type="radio"
-                value={false}
-                checked={this.state.enable_seats === false}
-                onChange={this.changeHandler}
-              />
-              No
-            </label>
-          </div>
-          <br />
 
           {this.state.enable_seats ? (
             <React.Fragment>
               <div>
                 Seats:{" "}
-                {this.state.seats
+                {this.props.seats
                   .sort((a, b) => a.id - b.id)
                   .map(seat => (
                     <span key={seat.id}>{seat.position}, </span>
@@ -197,7 +199,13 @@ class NewEventForm extends Component {
             </React.Fragment>
           ) : null}
 
-          <input type="submit" className="button pointer" value="Submit" />
+          <br className="big-br" />
+
+          <input
+            type="submit"
+            className="submit button pointer"
+            value="Submit"
+          />
         </form>
       </div>
     );

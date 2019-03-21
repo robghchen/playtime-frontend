@@ -243,6 +243,15 @@ btn {
   border-bottom: 2px solid #f78888;
 }
 
+#new-event-form {
+  width: 100%;
+  padding: 1em 6em 2em 2em;
+  background-color: #ffffff;
+  margin-bottom: 2em;
+  border: 1px solid #f78888;
+  border-bottom: 2px solid #f78888;
+}
+
 /* #new-post-form {
   position: fixed;
   float: right;
@@ -881,4 +890,17 @@ btn {
 .event-card-info {
   flex: 4;
   margin: 1em;
+}
+
+.new-event-form-selection {
+  padding-top: 3em;
+  display: flex;
+}
+
+.new-event-form-allow-posts {
+  flex: 1;
+}
+
+.new-event-form-allow-seats {
+  flex: 1;
 }

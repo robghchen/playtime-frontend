@@ -202,7 +202,11 @@ class EditEventForm extends Component {
             Delete Event
           </button>
 
-          <input type="submit" className="button pointer" value="Submit" />
+          <input
+            type="submit"
+            className="submit button pointer"
+            value="Submit"
+          />
         </form>
       </div>
     );

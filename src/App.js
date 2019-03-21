@@ -593,6 +593,7 @@ class App extends Component {
                     events={this.state.events}
                     tasks={this.state.tasks}
                     submitNewEventHandler={this.submitNewEventHandler}
+                    seats={this.state.seats}
                   />
                 );
               }}
