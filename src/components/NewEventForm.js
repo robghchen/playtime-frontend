@@ -164,6 +164,39 @@ class NewEventForm extends Component {
           </div>
           <br />
 
+          {this.state.enable_seats ? (
+            <React.Fragment>
+              <div>
+                Seats:{" "}
+                {this.state.seats
+                  .sort((a, b) => a.id - b.id)
+                  .map(seat => (
+                    <span key={seat.id}>{seat.position}, </span>
+                  ))}
+              </div>
+              <br />
+
+              <label htmlFor="position">Add Seat:</label>
+              <input
+                id="position"
+                className="form-control"
+                name="position"
+                type="text"
+                placeholder="Enter seat position"
+                value={this.state.position}
+                onChange={this.changeHandler}
+              />
+              <button
+                onClick={e =>
+                  this.submitSeatHandler(e, this.state.id, this.state.position)
+                }
+              >
+                Add Seat
+              </button>
+              <br />
+            </React.Fragment>
+          ) : null}
+
           <input type="submit" className="button pointer" value="Submit" />
         </form>
       </div>

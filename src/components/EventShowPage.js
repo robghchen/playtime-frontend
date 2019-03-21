@@ -7,12 +7,12 @@ class EventShowPage extends Component {
     selectedOption: ""
   };
 
-  changeSeatHandler = (e, oldId, newId, user_id) => {
+  changeSeatHandler = (e, oldId, newId, user_id, username) => {
     this.setState({
       selectedOption: e.target.value
     });
 
-    this.props.editSeatHandler("add", oldId, newId, user_id);
+    this.props.editSeatHandler("add", oldId, newId, user_id, username);
   };
 
   render() {
@@ -49,7 +49,7 @@ class EventShowPage extends Component {
               className="event-img-showpage"
             />
             <h3>{currentEvent.title}</h3>
-
+            <h4>Reserve your seat:</h4>
             <form>
               {currentEvent.seats
                 .sort((a, b) => a.id - b.id)
@@ -66,28 +66,21 @@ class EventShowPage extends Component {
                               e,
                               oldId,
                               seat.id,
-                              this.props.currentUser.id
+                              this.props.currentUser.id,
+                              this.props.currentUser.username
                             )
                           }
                           disabled={seat.user_id ? true : null}
                         />
                         <span>{seat.position}</span>
 
-                        {seat.user_id ? (
-                          <span>
-                            :{" "}
-                            {
-                              currentEvent.users.find(user => {
-                                return user.id === seat.user_id;
-                              }).username
-                            }
-                          </span>
-                        ) : null}
+                        {seat.username ? <span>:{` ${seat.username}`}</span> : null}
                       </label>
                     </div>
                   );
                 })}
             </form>
+            <br />
 
             <p>{currentEvent.description}</p>
 

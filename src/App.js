@@ -164,7 +164,9 @@ class App extends Component {
     setInterval(() => {
       if (this.state.currentUser.energy < this.state.currentUser.max_energy) {
         fetch(
-          `https://playtime-backend.herokuapp.com/api/v1/users/${this.state.currentUser.id}`,
+          `https://playtime-backend.herokuapp.com/api/v1/users/${
+            this.state.currentUser.id
+          }`,
           {
             method: "PATCH",
             headers: {
@@ -387,38 +389,43 @@ class App extends Component {
   };
 
   addExp = (activity, datetime, friendId) => {
-    fetch(`https://playtime-backend.herokuapp.com/api/v1/users/${this.state.currentUser.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem("token")
-      },
-      body: JSON.stringify({
-        username: this.state.currentUser.username,
-        exp: (this.state.currentUser.exp =
-          parseInt(this.state.currentUser.exp) +
-          (activity === "post"
-            ? 80
-            : activity === "comment"
-            ? 40
-            : activity === "tag"
-            ? 40
-            : activity === "reaction"
-            ? 20
-            : 0)),
-        energy: (this.state.currentUser.energy -=
-          activity === "post"
-            ? 10
-            : activity === "comment"
-            ? 5
-            : activity === "tag"
-            ? 5
-            : activity === "reaction"
-            ? 1
-            : 0)
-      })
-    })
+    fetch(
+      `https://playtime-backend.herokuapp.com/api/v1/users/${
+        this.state.currentUser.id
+      }`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: localStorage.getItem("token")
+        },
+        body: JSON.stringify({
+          username: this.state.currentUser.username,
+          exp: (this.state.currentUser.exp =
+            parseInt(this.state.currentUser.exp) +
+            (activity === "post"
+              ? 80
+              : activity === "comment"
+              ? 40
+              : activity === "tag"
+              ? 40
+              : activity === "reaction"
+              ? 20
+              : 0)),
+          energy: (this.state.currentUser.energy -=
+            activity === "post"
+              ? 10
+              : activity === "comment"
+              ? 5
+              : activity === "tag"
+              ? 5
+              : activity === "reaction"
+              ? 1
+              : 0)
+        })
+      }
+    )
       .then(res => res.json())
       .then(data => {
         let newArr = [...this.state.users];
@@ -432,21 +439,24 @@ class App extends Component {
         this.setState({ users: newArr, currentUser: data });
 
         if (data.exp >= data.exp_limit) {
-          fetch(`https://playtime-backend.herokuapp.com/api/v1/users/${data.id}`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-              Authorization: localStorage.getItem("token")
-            },
-            body: JSON.stringify({
-              lvl: (data.lvl = parseInt(data.lvl) + 1),
-              exp: (data.exp = data.exp - data.exp_limit),
-              exp_limit: (data.exp_limit = data.exp_limit * 1.25),
-              energy: (data.max_energy = data.max_energy * 1.05),
-              max_energy: (data.max_energy = data.max_energy * 1.05)
-            })
-          })
+          fetch(
+            `https://playtime-backend.herokuapp.com/api/v1/users/${data.id}`,
+            {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: localStorage.getItem("token")
+              },
+              body: JSON.stringify({
+                lvl: (data.lvl = parseInt(data.lvl) + 1),
+                exp: (data.exp = data.exp - data.exp_limit),
+                exp_limit: (data.exp_limit = data.exp_limit * 1.25),
+                energy: (data.max_energy = data.max_energy * 1.05),
+                max_energy: (data.max_energy = data.max_energy * 1.05)
+              })
+            }
+          )
             .then(res => res.json())
             .then(userData => {
               let newArr = [...this.state.users];
@@ -478,7 +488,6 @@ class App extends Component {
   };
 
   render() {
-    console.log("app.js render events in state", this.state.events);
     return this.state.users !== [] ? (
       <div>
         <NavBar
@@ -596,6 +605,7 @@ class App extends Component {
                     currentEvent={this.state.currentEvent}
                     updateEventHandler={this.updateEventHandler}
                     deleteEventHandler={this.deleteEventHandler}
+                    addSeatHandler={this.addSeatHandler}
                   />
                 );
               }}
@@ -760,18 +770,23 @@ class App extends Component {
   };
 
   editCover = input => {
-    fetch(`https://playtime-backend.herokuapp.com/api/v1/users/${this.state.currentUser.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem("token")
-      },
-      body: JSON.stringify({
-        username: this.state.currentUser.username,
-        cover_img: input
-      })
-    })
+    fetch(
+      `https://playtime-backend.herokuapp.com/api/v1/users/${
+        this.state.currentUser.id
+      }`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: localStorage.getItem("token")
+        },
+        body: JSON.stringify({
+          username: this.state.currentUser.username,
+          cover_img: input
+        })
+      }
+    )
       .then(res => res.json())
       .then(data => {
         let newArr = [...this.state.users];
@@ -787,18 +802,23 @@ class App extends Component {
   };
 
   editProfilePic = input => {
-    fetch(`https://playtime-backend.herokuapp.com/api/v1/users/${this.state.currentUser.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: localStorage.getItem("token")
-      },
-      body: JSON.stringify({
-        username: this.state.currentUser.username,
-        profile_img: input
-      })
-    })
+    fetch(
+      `https://playtime-backend.herokuapp.com/api/v1/users/${
+        this.state.currentUser.id
+      }`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: localStorage.getItem("token")
+        },
+        body: JSON.stringify({
+          username: this.state.currentUser.username,
+          profile_img: input
+        })
+      }
+    )
       .then(res => res.json())
       .then(data => {
         let newArr = [...this.state.users];
@@ -814,27 +834,30 @@ class App extends Component {
   };
 
   updateHandler = currentUser => {
-    fetch(`https://playtime-backend.herokuapp.com/api/v1/users/${currentUser.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: this.state.token
-      },
-      body: JSON.stringify({
-        id: currentUser.id,
-        username: currentUser.username,
-        password: currentUser.password,
-        first_name: currentUser.first_name,
-        last_name: currentUser.last_name,
-        email: currentUser.email,
-        city: currentUser.city,
-        school: currentUser.school,
-        work: currentUser.work,
-        profile_img: currentUser.profile_img,
-        cover_img: currentUser.cover_img
-      })
-    })
+    fetch(
+      `https://playtime-backend.herokuapp.com/api/v1/users/${currentUser.id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: this.state.token
+        },
+        body: JSON.stringify({
+          id: currentUser.id,
+          username: currentUser.username,
+          password: currentUser.password,
+          first_name: currentUser.first_name,
+          last_name: currentUser.last_name,
+          email: currentUser.email,
+          city: currentUser.city,
+          school: currentUser.school,
+          work: currentUser.work,
+          profile_img: currentUser.profile_img,
+          cover_img: currentUser.cover_img
+        })
+      }
+    )
       .then(resp => resp.json())
       .then(data => {
         let newArr = [...this.state.users];
@@ -982,27 +1005,30 @@ class App extends Component {
   };
 
   updateEventHandler = currentEvent => {
-    fetch(`https://playtime-backend.herokuapp.com/api/v1/events/${currentEvent.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: this.state.token
-      },
-      body: JSON.stringify({
-        id: currentEvent.id,
-        title: currentEvent.title,
-        price: currentEvent.price,
-        date: currentEvent.date,
-        location: currentEvent.location,
-        description: currentEvent.description,
-        banner_img: currentEvent.banner_img,
-        event_img: currentEvent.event_img,
-        user_id: currentEvent.user_id,
-        enable_posts: currentEvent.enable_posts,
-        enable_seats: currentEvent.enable_seats
-      })
-    })
+    fetch(
+      `https://playtime-backend.herokuapp.com/api/v1/events/${currentEvent.id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: this.state.token
+        },
+        body: JSON.stringify({
+          id: currentEvent.id,
+          title: currentEvent.title,
+          price: currentEvent.price,
+          date: currentEvent.date,
+          location: currentEvent.location,
+          description: currentEvent.description,
+          banner_img: currentEvent.banner_img,
+          event_img: currentEvent.event_img,
+          user_id: currentEvent.user_id,
+          enable_posts: currentEvent.enable_posts,
+          enable_seats: currentEvent.enable_seats
+        })
+      }
+    )
       .then(resp => resp.json())
       .then(data => {
         let newArr = [...this.state.events];
@@ -1019,14 +1045,17 @@ class App extends Component {
   };
 
   deleteEventHandler = currentEvent => {
-    fetch(`https://playtime-backend.herokuapp.com/api/v1/events/${currentEvent.id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: this.state.token
+    fetch(
+      `https://playtime-backend.herokuapp.com/api/v1/events/${currentEvent.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: this.state.token
+        }
       }
-    })
+    )
       .then(res => res.json())
       .then(data => {
         // console.log("data", data);
@@ -1038,6 +1067,29 @@ class App extends Component {
       })
       .then(() => this.props.history.push("/events"))
       .then(console.log("state", this.state.events));
+  };
+
+  addSeatHandler = (e, event_id, position) => {
+    e.preventDefault();
+
+    fetch("https://playtime-backend.herokuapp.com/api/v1/seats", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.getItem("token")
+      },
+      body: JSON.stringify({
+        event_id,
+        position
+      })
+    }).then(() => {
+      fetch("https://playtime-backend.herokuapp.com/api/v1/events")
+        .then(res => res.json())
+        .then(events => {
+          this.setState({ events });
+        });
+    });
   };
 
   submitLoginHandler = (userInfo, event) => {
@@ -1163,7 +1215,7 @@ class App extends Component {
       });
   };
 
-  editSeatHandler = (action, oldId, newId, user_id, i = 0) => {
+  editSeatHandler = (action, oldId, newId, user_id, username, i = 0) => {
     if (i < 2) {
       fetch(
         `https://playtime-backend.herokuapp.com/api/v1/seats/${
@@ -1177,7 +1229,8 @@ class App extends Component {
             Authorization: this.state.token
           },
           body: JSON.stringify({
-            user_id: action === "add" ? user_id : null
+            user_id: action === "add" ? user_id : null,
+            username: action === "add" ? username : null
           })
         }
       )
@@ -1202,7 +1255,14 @@ class App extends Component {
         })
         .then(() => {
           if (oldId !== 0) {
-            this.editSeatHandler("remove", oldId, newId, user_id, (i = i + 1));
+            this.editSeatHandler(
+              "remove",
+              oldId,
+              newId,
+              user_id,
+              username,
+              (i = i + 1)
+            );
           }
         });
     }

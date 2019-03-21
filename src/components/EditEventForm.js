@@ -14,7 +14,8 @@ class EditEventForm extends Component {
     enable_posts: this.props.currentEvent.enable_posts,
     enable_seats: this.props.currentEvent.enable_seats,
     users: this.props.currentEvent.users,
-    seats: this.props.currentEvent.seats
+    seats: this.props.currentEvent.seats,
+    position: ""
   };
 
   render() {
@@ -164,6 +165,39 @@ class EditEventForm extends Component {
           </div>
           <br />
 
+          {this.state.enable_seats ? (
+            <React.Fragment>
+              <div>
+                Seats:{" "}
+                {this.state.seats
+                  .sort((a, b) => a.id - b.id)
+                  .map(seat => (
+                    <span key={seat.id}>{seat.position}, </span>
+                  ))}
+              </div>
+              <br />
+
+              <label htmlFor="position">Add Seat:</label>
+              <input
+                id="position"
+                className="form-control"
+                name="position"
+                type="text"
+                placeholder="Enter seat position"
+                value={this.state.position}
+                onChange={this.changeHandler}
+              />
+              <button
+                onClick={e =>
+                  this.submitSeatHandler(e, this.state.id, this.state.position)
+                }
+              >
+                Add Seat
+              </button>
+              <br />
+            </React.Fragment>
+          ) : null}
+
           <button onClick={() => this.props.deleteEventHandler(this.state)}>
             Delete Event
           </button>
@@ -202,6 +236,15 @@ class EditEventForm extends Component {
       enable_seats: false,
       users: [],
       seats: []
+    });
+  };
+
+  submitSeatHandler = (e, event_id, position) => {
+    e.preventDefault();
+
+    this.props.addSeatHandler(e, event_id, position);
+    this.setState({
+      position: ""
     });
   };
 }
