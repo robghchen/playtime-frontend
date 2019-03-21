@@ -66,7 +66,7 @@ class HomePage extends React.Component {
         </div>
 
         <div className="center">
-          <h2>Continuing the conversation online should also be fun :D</h2>
+          <h2>Continuing the conversation online should also be fun!</h2>
         </div>
 
         <div class="call-outs-container">
