@@ -118,7 +118,9 @@ class EventShowPage extends Component {
                             <span>{seat.position}</span>
 
                             {seat.username ? (
-                              <span>:{` ${seat.username}`}</span>
+                              <Link to={`/user/${seat.user_id}`}>
+                                <span>:{` ${seat.username}`}</span>
+                              </Link>
                             ) : null}
                           </label>
                         </div>
