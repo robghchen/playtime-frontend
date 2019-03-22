@@ -742,7 +742,7 @@ class App extends Component {
           </div>
           <div className={this.state.levelUpClassName}>
             <img
-              src="/assets/table.jpg"
+              src="/assets/levelup.jpg"
               alt="no energy"
               className="level-up-img"
             />
