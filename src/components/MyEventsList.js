@@ -18,11 +18,23 @@ class MyEventsList extends Component {
         {this.props.events.length > 0 ? (
           this.props.events
             .filter(event => {
+              return event.date
+                .slice(0, 10)
+                .split("-")
+                .join("") >
+                new Date().getFullYear().toString() + new Date().getMonth() <
+                10
+                ? "0" + new Date().getMonth().toString()
+                : new Date().getMonth().toString() + new Date().getDate() < 10
+                ? "0" + new Date().getDate().toString()
+                : new Date().getDate().toString();
+            })
+            .filter(event => {
               return event.seats.find(seat => {
                 return seat.user_id === this.props.currentUser.id;
               });
             })
-            .reverse()
+            .sort((a, b) => a.date - b.date)
             .map(event => {
               return (
                 <div key={event.id}>

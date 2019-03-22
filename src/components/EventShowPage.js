@@ -115,7 +115,7 @@ class EventShowPage extends Component {
                               disabled={seat.user_id ? true : null}
                               className={seat.user_id ? null : "pointer"}
                             />
-                            <span>{seat.position}</span>
+                            <span> {seat.position}</span>
 
                             {seat.username ? (
                               <Link to={`/user/${seat.user_id}`}>

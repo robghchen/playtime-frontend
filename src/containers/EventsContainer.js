@@ -7,9 +7,21 @@ class EventsContainer extends Component {
   render() {
     return (
       <div className="main-column">
-        <h2 className="center">Events</h2>
+        <h2 className="center">Upcoming Events</h2>
         {this.props.events
-          .sort((a, b) => b.id - a.id)
+          .filter(event => {
+            return event.date
+              .slice(0, 10)
+              .split("-")
+              .join("") >
+              new Date().getFullYear().toString() + new Date().getMonth() <
+              10
+              ? "0" + new Date().getMonth().toString()
+              : new Date().getMonth().toString() + new Date().getDate() < 10
+              ? "0" + new Date().getDate().toString()
+              : new Date().getDate().toString();
+          })
+          .sort((a, b) => a.date - b.date)
           .map(event => {
             return (
               <div key={event.id}>
