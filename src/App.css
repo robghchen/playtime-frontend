@@ -910,12 +910,16 @@ btn {
 }
 
 .event-card-img {
-  flex: 2;
+  display: flex;
+  flex: 1;
+  margin: auto;
+  justify-content: flex-end;
 }
 
 .event-card-info {
-  flex: 4;
-  margin: 1em;
+  flex: 1;
+  margin: auto;
+  margin-left: 1em;
 }
 
 .new-event-form-selection {
