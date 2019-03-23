@@ -317,7 +317,7 @@ btn {
 .navbar-layout {
   position: relative;
   display: flex;
-  padding: 0.6em;
+  padding: 0.7em;
 }
 
 .navbar-left {
@@ -342,12 +342,12 @@ btn {
 }
 
 .navbar-search {
-  flex: 3;
+  flex: 1;
   padding-right: 1em;
 }
 
 .navbar-log {
-  flex: 2;
+  flex: 1;
   color: #52a2d5;
   border-bottom: 2px solid #f78888;
 }
