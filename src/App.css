@@ -338,7 +338,7 @@ btn {
 .navbar-search {
   display: flex;
   flex: 7;
-  width: 10em;
+  width: 8.5em;
   margin: auto;
   flex-flow: row-reverse;
   padding-right: 1em;
