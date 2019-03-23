@@ -31,43 +31,42 @@ class NavBar extends Component {
             </div>
           ) : null}
         </div>
+
+        <div className="navbar-search">
+          <SearchForm
+            search={this.props.search}
+            changeHandler={this.props.changeHandler}
+          />
+        </div>
         <div className="navbar-right">
-          <div className="navbar-search">
-            <SearchForm
-              search={this.props.search}
-              changeHandler={this.props.changeHandler}
-            />
-          </div>
-          <div className="navbar-log">
-            {this.props.isUserLoggedIn ? (
-              <span className="ui menu">
-                <Link to={"/profile"} className="item">
-                  <span onClick={this.props.clearSearch}>
-                    <img
-                      src={this.props.currentUser.profile_img}
-                      alt="profile pic"
-                      className="profile-picture-nav"
-                    />
-                  </span>
-                </Link>
-                <Link to={"/editProfile"} className="item">
-                  <span onClick={this.props.clearSearch}>Edit Profile</span>
-                </Link>
-                <span className="item pointer" onClick={this.props.logout}>
-                  <span onClick={this.props.clearSearch}>Logout</span>
+          {this.props.isUserLoggedIn ? (
+            <span className="ui menu">
+              <Link to={"/profile"} className="item">
+                <span onClick={this.props.clearSearch}>
+                  <img
+                    src={this.props.currentUser.profile_img}
+                    alt="profile pic"
+                    className="profile-picture-nav"
+                  />
                 </span>
+              </Link>
+              <Link to={"/editProfile"} className="item">
+                <span onClick={this.props.clearSearch}>Edit Profile</span>
+              </Link>
+              <span className="item pointer" onClick={this.props.logout}>
+                <span onClick={this.props.clearSearch}>Logout</span>
               </span>
-            ) : (
-              <span className="ui menu">
-                <Link to={"/login"} className="item">
-                  <span onClick={this.props.clearSearch}>Login</span>
-                </Link>
-                <Link to={"/signup"} className="item">
-                  <span onClick={this.props.clearSearch}>Sign Up</span>
-                </Link>
-              </span>
-            )}
-          </div>
+            </span>
+          ) : (
+            <span className="ui menu">
+              <Link to={"/login"} className="item">
+                <span onClick={this.props.clearSearch}>Login</span>
+              </Link>
+              <Link to={"/signup"} className="item">
+                <span onClick={this.props.clearSearch}>Sign Up</span>
+              </Link>
+            </span>
+          )}
         </div>
       </div>
     );

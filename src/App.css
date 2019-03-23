@@ -322,7 +322,7 @@ btn {
 
 .navbar-left {
   display: flex;
-  flex: 3;
+  flex: 2;
 }
 
 .navbar-logo {
@@ -335,19 +335,16 @@ btn {
   margin: auto;
 }
 
-.navbar-right {
+.navbar-search {
   display: flex;
   flex: 7;
   margin: auto;
-}
-
-.navbar-search {
-  flex: 1;
+  flex-flow: row-reverse;
   padding-right: 1em;
 }
 
-.navbar-log {
-  flex: 1;
+.navbar-right {
+  margin: auto;
   color: #52a2d5;
   border-bottom: 2px solid #f78888;
 }
