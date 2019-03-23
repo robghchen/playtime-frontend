@@ -892,7 +892,7 @@ btn {
 }
 
 .event-showpage-description {
-  flex: 2;
+  flex: 1;
   padding: 2em;
   padding-top: 3em;
 }
