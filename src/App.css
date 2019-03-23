@@ -317,7 +317,7 @@ btn {
 .navbar-layout {
   position: relative;
   display: flex;
-  padding: 0.5em;
+  padding: 0.6em;
 }
 
 .navbar-left {
@@ -337,7 +337,7 @@ btn {
 
 .navbar-search {
   display: flex;
-  flex: 5;
+  flex: 9;
   margin: auto;
   flex-flow: row-reverse;
   padding-right: 1em;
