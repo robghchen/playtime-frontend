@@ -337,7 +337,7 @@ btn {
 
 .navbar-search {
   display: flex;
-  flex: 7;
+  flex: 5;
   margin: auto;
   flex-flow: row-reverse;
   padding-right: 1em;
@@ -891,7 +891,7 @@ btn {
 }
 
 .event-showpage-description {
-  flex: 3;
+  flex: 2;
   padding: 2em;
   padding-top: 3em;
 }
