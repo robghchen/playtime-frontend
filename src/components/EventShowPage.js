@@ -15,6 +15,11 @@ class EventShowPage extends Component {
     this.props.editSeatHandler("add", oldId, newId, user_id, username);
   };
 
+  openInNewTab = url => {
+    let win = window.open(url, "_blank");
+    win.focus();
+  };
+
   render() {
     const currentEvent = this.props.events.find(
       event => event.id === this.props.event_id
@@ -39,7 +44,8 @@ class EventShowPage extends Component {
         <img
           src={currentEvent.banner_img}
           alt="event banner"
-          className="event-banner"
+          className="event-banner pointer"
+          onClick={() => this.openInNewTab(`${currentEvent.banner_img}`)}
         />
         <div className="column-layout">
           <div className="main-column">
