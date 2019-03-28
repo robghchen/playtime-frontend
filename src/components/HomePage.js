@@ -20,7 +20,7 @@ class HomePage extends React.Component {
         </div>
 
         <div className="center homepage-tagline">
-          <h2>Hanging out with friends should be fun ^^</h2>
+          <h2>Hanging out with friends should be fun</h2>
         </div>
 
         <div className="column-layout">
