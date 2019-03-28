@@ -84,7 +84,7 @@ class EventShowPage extends Component {
 
                 <div>
                   <h4>Attending</h4>
-                  <span>Yes</span>
+                  <span>Yes</span>{" | "} 
                   <span>No</span>
                 </div>
               </div>
