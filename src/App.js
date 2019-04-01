@@ -71,9 +71,7 @@ class App extends Component {
     levelUpClassName: "level-up-hide"
   };
 
-  componentDidMount() {
-    // this.props.getUsers();
-
+  getFetches = () => {
     fetch("https://playtime-backend.herokuapp.com/api/v1/users")
       .then(resp => resp.json())
       .then(users => {
@@ -127,6 +125,20 @@ class App extends Component {
       .then(seats => {
         this.setState({ seats });
       });
+  }
+
+  getFetchesInterval = () => {
+    const interval = setInterval(() => {
+      this.state.users.length < 1
+        ? this.getFetches()
+        : clearInterval(interval);
+    }, 3000);
+    return this.state.users.length < 1 ? interval : clearInterval(interval);
+  };
+
+  componentDidMount() {
+    // this.props.getUsers();
+    this.getFetches()
   }
 
   // : {
@@ -488,6 +500,9 @@ class App extends Component {
   };
 
   render() {
+
+    this.getFetchesInterval()
+
     return this.state.users !== [] ? (
       <React.Fragment>
         <div>
