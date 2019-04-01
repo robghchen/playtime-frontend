@@ -12,7 +12,6 @@ import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import SearchPage from "./components/SearchPage";
 import NewsFeed from "./components/NewsFeed";
-import EventsContainer from "./containers/EventsContainer";
 import EventShowPage from "./components/EventShowPage";
 import EventsPage from "./components/EventsPage";
 import NewEventPage from "./components/NewEventPage";
@@ -71,7 +70,25 @@ class App extends Component {
     levelUpClassName: "level-up-hide"
   };
 
-  getFetches = () => {
+  getEvents = () => {
+    fetch("https://playtime-backend.herokuapp.com/api/v1/events")
+      .then(resp => resp.json())
+      .then(events => {
+        this.setState({ events });
+      });
+  }
+
+  getEventsInterval = () => {
+    const interval = setInterval(() => {
+      this.state.events.length < 1
+        ? this.getEvents()
+        : clearInterval(interval);
+    }, 3000);
+    return this.state.events.length < 1 ? interval : clearInterval(interval);
+  };
+
+  componentDidMount() {
+    // this.props.getUsers();
     fetch("https://playtime-backend.herokuapp.com/api/v1/users")
       .then(resp => resp.json())
       .then(users => {
@@ -91,10 +108,10 @@ class App extends Component {
       });
 
     fetch("https://playtime-backend.herokuapp.com/api/v1/posts")
-      .then(resp => resp.json())
-      .then(posts => {
-        this.setState({ posts });
-      });
+    .then(resp => resp.json())
+    .then(posts => {
+      this.setState({ posts });
+    });
 
     fetch("https://playtime-backend.herokuapp.com/api/v1/comments")
       .then(resp => resp.json())
@@ -114,31 +131,13 @@ class App extends Component {
         this.setState({ tasks });
       });
 
-    fetch("https://playtime-backend.herokuapp.com/api/v1/events")
-      .then(resp => resp.json())
-      .then(events => {
-        this.setState({ events });
-      });
+    this.getEvents()
 
     fetch("https://playtime-backend.herokuapp.com/api/v1/seats")
       .then(resp => resp.json())
       .then(seats => {
         this.setState({ seats });
       });
-  }
-
-  getFetchesInterval = () => {
-    const interval = setInterval(() => {
-      this.state.users.length < 1
-        ? this.getFetches()
-        : clearInterval(interval);
-    }, 3000);
-    return this.state.users.length < 1 ? interval : clearInterval(interval);
-  };
-
-  componentDidMount() {
-    // this.props.getUsers();
-    this.getFetches()
   }
 
   // : {
@@ -501,7 +500,7 @@ class App extends Component {
 
   render() {
 
-    this.getFetchesInterval()
+    this.getEventsInterval()
 
     return this.state.users !== [] ? (
       <React.Fragment>
