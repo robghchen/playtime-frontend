@@ -377,7 +377,7 @@ btn {
 .cover-photo,
 .event-banner {
   width: 100%;
-  min-height: 500px;
+  max-height: 500px;
   object-fit: cover;
   background-size: 100%;
 }
