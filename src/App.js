@@ -1112,7 +1112,7 @@ class App extends Component {
       body: JSON.stringify({
         event_id,
         position,
-        ticket_img: `/assets/${event_id}${position}`
+        ticket_img: `${event_id}${position}`
       })
     }).then(() => {
       fetch("https://playtime-backend.herokuapp.com/api/v1/events")
