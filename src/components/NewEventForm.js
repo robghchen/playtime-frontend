@@ -224,8 +224,11 @@ class NewEventForm extends Component {
 
   submitHandler = e => {
     e.preventDefault();
+    let content = `${this.props.currentUser.username} created new event "${this.state.title}" happening on ${this.state.date} at ${this.state.location}.`
 
     this.props.submitNewEventHandler(this.state, e);
+    
+    this.props.addPost(content, this.props.currentUser.id, this.props.currentUser.id)
 
     this.setState({
       title: "",

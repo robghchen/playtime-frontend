@@ -11,6 +11,7 @@ class EventsPage extends Component {
           currentUser={this.props.currentUser}
           submitNewEventHandler={this.props.submitNewEventHandler}
           seats={this.props.seats}
+          addPost={this.props.addPost}
         />
         <SideBar
           currentUser={this.props.currentUser}

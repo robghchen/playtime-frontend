@@ -84,7 +84,8 @@ class EventShowPage extends Component {
 
                 <div>
                   <h4>Attending</h4>
-                  <span>Yes</span>{" | "} 
+                  <span>Yes</span>
+                  {" | "}
                   <span>No</span>
                 </div>
               </div>
@@ -98,7 +99,7 @@ class EventShowPage extends Component {
                 <br />
                 <form>
                   {currentEvent.seats
-                    .sort((a, b) => a.id - b.id)
+                    .sort((a, b) => a.position - b.position)
                     .map(seat => {
                       return (
                         <div key={seat.id} className="radio">
@@ -123,10 +124,39 @@ class EventShowPage extends Component {
                             />
                             <span> {seat.position}</span>
 
-                            {seat.username ? (
+                            {seat.username && seat.user_id !== 0 ? (
                               <Link to={`/user/${seat.user_id}`}>
                                 <span>:{` ${seat.username}`}</span>
                               </Link>
+                            ) : seat.user_name ? (
+                              <span>: {` ${seat.username}`}</span>
+                            ) : null}
+
+                            {this.props.currentUser.id === seat.user_id ? (
+                              <span>
+                                <span role="img" aria-label="point right">
+                                  {" "}
+                                  👉{" "}
+                                </span>
+
+                                <Link to={`/events/${currentEvent.id}`}>
+                                  <span
+                                    onClick={() =>
+                                      this.openInNewTab(
+                                        `/assets/${seat.ticket_img}.pdf`
+                                      )
+                                    }
+                                  >
+                                    {" "}
+                                    View Ticket{" "}
+                                  </span>
+                                </Link>
+
+                                <span role="img" aria-label="point left">
+                                  {" "}
+                                  👈{" "}
+                                </span>
+                              </span>
                             ) : null}
                           </label>
                         </div>

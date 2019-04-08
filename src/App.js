@@ -609,6 +609,7 @@ class App extends Component {
                       tasks={this.state.tasks}
                       submitNewEventHandler={this.submitNewEventHandler}
                       seats={this.state.seats}
+                      addPost={this.addPost}
                     />
                   );
                 }}
@@ -1110,7 +1111,8 @@ class App extends Component {
       },
       body: JSON.stringify({
         event_id,
-        position
+        position,
+        ticket_img: `/assets/${event_id}${position}`
       })
     }).then(() => {
       fetch("https://playtime-backend.herokuapp.com/api/v1/events")

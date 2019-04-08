@@ -11,7 +11,12 @@ class HomePage extends React.Component {
         <div className="homepage-banner">
           <div className="homepage-banner-background">
             <div className="homepage-banner-text">
-              <h1 className="center playtime">PlayTime! ⏰</h1>
+              <h1 className="center playtime">
+                PlayTime!{" "}
+                <span role="img" aria-label="clock">
+                  ⏰
+                </span>
+              </h1>
               <h3 className="center slogan">
                 Social Media where you actually talk to friends :)
               </h3>
