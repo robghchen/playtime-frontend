@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Post from "../components/Post";
-import NewPostForm from "../components/NewPostForm";
 import { withRouter } from "react-router-dom";
-import PostsContainer from "../containers/PostsContainer";
 
 class NewsContainer extends Component {
   state = {
@@ -45,7 +43,6 @@ class NewsContainer extends Component {
   };
 
   render() {
-    const show = { display: this.props.isUserLoggedIn ? "block" : "none" };
     return (
       <div className="main-column">
         {this.showPostArray()}

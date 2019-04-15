@@ -76,13 +76,11 @@ class App extends Component {
       .then(events => {
         this.setState({ events });
       });
-  }
+  };
 
   getEventsInterval = () => {
     const interval = setInterval(() => {
-      this.state.events.length < 1
-        ? this.getEvents()
-        : clearInterval(interval);
+      this.state.events.length < 1 ? this.getEvents() : clearInterval(interval);
     }, 3000);
     return this.state.events.length < 1 ? interval : clearInterval(interval);
   };
@@ -108,10 +106,10 @@ class App extends Component {
       });
 
     fetch("https://playtime-backend.herokuapp.com/api/v1/posts")
-    .then(resp => resp.json())
-    .then(posts => {
-      this.setState({ posts });
-    });
+      .then(resp => resp.json())
+      .then(posts => {
+        this.setState({ posts });
+      });
 
     fetch("https://playtime-backend.herokuapp.com/api/v1/comments")
       .then(resp => resp.json())
@@ -131,7 +129,7 @@ class App extends Component {
         this.setState({ tasks });
       });
 
-    this.getEvents()
+    this.getEvents();
 
     fetch("https://playtime-backend.herokuapp.com/api/v1/seats")
       .then(resp => resp.json())
@@ -400,6 +398,9 @@ class App extends Component {
   };
 
   addExp = (activity, datetime, friendId) => {
+    let exp = [...this.state.currentUser.exp];
+    let energy = [...this.state.currentUser.energy];
+
     fetch(
       `https://playtime-backend.herokuapp.com/api/v1/users/${
         this.state.currentUser.id
@@ -413,8 +414,8 @@ class App extends Component {
         },
         body: JSON.stringify({
           username: this.state.currentUser.username,
-          exp: (this.state.currentUser.exp =
-            parseInt(this.state.currentUser.exp) +
+          exp: (exp =
+            parseInt(exp) +
             (activity === "post"
               ? 80
               : activity === "comment"
@@ -424,7 +425,7 @@ class App extends Component {
               : activity === "reaction"
               ? 20
               : 0)),
-          energy: (this.state.currentUser.energy -=
+          energy: (energy -=
             activity === "post"
               ? 10
               : activity === "comment"
@@ -499,8 +500,7 @@ class App extends Component {
   };
 
   render() {
-
-    this.getEventsInterval()
+    this.getEventsInterval();
 
     return this.state.users !== [] ? (
       <React.Fragment>

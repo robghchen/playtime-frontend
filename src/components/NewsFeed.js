@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import NewsContainer from "../containers/NewsContainer";
-import Banner from "../components/Banner";
 import SideBar from "../containers/SideBar";
 
 class NewsFeed extends Component {

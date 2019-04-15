@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Activity from "../components/Activity";
 
 class DailyTasks extends Component {
   render() {
