@@ -943,3 +943,74 @@ btn {
   background-color: #dddddd;
   padding: 2em;
 }
+
+@media (max-width: 900px) {
+  html,
+  body {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+  }
+
+  .navBar {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .navbar-left {
+    order: 1;
+  }
+
+  .navbar-search {
+    display: none;
+  }
+
+  .navbar-right {
+    order: 3;
+  }
+
+  .column-layout {
+    display: flex;
+    flex-direction: column;
+    padding: 0em;
+  }
+
+  .sidebar-right {
+    order: 1;
+    margin: auto;
+    flex: 1;
+  }
+
+  .main-column {
+    order: 2;
+    margin: auto;
+    flex: 1;
+  }
+
+  .post-container {
+    display: flex;
+  }
+
+  .event-banner {
+    height: 50vh;
+  }
+
+  .event-showpage-topbar,
+  .event-showpage-main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .event-showpage-title {
+    margin: auto;
+  }
+
+  .event-showpage-selection {
+    order: 1;
+  }
+
+  .event-showpage-description {
+    order: 2;
+  }
+}

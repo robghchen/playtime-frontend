@@ -27,6 +27,10 @@ class Post extends React.Component {
   }
 
   render() {
+    const user = this.props.users.find(
+      user => user.id === this.props.post.player_id
+    )
+
     return (
       <div className="post-wrapper">
         <div className="post-content">
@@ -50,22 +54,16 @@ class Post extends React.Component {
             <React.Fragment>
               <Link
                 to={`/user/${
-                  this.props.users.find(
-                    user => user.id === this.props.post.player_id
-                  ).id
+                  user.id
                 }`}
               >
                 <span onClick={this.props.hideEditCover}>
                   <img
                     src={
-                      this.props.users.find(
-                        user => user.id === this.props.post.player_id
-                      ).profile_img
+                      user.profile_img
                     }
                     alt={
-                      this.props.users.find(
-                        user => user.id === this.props.post.player_id
-                      ).username
+                      user.username
                     }
                     className="profile-icon"
                   />
@@ -79,22 +77,16 @@ class Post extends React.Component {
                   <span>
                     Lvl{" "}
                     {
-                      this.props.users.find(
-                        user => user.id === this.props.post.player_id
-                      ).lvl
+                      user.lvl
                     }{" "}
                   </span>
                   <Link
                     to={`/user/${
-                      this.props.users.find(
-                        user => user.id === this.props.post.player_id
-                      ).id
+                      user.id
                     }`}
                   >
                     {
-                      this.props.users.find(
-                        user => user.id === this.props.post.player_id
-                      ).username
+                      user.username
                     }
                   </Link>
                   {" > "}
