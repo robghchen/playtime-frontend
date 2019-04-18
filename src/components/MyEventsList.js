@@ -14,7 +14,7 @@ class MyEventsList extends Component {
             : "my-events-list"
         }
       >
-        <h2 className="center">My Events</h2>
+        <h2 className="center">All Events</h2>
         {this.props.events.length > 0 ? (
           this.props.events
             .filter(event => {
@@ -35,6 +35,7 @@ class MyEventsList extends Component {
             //   });
             // })
             .sort((a, b) => b.date - a.date)
+            // .slice(0,10)
             .map(event => {
               return (
                 <div key={event.id}>
