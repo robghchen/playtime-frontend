@@ -34,7 +34,7 @@ class MyEventsList extends Component {
             //     return seat.user_id === this.props.currentUser.id;
             //   });
             // })
-            .sort((a, b) => a.date - b.date)
+            .sort((a, b) => b.date - a.date)
             .map(event => {
               return (
                 <div key={event.id}>
