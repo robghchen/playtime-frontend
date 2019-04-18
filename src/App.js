@@ -80,11 +80,10 @@ class App extends Component {
 
   getEventsInterval = () => {
     const interval = setInterval(() => {
-      this.state.events.length < 1 ? this.getEvents() : clearInterval(interval);
-
       if (this.state.currentUser.id !== 0) {
         this.props.history.push("/home");
       }
+      this.state.events.length < 1 ? this.getEvents() : clearInterval(interval);
     }, 3000);
     return this.state.events.length < 1 ? interval : clearInterval(interval);
   };
