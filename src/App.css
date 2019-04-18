@@ -775,12 +775,11 @@ btn {
 
 .main-column {
   flex: 5;
-  margin-right: 2em;
 }
 
 .sidebar-right {
   flex: 2;
-  margin-left: 2em;
+  margin-left: 4em;
   display: flex;
   flex-direction: column;
 }
@@ -906,6 +905,11 @@ btn {
   padding: 1em;
   border: 1px solid #dddddd;
   border-bottom: 2px solid #dddddd;
+}
+
+.event-showpage-posts {
+  flex: 1;
+  margin-top: 2em;
 }
 
 .event-card {

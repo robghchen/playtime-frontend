@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import SideBar from "../containers/SideBar";
+import NewsContainer from "../containers/NewsContainer";
 
 class EventShowPage extends Component {
   state = {
@@ -164,6 +165,24 @@ class EventShowPage extends Component {
                     })}
                 </form>
               </div>
+            </div>
+            <div className="event-showpage-posts">
+              <NewsContainer
+                user_id={this.props.user_id}
+                posts={this.props.posts.filter(post =>
+                  post.content.includes(
+                    `created new event "${currentEvent.title}" happening on`
+                  )
+                )}
+                addPost={this.props.addPost}
+                addComment={this.props.addComment}
+                isUserLoggedIn={this.props.isUserLoggedIn}
+                currentUser={this.props.currentUser}
+                deleteHandler={this.props.deleteHandler}
+                editPostHandler={this.props.editPostHandler}
+                comments={this.props.comments}
+                users={this.props.users}
+              />
             </div>
           </div>
           <SideBar

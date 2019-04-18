@@ -76,8 +76,8 @@ class HomePage extends React.Component {
           <h2>Continuing the conversation online should also be fun!</h2>
         </div>
 
-        <div class="call-outs-container">
-          <div class="call-out">
+        <div className="call-outs-container">
+          <div className="call-out">
             <img
               src="/assets/activities.png"
               className="call-out-images"
@@ -87,7 +87,7 @@ class HomePage extends React.Component {
               Gain experience by making posts and comments.
             </h3>
           </div>
-          <div class="call-out">
+          <div className="call-out">
             <img
               src="/assets/levelupclose.png"
               className="call-out-images"
@@ -97,7 +97,7 @@ class HomePage extends React.Component {
               Level Up and unlock more abilities together!
             </h3>
           </div>
-          <div class="call-out">
+          <div className="call-out">
             <img src="/assets/nav.png" className="call-out-images" alt="nav" />
             <h3 className="call-out-text">
               Complete daily goals to level up faster!!

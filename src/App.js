@@ -635,14 +635,22 @@ class App extends Component {
                 render={RouterProps => {
                   return (
                     <EventShowPage
-                      currentUser={this.state.currentUser}
-                      activities={this.state.activities}
-                      events={this.state.events}
-                      tasks={this.state.tasks}
                       event_id={parseInt(RouterProps.match.params.id)}
                       setEventHandler={this.setEventHandler}
                       editSeatHandler={this.editSeatHandler}
                       seats={this.state.seats}
+                      user_id={this.state.currentUser.id}
+                      posts={this.state.posts}
+                      addPost={this.addPost}
+                      addComment={this.addComment}
+                      isUserLoggedIn={this.state.isUserLoggedIn}
+                      currentUser={this.state.currentUser}
+                      deleteHandler={this.deleteHandler}
+                      comments={this.state.comments}
+                      users={this.state.users}
+                      activities={this.state.activities}
+                      tasks={this.state.tasks}
+                      events={this.state.events}
                     />
                   );
                 }}

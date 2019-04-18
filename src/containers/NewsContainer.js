@@ -9,12 +9,12 @@ class NewsContainer extends Component {
 
   showPostArray = () => {
     let posts = this.props.posts
-      .filter(post => {
-        return (
-          post.player_id !== this.props.currentUser.id &&
-          post.friend_id !== this.props.currentUser.id
-        );
-      })
+      // .filter(post => {
+      //   return (
+      //     post.player_id !== this.props.currentUser.id &&
+      //     post.friend_id !== this.props.currentUser.id
+      //   );
+      // })
       .reverse();
 
     return (
