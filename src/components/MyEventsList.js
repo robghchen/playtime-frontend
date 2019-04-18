@@ -29,11 +29,11 @@ class MyEventsList extends Component {
                 ? "0" + new Date().getDate().toString()
                 : new Date().getDate().toString();
             })
-            .filter(event => {
-              return event.seats.find(seat => {
-                return seat.user_id === this.props.currentUser.id;
-              });
-            })
+            // .filter(event => {
+            //   return event.seats.find(seat => {
+            //     return seat.user_id === this.props.currentUser.id;
+            //   });
+            // })
             .sort((a, b) => a.date - b.date)
             .map(event => {
               return (
