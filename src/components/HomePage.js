@@ -78,13 +78,21 @@ class HomePage extends React.Component {
 
         <div class="call-outs-container">
           <div class="call-out">
-            <img src="/assets/activities.png" className="call-out-images" alt="activities" />
+            <img
+              src="/assets/activities.png"
+              className="call-out-images"
+              alt="activities"
+            />
             <h3 className="call-out-text">
               Gain experience by making posts and comments.
             </h3>
           </div>
           <div class="call-out">
-            <img src="/assets/levelupclose.png" className="call-out-images" alt="level up" />
+            <img
+              src="/assets/levelupclose.png"
+              className="call-out-images"
+              alt="level up"
+            />
             <h3 className="call-out-text">
               Level Up and unlock more abilities together!
             </h3>
