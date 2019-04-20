@@ -7,7 +7,12 @@ class EventCard extends Component {
     return (
       <div
         className="event-card"
-        onClick={window.scroll({ top: 0, left: 0, behavior: "smooth" })}
+        onClick={() =>
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          })
+        }
       >
         <span className="event-card-img">
           <Link to={`/events/${this.props.event.id}`}>
