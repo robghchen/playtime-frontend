@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 class EventCard extends Component {
-  state = {};
   render() {
     let datetime = this.props.event.date;
     return (
-      <div className="event-card">
+      <div
+        className="event-card"
+        onClick={window.scroll({ top: 0, left: 0, behavior: "smooth" })}
+      >
         <span className="event-card-img">
           <Link to={`/events/${this.props.event.id}`}>
             <img

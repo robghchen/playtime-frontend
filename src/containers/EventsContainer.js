@@ -21,7 +21,17 @@ class EventsContainer extends Component {
               ? "0" + new Date().getDate().toString()
               : new Date().getDate().toString();
           })
-          .sort((a, b) => a.date - b.date)
+          .sort(
+            (a, b) =>
+              b.date
+                .slice(0, 10)
+                .split("-")
+                .join("") -
+              a.date
+                .slice(0, 10)
+                .split("-")
+                .join("")
+          )
           .map(event => {
             return (
               <div key={event.id}>

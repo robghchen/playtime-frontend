@@ -8,7 +8,8 @@ class NewsContainer extends Component {
   };
 
   showPostArray = () => {
-    let posts = this.props.posts;
+    let posts = this.props.posts.sort((a, b) => b.id - a.id);
+
     // .filter(post => {
     //   return (
     //     post.player_id !== this.props.currentUser.id &&

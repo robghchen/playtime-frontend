@@ -34,7 +34,17 @@ class MyEventsList extends Component {
             //     return seat.user_id === this.props.currentUser.id;
             //   });
             // })
-            .sort((a, b) => a.date - b.date)
+            .sort(
+              (a, b) =>
+                b.date
+                  .slice(0, 10)
+                  .split("-")
+                  .join("") -
+                a.date
+                  .slice(0, 10)
+                  .split("-")
+                  .join("")
+            )
             // .slice(0,10)
             .map(event => {
               return (
