@@ -1,19 +1,16 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { animateScroll } from "react-scroll";
 
 class EventCard extends Component {
+  scrollToTop = () => {
+    animateScroll.scrollToTop();
+  };
+
   render() {
     let datetime = this.props.event.date;
     return (
-      <div
-        className="event-card"
-        onClick={() =>
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-          })
-        }
-      >
+      <div className="event-card" onClick={this.scrollToTop}>
         <span className="event-card-img">
           <Link to={`/events/${this.props.event.id}`}>
             <img

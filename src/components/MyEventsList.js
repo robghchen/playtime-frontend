@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import EventCard from "./EventCard";
+import { animateScroll } from "react-scroll";
 
 class MyEventsList extends Component {
-  state = {};
+  scrollToTop = () => {
+    animateScroll.scrollToTop();
+  };
   render() {
     // debugger;
     return (
@@ -57,7 +60,7 @@ class MyEventsList extends Component {
           <p>Loading . . .</p>
         )}
         <div>
-          <Link to={"/events"}>
+          <Link to={"/events"} onClick={this.scrollToTop}>
             <span>All Events</span>
           </Link>
           <span> | </span>
