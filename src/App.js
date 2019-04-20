@@ -257,7 +257,7 @@ class App extends Component {
           let newArr = [...this.state.comments, data];
           let username = this.state.users.find(
             user =>
-              user.id === data.post.friend_id || user.id === data.post.player_id
+              user.id === data.post.friend_id
           ).username;
           this.setState({ comments: newArr });
           this.completeTask(
@@ -402,8 +402,8 @@ class App extends Component {
   };
 
   addExp = (activity, datetime, friendId) => {
-    let exp = [...this.state.currentUser.exp];
-    let energy = [...this.state.currentUser.energy];
+    let exp = this.state.currentUser.exp;
+    let energy = this.state.currentUser.energy;
 
     fetch(
       `https://playtime-backend.herokuapp.com/api/v1/users/${
