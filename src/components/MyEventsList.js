@@ -14,7 +14,7 @@ class MyEventsList extends Component {
             : "my-events-list"
         }
       >
-        <h2 className="center">All Events</h2>
+        <h2 className="center">Upcoming Events</h2>
         {this.props.events.length > 0 ? (
           this.props.events
             .filter(event => {
@@ -34,7 +34,7 @@ class MyEventsList extends Component {
             //     return seat.user_id === this.props.currentUser.id;
             //   });
             // })
-            .sort((a, b) => b.date - a.date)
+            .sort((a, b) => a.date - b.date)
             // .slice(0,10)
             .map(event => {
               return (

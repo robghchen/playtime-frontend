@@ -7,7 +7,7 @@ class EventsContainer extends Component {
   render() {
     return (
       <div className="main-column">
-        <h2 className="center">Upcoming Events</h2>
+        <h2 className="center">All Events</h2>
         {this.props.events
           .filter(event => {
             return event.date
@@ -21,7 +21,7 @@ class EventsContainer extends Component {
               ? "0" + new Date().getDate().toString()
               : new Date().getDate().toString();
           })
-          .sort((a, b) => b.date - a.date)
+          .sort((a, b) => a.date - b.date)
           .map(event => {
             return (
               <div key={event.id}>
