@@ -256,7 +256,8 @@ class App extends Component {
         .then(data => {
           let newArr = [...this.state.comments, data];
           let username = this.state.users.find(
-            user => user.id === data.post.friend_id
+            user =>
+              user.id === data.post.friend_id || user.id === data.post.player_id
           ).username;
           this.setState({ comments: newArr });
           this.completeTask(
