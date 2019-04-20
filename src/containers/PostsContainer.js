@@ -8,8 +8,6 @@ class PostsContainer extends Component {
     user_id: this.props.user_id
   };
 
-  
-
   showPostArray = () => {
     let posts = this.props.posts
       .filter(post => {
@@ -17,7 +15,7 @@ class PostsContainer extends Component {
           ? post.friend_id === this.props.currentUser.id
           : post.friend_id === parseInt(this.props.user_id);
       })
-      .reverse();
+      .sort((a, b) => b.id - a.id);
 
     return (
       <div className="posts-container">
@@ -34,7 +32,9 @@ class PostsContainer extends Component {
                 isUserLoggedIn={this.props.isUserLoggedIn}
                 users={this.props.users}
                 comments={this.props.comments}
-                hideEditCoverAndProfilePic={this.props.hideEditCoverAndProfilePic}
+                hideEditCoverAndProfilePic={
+                  this.props.hideEditCoverAndProfilePic
+                }
               />
             </div>
           );
@@ -47,8 +47,6 @@ class PostsContainer extends Component {
     const show = { display: this.props.isUserLoggedIn ? "block" : "none" };
     return (
       <div className="main-column">
-        
-
         <div style={show}>
           <NewPostForm
             addPost={this.props.addPost}
