@@ -8,14 +8,13 @@ class NewsContainer extends Component {
   };
 
   showPostArray = () => {
-    let posts = this.props.posts
-      // .filter(post => {
-      //   return (
-      //     post.player_id !== this.props.currentUser.id &&
-      //     post.friend_id !== this.props.currentUser.id
-      //   );
-      // })
-      .reverse();
+    let posts = this.props.posts;
+    // .filter(post => {
+    //   return (
+    //     post.player_id !== this.props.currentUser.id &&
+    //     post.friend_id !== this.props.currentUser.id
+    //   );
+    // })
 
     return (
       <div className="posts-container">
@@ -43,11 +42,7 @@ class NewsContainer extends Component {
   };
 
   render() {
-    return (
-      <div className="main-column">
-        {this.showPostArray()}
-      </div>
-    );
+    return <div className="main-column">{this.showPostArray()}</div>;
   }
 }
 
