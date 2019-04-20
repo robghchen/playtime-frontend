@@ -353,7 +353,10 @@ btn {
 .profile-icon {
   position: relative;
   width: 50px;
-  border-radius: 3px;
+  height: 50px;
+  border-radius: 4px;
+  object-fit: cover;
+  background-size: 100%;
 }
 
 .post,
