@@ -5,12 +5,21 @@ import NewsContainer from "../containers/NewsContainer";
 
 class EventShowPage extends Component {
   state = {
-    selectedOption: ""
+    selectedOption: "",
+    attending: "",
+    seat: this.props.seats.find(
+      seat => seat.user_id === this.props.currentUser.id
+    )
+      ? this.props.seats.find(
+          seat => seat.user_id === this.props.currentUser.id
+        )
+      : {}
   };
 
   changeSeatHandler = (e, oldId, newId, user_id, username) => {
     this.setState({
-      selectedOption: e.target.value
+      selectedOption: e.target.value,
+      attending: "yes"
     });
 
     this.props.editSeatHandler("add", oldId, newId, user_id, username);
@@ -19,6 +28,20 @@ class EventShowPage extends Component {
   openInNewTab = url => {
     let win = window.open(url, "_blank");
     win.focus();
+  };
+
+  changeAttending = attending => {
+    this.setState({
+      attending
+    });
+
+    if (attending === "no") {
+      let seat = this.props.seats.find(seat => seat.user_id === this.props.currentUser.id)
+
+      this.setState({ selectedOption: "" });
+
+      this.props.editSeatHandler("remove", seat.id, seat.id, null, null);
+    }
   };
 
   render() {
@@ -85,9 +108,25 @@ class EventShowPage extends Component {
 
                 <div>
                   <h4>Attending</h4>
-                  <span>Yes</span>
+                  <span
+                    className={
+                      this.state.attending === "yes"
+                        ? "attending pointer"
+                        : null
+                    }
+                    onClick={() => this.changeAttending("yes")}
+                  >
+                    Yes
+                  </span>
                   {" | "}
-                  <span>No</span>
+                  <span
+                    className={
+                      this.state.attending === "no" ? "attending pointer" : null
+                    }
+                    onClick={() => this.changeAttending("no")}
+                  >
+                    No
+                  </span>
                 </div>
               </div>
             </div>
@@ -100,7 +139,7 @@ class EventShowPage extends Component {
                 <br />
                 <form>
                   {currentEvent.seats
-                    .sort((a, b) => a.position - b.position)
+                    .sort((a, b) => a.id - b.id)
                     .map(seat => {
                       return (
                         <div key={seat.id} className="radio">

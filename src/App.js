@@ -1137,6 +1137,23 @@ class App extends Component {
     });
   };
 
+  // deleteSeatHandler = seat => {
+  //   fetch(`https://playtime-backend.herokuapp.com/api/v1/seats/${seat.id}`, {
+  //     method: "DELETE",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Accept: "application/json",
+  //       Authorization: this.state.token
+  //     }
+  //   }).then(() => {
+  //     fetch("https://playtime-backend.herokuapp.com/api/v1/events")
+  //       .then(res => res.json())
+  //       .then(events => {
+  //         this.setState({ events });
+  //       });
+  //   });
+  // };
+
   submitLoginHandler = (userInfo, event) => {
     event.preventDefault();
     this.getUser(userInfo);
