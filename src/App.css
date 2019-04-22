@@ -97,6 +97,17 @@ btn {
   width: 95%;
 }
 
+.demo {
+  font-size: 1.5em;
+  margin: auto;
+  width: 40%;
+  border-radius: 2px;
+  padding: 0.8em;
+  background-color: #52a2d5;
+  color: #ffffff;
+  border-radius: 3px;
+}
+
 .submit.button {
   position: absolute;
   margin-top: 0em;

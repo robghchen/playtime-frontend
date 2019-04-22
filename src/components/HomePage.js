@@ -2,9 +2,19 @@ import React from "react";
 // import { withRouter } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import SignUpForm from "../components/SignUpForm";
+import { animateScroll } from "react-scroll";
 
 class HomePage extends React.Component {
-  state = {};
+  state = {
+    loginUsername: "Guest",
+    loginPassword: "Guest"
+  };
+
+  scrollToTop = event => {
+    this.props.submitLoginHandler(this.state, event);
+    animateScroll.scrollToTop();
+  };
+
   render() {
     return (
       <div className="homepage">
@@ -69,6 +79,12 @@ class HomePage extends React.Component {
               className="homepage-signup"
               submitSignUpHandler={this.props.submitSignUpHandler}
             />
+            <span
+              className="center demo pointer"
+              onClick={event => this.scrollToTop(event)}
+            >
+              <p>Demo</p>
+            </span>
           </div>
         </div>
 
