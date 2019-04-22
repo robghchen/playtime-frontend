@@ -6,7 +6,11 @@ import NewsContainer from "../containers/NewsContainer";
 class EventShowPage extends Component {
   state = {
     selectedOption: "",
-    attending: "",
+    attending: this.props.seats.find(
+      seat => seat.user_id === this.props.currentUser.id
+    )
+      ? "yes"
+      : "",
     seat: this.props.seats.find(
       seat => seat.user_id === this.props.currentUser.id
     )
@@ -36,7 +40,9 @@ class EventShowPage extends Component {
     });
 
     if (attending === "no") {
-      let seat = this.props.seats.find(seat => seat.user_id === this.props.currentUser.id)
+      let seat = this.props.seats.find(
+        seat => seat.user_id === this.props.currentUser.id
+      );
 
       this.setState({ selectedOption: "" });
 
