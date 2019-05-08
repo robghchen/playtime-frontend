@@ -233,7 +233,7 @@ class NewEventForm extends Component {
     this.props.addPost(
       content,
       this.props.currentUser.id,
-      this.props.currentUser.id
+      30
     );
 
     this.setState({
