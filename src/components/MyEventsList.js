@@ -60,10 +60,10 @@ class MyEventsList extends Component {
           <p>Loading . . .</p>
         )}
         <div>
-          <Link to={"/events"} onClick={this.scrollToTop}>
+          {/* <Link to={"/events"} onClick={this.scrollToTop}>
             <span>All Events</span>
           </Link>
-          <span> | </span>
+          <span> | </span> */}
           <Link to={"/events/create"}>
             <span>Create Event</span>
           </Link>
