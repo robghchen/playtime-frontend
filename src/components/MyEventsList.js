@@ -17,7 +17,7 @@ class MyEventsList extends Component {
             : "my-events-list"
         }
       >
-        <h2 className="center">Upcoming Events</h2>
+        <h2 className="center">All Events</h2>
         {this.props.events.length > 0 ? (
           this.props.events
             .filter(event => {
