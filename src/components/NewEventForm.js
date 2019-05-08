@@ -226,8 +226,7 @@ class NewEventForm extends Component {
     e.preventDefault();
     let content = `${this.props.currentUser.username} created new event "${
       this.state.title
-    }" happening on ${this.state.date.slice(5, 7)}/${this.state.date.slice(8, 10)}/
-    ${this.state.date.slice(2, 4)} at ${this.state.date.slice(11, 16)} at ${this.state.location}.`;
+    }" happening on ${this.state.date.slice(5, 7)}/${this.state.date.slice(8, 10)}/${this.state.date.slice(2, 4)} at ${this.state.date.slice(11, 16)} at ${this.state.location}.`;
 
     this.props.submitNewEventHandler(this.state, e);
 
