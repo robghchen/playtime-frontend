@@ -118,7 +118,7 @@ class EventShowPage extends Component {
                     className={
                       this.state.attending === "yes"
                         ? "attending pointer"
-                        : null
+                        : "pointer"
                     }
                     onClick={() => this.changeAttending("yes")}
                   >
@@ -127,7 +127,7 @@ class EventShowPage extends Component {
                   {" | "}
                   <span
                     className={
-                      this.state.attending === "no" ? "attending pointer" : null
+                      this.state.attending === "no" ? "attending pointer" : "pointer"
                     }
                     onClick={() => this.changeAttending("no")}
                   >
