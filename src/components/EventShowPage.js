@@ -138,7 +138,14 @@ class EventShowPage extends Component {
             </div>
             <div className="event-showpage-main">
               <p className="event-showpage-description">
-                {currentEvent.description}
+              For more information or to pay for your ticket, visit the Meetup event page:
+                <a
+                  href={currentEvent.description}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  {currentEvent.description}
+                </a>
               </p>
               <div className="event-showpage-selection">
                 <h4>Reserve your seat:</h4>
