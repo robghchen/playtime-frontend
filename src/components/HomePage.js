@@ -28,7 +28,7 @@ class HomePage extends React.Component {
                 </span>
               </h1>
               <h3 className="center slogan">
-                Sign up to reserve seat and view your movie ticket
+                Sign up to reserve a seat and view your movie ticket
               </h3>
             </div>
           </div>
