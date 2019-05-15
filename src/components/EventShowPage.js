@@ -138,7 +138,7 @@ class EventShowPage extends Component {
             </div>
             <div className="event-showpage-main">
               <p className="event-showpage-description">
-                For more information or to pay for your ticket, visit the Meetup
+                For more information or to complete payment for your ticket, visit the Meetup
                 event page:
                 <br className="big-br" />
                 <a
