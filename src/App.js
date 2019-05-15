@@ -84,7 +84,7 @@ class App extends Component {
         this.props.history.push("/home");
       }
       this.state.events.length < 1 ? this.getEvents() : clearInterval(interval);
-    }, 3000);
+    }, 2000);
     return this.state.events.length < 1 ? interval : clearInterval(interval);
   };
 
