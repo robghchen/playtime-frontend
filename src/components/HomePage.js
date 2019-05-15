@@ -28,7 +28,7 @@ class HomePage extends React.Component {
                 </span>
               </h1>
               <h3 className="center slogan">
-                Social Media where you actually talk to friends :)
+                Sign up to reserve seat and view your movie ticket
               </h3>
             </div>
           </div>
@@ -88,7 +88,7 @@ class HomePage extends React.Component {
           </div>
         </div>
 
-        <div className="center">
+        {/* <div className="center">
           <h2>Continuing the conversation online should also be fun!</h2>
         </div>
 
@@ -119,7 +119,7 @@ class HomePage extends React.Component {
               Complete daily goals to level up faster!!
             </h3>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }
