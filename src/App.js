@@ -739,10 +739,25 @@ class App extends Component {
               <Route
                 path="/"
                 render={() => {
-                  return (
+                  return this.state.isUserLoggedIn ? (
                     <HomePage
                       submitSignUpHandler={this.submitSignUpHandler}
                       submitLoginHandler={this.submitLoginHandler}
+                    />
+                  ) : (
+                    <NewsFeed
+                      user_id={this.state.currentUser.id}
+                      posts={this.state.posts}
+                      addPost={this.addPost}
+                      addComment={this.addComment}
+                      isUserLoggedIn={this.state.isUserLoggedIn}
+                      currentUser={this.state.currentUser}
+                      deleteHandler={this.deleteHandler}
+                      comments={this.state.comments}
+                      users={this.state.users}
+                      activities={this.state.activities}
+                      tasks={this.state.tasks}
+                      events={this.state.events}
                     />
                   );
                 }}
