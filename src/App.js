@@ -84,12 +84,14 @@ class App extends Component {
         this.props.history.push("/home");
       }
       this.state.events.length < 1 ? this.getEvents() : clearInterval(interval);
-    }, 2000);
+    }, 1000); // fetch data every 1 second until it arrives
+
     return this.state.events.length < 1 ? interval : clearInterval(interval);
   };
 
   componentDidMount() {
-    // this.props.getUsers();
+    this.getEvents() // poke Heroku to start waking backend up
+    
     fetch("https://playtime-backend.herokuapp.com/api/v1/users")
       .then(resp => resp.json())
       .then(users => {
@@ -503,7 +505,9 @@ class App extends Component {
   };
 
   render() {
-    this.getEventsInterval();
+    setTimeout(() => {
+      this.getEventsInterval();
+    }, 2000); // give Heroku 2 seconds to wake up
 
     return this.state.users !== [] ? (
       <React.Fragment>
