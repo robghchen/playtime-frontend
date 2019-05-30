@@ -83,7 +83,7 @@ class HomePage extends React.Component {
               className="center demo pointer"
               onClick={event => this.scrollToTop(event)}
             >
-              <p>Demo</p>
+              <p>1-Click Demo</p>
             </span>
           </div>
         </div>
