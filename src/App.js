@@ -90,8 +90,6 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.getEvents() // poke Heroku to start waking backend up
-    
     fetch("https://playtime-backend.herokuapp.com/api/v1/users")
       .then(resp => resp.json())
       .then(users => {
