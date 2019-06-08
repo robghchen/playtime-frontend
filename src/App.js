@@ -79,14 +79,16 @@ class App extends Component {
   };
 
   getEventsInterval = () => {
+    const { events, currentUser } = this.state;
+
     const interval = setInterval(() => {
-      if (this.state.currentUser.id !== 0) {
+      if (currentUser.id !== 0) {
         this.props.history.push("/home");
       }
-      this.state.events.length < 1 ? this.getEvents() : clearInterval(interval);
-    }, 1000); // fetch data every 1 second until it arrives
+      events.length < 1 ? this.getEvents() : clearInterval(interval);
+    }, 1000); // fetch data every 1 second until data arrives
 
-    return this.state.events.length < 1 ? interval : clearInterval(interval);
+    return events.length < 1 ? interval : clearInterval(interval);
   };
 
   componentDidMount() {
@@ -107,6 +109,7 @@ class App extends Component {
         }
         this.addEnergy();
       });
+
 
     fetch("https://playtime-backend.herokuapp.com/api/v1/posts")
       .then(resp => resp.json())
@@ -506,7 +509,7 @@ class App extends Component {
     setTimeout(() => {
       this.getEventsInterval();
     }, 2000); // give Heroku 2 seconds to wake up
-
+    
     return this.state.users !== [] ? (
       <React.Fragment>
         <div>
