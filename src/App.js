@@ -81,12 +81,13 @@ class App extends Component {
   getEventsInterval = () => {
     const { events, currentUser } = this.state;
 
+    if (currentUser.id !== 0) {
+      this.props.history.push("/home");
+    }
+
     const interval = setInterval(() => {
-      if (currentUser.id !== 0) {
-        this.props.history.push("/home");
-      }
       events.length < 1 ? this.getEvents() : clearInterval(interval);
-    }, 1000); // fetch data every 1 second until data arrives
+    }, 3000); // fetch data every 3 second until data arrives
 
     return events.length < 1 ? interval : clearInterval(interval);
   };
@@ -163,13 +164,13 @@ class App extends Component {
   //   cover_img: localStorage.getItem("cover_img")
   // }
 
-  componentDidUpdate(prevProps, prevState) {
-    fetch("https://playtime-backend.herokuapp.com/api/v1/users")
-      .then(resp => resp.json())
-      .then(users => {
-        localStorage.setItem("users", JSON.stringify(users));
-      });
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   fetch("https://playtime-backend.herokuapp.com/api/v1/users")
+  //     .then(resp => resp.json())
+  //     .then(users => {
+  //       localStorage.setItem("users", JSON.stringify(users));
+  //     });
+  // }
 
   componentWillUnmount() {
     localStorage.clear();
