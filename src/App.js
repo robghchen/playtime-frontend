@@ -507,9 +507,12 @@ class App extends Component {
   };
 
   render() {
-    setTimeout(() => {
-      this.getEventsInterval();
-    }, 2000); // give Heroku 2 seconds to wake up
+    if (this.state.events.length < 1) {
+      setTimeout(() => {
+        this.getEventsInterval();
+      }, 3000); // give Heroku 3 seconds to wake up
+    }
+
     
     return this.state.users !== [] ? (
       <React.Fragment>
