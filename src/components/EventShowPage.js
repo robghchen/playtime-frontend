@@ -144,7 +144,7 @@ class EventShowPage extends Component {
                 <a
                   href={currentEvent.description}
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                 >
                   {currentEvent.description}
                 </a>

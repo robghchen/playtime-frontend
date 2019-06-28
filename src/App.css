@@ -2,6 +2,15 @@ btn {
   border-radius: 2px;
 }
 
+html,
+body,
+.mods-masthead,
+#root {
+  background-color: #282c34;
+  color: white;
+  margin-top: -3em;
+}
+
 #root {
   margin-top: 5.8em;
 }
@@ -45,6 +54,10 @@ btn {
   padding: 0.5em;
 }
 
+#newsfeed-container {
+  background-color: #282c34;
+  color: white;
+}
 .post-container {
   width: 100%;
   height: auto;
@@ -236,6 +249,8 @@ btn {
   margin-left: auto;
   margin-right: auto;
   padding: 3em;
+  background-color: #282c34;
+  color: white;
 }
 
 #edit-profile-form {
@@ -244,12 +259,14 @@ btn {
   margin-right: auto;
   padding: 3em;
   padding-bottom: 7em;
+  background-color: #282c34;
+  color: white;
 }
 
 #new-post-form {
   width: 100%;
   padding: 1em 6em 2em 2em;
-  background-color: #ffffff;
+  background-color: #282c34;
   margin-bottom: 2em;
   border: 1px solid #f78888;
   border-bottom: 2px solid #f78888;
@@ -258,7 +275,7 @@ btn {
 #new-event-form {
   width: 100%;
   padding: 1em 6em 2em 2em;
-  background-color: #ffffff;
+  background-color: #282c34;
   margin-bottom: 2em;
   border: 1px solid #f78888;
   border-bottom: 2px solid #f78888;
@@ -274,11 +291,13 @@ btn {
 } */
 
 .ui {
-  background-color: #ffffff;
+  background-color: #282c34;
 }
 
 .ui.menu.navBar {
-  position: fixed;
+  position: relative;
+  top: 0em;
+  left: 0em;
   width: 100%;
   z-index: 2;
   top: 0em;
@@ -318,7 +337,8 @@ btn {
   border-radius: 0.5em;
   border: 1px solid #f78888;
   border-bottom: 2px solid #f78888;
-  background-color: #ffffff;
+  background-color: #282c34;
+  color: white;
   box-shadow: 0.5em 0.5em grey;
 }
 
@@ -389,12 +409,18 @@ btn {
   padding-bottom: 1em;
 }
 
+.banner {
+  background-color: #282c34;
+  color: white;
+}
+
 .cover-photo,
 .event-banner {
   width: 100%;
   max-height: 500px;
   object-fit: cover;
   background-size: 100%;
+  margin-top: -1em;
 }
 
 .profile-picture {
@@ -783,8 +809,9 @@ btn {
 }
 
 .column-layout {
-  background-color: #ffffff;
-  padding: 4em;
+  background-color: #282c34;
+  color: white;
+  padding: 3em 4em 4em 4em;
   display: flex;
 }
 
@@ -800,7 +827,8 @@ btn {
 }
 
 .daily-tasks,
-.activities-container {
+.activities-container,
+.my-events-list {
   padding: 2em;
   margin-bottom: 2em;
   border-radius: 0.5em;
@@ -813,14 +841,16 @@ btn {
 }
 
 .my-events-list {
-  padding: 2em;
-  margin-bottom: 2em;
-  border-radius: 0.5em;
-  border: 1px solid #f78888;
-  border-bottom: 2px solid #f78888;
-  overflow: scroll;
-  overflow-x: hidden;
-  box-shadow: 0.5em 0.5em grey;
+  height: auto;
+  order: 1;
+}
+
+.activities-container {
+  order: 2;
+}
+
+.daily-tasks {
+  order: 3;
 }
 
 .playtime {
@@ -857,7 +887,7 @@ btn {
 }
 
 .call-out:nth-child(2) {
-  background-color: #ffffff;
+  background-color: #282c34;
 }
 
 .call-out:nth-child(3) {
@@ -960,7 +990,8 @@ btn {
 
 .footer {
   text-align: center;
-  background-color: #dddddd;
+  color: white;
+  background-color: #212121;
   padding: 2em;
 }
 
@@ -976,12 +1007,16 @@ btn {
     width: 100%;
     margin: 0px;
     padding: 0px;
+    margin-top: -2.2em;
     overflow-x: hidden;
   }
 
-  .navBar {
+  .ui.menu.navBar {
     display: flex;
     flex-direction: column;
+    position: relative;
+    top: 0em;
+    left: 0em;
   }
 
   .navbar-left {
@@ -1038,5 +1073,10 @@ btn {
 
   .event-showpage-description {
     order: 2;
+  }
+
+  .activities-container,
+  .daily-tasks {
+    display: none;
   }
 }

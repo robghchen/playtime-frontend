@@ -512,7 +512,6 @@ class App extends Component {
         this.getEventsInterval();
       }, 3000); // give Heroku 3 seconds to wake up
     }
-
     
     return this.state.users !== [] ? (
       <React.Fragment>
@@ -600,7 +599,7 @@ class App extends Component {
                       deleteHandler={this.deleteHandler}
                       editPostHandler={this.editPostHandler}
                       comments={this.state.comments}
-                      users={JSON.parse(localStorage.getItem("users"))}
+                      users={this.state.users}
                       editCover={this.editCover}
                       editProfilePic={this.editProfilePic}
                       activities={this.state.activities}
@@ -730,7 +729,7 @@ class App extends Component {
                         deleteHandler={this.deleteHandler}
                         editPostHandler={this.editPostHandler}
                         comments={this.state.comments}
-                        users={JSON.parse(localStorage.getItem("users"))}
+                        users={this.state.users}
                         editCover={this.editCover}
                         editProfilePic={this.editProfilePic}
                         activities={this.state.activities}

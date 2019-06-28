@@ -10,7 +10,7 @@ class NewsFeed extends Component {
     return this.props.currentUser.id > this.props.users.length ? (
       <h3>Loading . . .</h3>
     ) : (
-      <React.Fragment>
+      <div id="newsfeed-container">
         <br className="big-br" />
         <h1 className="center">NewsFeed</h1>
         <div className="column-layout">
@@ -34,7 +34,7 @@ class NewsFeed extends Component {
             tasks={this.props.tasks}
           />
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }
