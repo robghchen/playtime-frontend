@@ -79,18 +79,23 @@ class App extends Component {
   };
 
   getEventsInterval = () => {
-    const { events, currentUser } = this.state;
-
-    if (currentUser.id !== 0) {
-      this.props.history.push("/home");
-    }
+    const { events } = this.state;
 
     const interval = setInterval(() => {
-      events.length < 1 ? this.getEvents() : clearInterval(interval);
+      if (events.length < 1) {
+        this.getEvents();
+      }
     }, 3000); // fetch data every 3 second until data arrives
-
-    return events.length < 1 ? interval : clearInterval(interval);
+    
+    if (events.length < 1) {
+      setTimeout(() => {
+        clearInterval(interval);
+      }, 9000);
+      
+      return interval
+    }
   };
+
 
   componentDidMount() {
     fetch("https://playtime-backend.herokuapp.com/api/v1/users")
