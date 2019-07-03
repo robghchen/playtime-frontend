@@ -783,6 +783,16 @@ body,
   z-index: 1;
 }
 
+.homepage-example {
+  margin: auto;
+}
+
+.homepage-example img {
+  width: 92%;
+  border: 1px grey dotted;
+  border-radius: 1em;
+}
+
 .homepage-tagline {
   padding-top: 3em;
 }
