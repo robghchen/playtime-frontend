@@ -783,10 +783,6 @@ body,
   z-index: 1;
 }
 
-.homepage-example {
-  display: none;
-}
-
 .homepage-tagline {
   padding-top: 3em;
 }
@@ -1029,6 +1025,10 @@ body,
 
   .navbar-right {
     order: 3;
+  }
+
+  .homepage-example {
+    display: none;
   }
 
   .column-layout {
