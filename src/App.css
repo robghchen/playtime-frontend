@@ -766,7 +766,7 @@ body,
 }
 
 .homepage-banner {
-  background-image: url("/assets/jump.jpg");
+  background-image: url("/assets/avengersEndgameBanner.png");
   min-height: 100vh;
   background-attachment: fixed;
   background-position: center;
@@ -787,6 +787,10 @@ body,
 .hompage-banner-text {
   color: #ffffff;
   z-index: 1;
+}
+
+.homepage-example {
+  min-height: 100vh;
 }
 
 .homepage-tagline {

@@ -34,6 +34,10 @@ class HomePage extends React.Component {
           </div>
         </div>
 
+        <div className="center homepage-example">
+          <img src="/assets/example.png" alt="example" />
+        </div>
+
         <div className="center homepage-tagline">
           <h2>Hang out and enjoy the show!</h2>
         </div>
