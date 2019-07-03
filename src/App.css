@@ -113,6 +113,7 @@ body,
 .demo {
   font-size: 1.5em;
   margin: auto;
+  margin-bottom: 1.5em;
   width: 40%;
   border-radius: 2px;
   padding: 0.8em;
@@ -783,7 +784,7 @@ body,
 }
 
 .homepage-example {
-  min-height: 100vh;
+  display: none;
 }
 
 .homepage-tagline {
