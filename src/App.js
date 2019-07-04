@@ -86,16 +86,13 @@ class App extends Component {
         this.getEvents();
       }
     }, 3000); // fetch data every 3 second until data arrives
-    
-    if (events.length < 1) {
-      setTimeout(() => {
-        clearInterval(interval);
-      }, 9000);
-      
-      return interval
-    }
-  };
 
+    setTimeout(() => {
+      clearInterval(interval);
+    }, 9000);
+
+    return interval;
+  };
 
   componentDidMount() {
     fetch("https://playtime-backend.herokuapp.com/api/v1/users")
@@ -115,7 +112,6 @@ class App extends Component {
         }
         this.addEnergy();
       });
-
 
     fetch("https://playtime-backend.herokuapp.com/api/v1/posts")
       .then(resp => resp.json())
@@ -517,7 +513,7 @@ class App extends Component {
         this.getEventsInterval();
       }, 3000); // give Heroku 3 seconds to wake up
     }
-    
+
     return this.state.users !== [] ? (
       <React.Fragment>
         <div>
